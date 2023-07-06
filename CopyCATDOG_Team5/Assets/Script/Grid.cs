@@ -27,9 +27,12 @@ public class Grid
        }
     */
 }
+
 public enum tilestate
 {
     empty,
+    box,
+    block,
     wall,
     item,
     ballon
@@ -37,9 +40,6 @@ public enum tilestate
 
 public class GridCreate : MonoBehaviour
 {
-    
-
-
     // Start is called before the first frame update
     void Start()
     {
