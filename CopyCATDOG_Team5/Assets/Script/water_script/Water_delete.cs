@@ -5,16 +5,29 @@ using UnityEngine;
 
 public class Water_delete : MonoBehaviour
 {
+    float timecount = 0;
+    bool ones = true;
 
-    // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject, 2);
+        Destroy(gameObject, 2.3f); //≈Õ¡ˆ¥¬ ¿Ã∆—∆Æ 0.3√ 
+        
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        timecount += Time.deltaTime;
+
+        if (timecount >= 2)
+        {
+            if (ones)
+            {
+                Debug.Log("π∞«≥º± ≈Õ¡¸");
+                ones = false;
+
+                
+            }
+            
+        }
     }
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class water_new : MonoBehaviour
 {
-    // Start is called before the first frame update
     [SerializeField]
     private GameObject boxprefab;
     void Start()
@@ -12,17 +11,25 @@ public class water_new : MonoBehaviour
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            create_water();
+            create_water_left();
+        }
+        if (Input.GetKeyDown(KeyCode.RightShift))
+        {
+            create_water_right();
         }
     }
 
-    void create_water()
+    void create_water_left()
     {
-        GameObject newball = Instantiate(boxprefab, new Vector2(0, 0), Quaternion.identity);   // + 플레이어 좌표 할당
+        GameObject newball = Instantiate(boxprefab, new Vector2(0, 0), Quaternion.identity);   // + 좌 플레이어 좌표 할당
+    }
+
+    void create_water_right()
+    {
+        GameObject newball = Instantiate(boxprefab, new Vector2(0, 0), Quaternion.identity);   // + 우 플레이어 좌표 할당
     }
 }
