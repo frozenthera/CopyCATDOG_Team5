@@ -25,11 +25,11 @@ public class water_new : MonoBehaviour
 
     void create_water_left()
     {
-        GameObject newball = Instantiate(boxprefab, new Vector2(0, 0), Quaternion.identity);   // + ÁÂ ÇÃ·¹ÀÌ¾î ÁÂÇ¥ ÇÒ´ç
+        GameObject newball = Instantiate(boxprefab, new Vector2(1, 0), Quaternion.identity);   // + ÁÂ ÇÃ·¹ÀÌ¾î ÁÂÇ¥ ÇÒ´ç
     }
 
     void create_water_right()
     {
-        GameObject newball = Instantiate(boxprefab, new Vector2(0, 0), Quaternion.identity);   // + ¿ì ÇÃ·¹ÀÌ¾î ÁÂÇ¥ ÇÒ´ç
+        GameObject newball = Instantiate(boxprefab, new Vector2(2, 0), Quaternion.identity);   // + ¿ì ÇÃ·¹ÀÌ¾î ÁÂÇ¥ ÇÒ´ç
     }
 }
