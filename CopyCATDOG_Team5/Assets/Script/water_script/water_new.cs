@@ -17,7 +17,12 @@ public class water_new : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            Instantiate(boxprefab, new Vector2(0,0), Quaternion.identity);
+            create_water();
         }
+    }
+
+    void create_water()
+    {
+        GameObject newball = Instantiate(boxprefab, new Vector2(0, 0), Quaternion.identity);   // + 플레이어 좌표 할당
     }
 }
