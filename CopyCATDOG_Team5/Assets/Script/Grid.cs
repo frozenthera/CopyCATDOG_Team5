@@ -20,12 +20,6 @@ public class Grid
         tileset = new tilestate[rows, cols];
     }
 
-    /*   public Vector2 getpos()
-       {
-           Vector2 pos = new Vector2(xpos, ypos);
-           return pos;
-       }
-    */
 }
 
 public enum tilestate
@@ -43,12 +37,14 @@ public class GridCreate : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
+    
     // Update is called once per frame
     void Update()
     {
         
     }
 }
+
