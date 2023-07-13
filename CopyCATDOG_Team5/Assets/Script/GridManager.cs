@@ -15,8 +15,10 @@ public class GridManager : MonoBehaviour
     public GameObject referenece_box;
     public GameObject referenece_block;
 
-    private void Generate_grid(Grid gamegrid)
+    private GameObject[,] Generate_grid(Grid gamegrid)
     {
+        GameObject[,] object_list = new GameObject[gamegrid.rows,gamegrid.cols];
+
         for (int row = 0; row < gamegrid.rows; row++)
         {
             for (int col = 0; col < gamegrid.cols; col++)
@@ -38,14 +40,17 @@ public class GridManager : MonoBehaviour
                 {
                     GameObject block_tile = Instantiate(referenece_block, transform);
                     block_tile.transform.position = new Vector2(x, y);
+                    object_list[row, col] = block_tile;
                 }
                 else if (gamegrid.tileset[row, col] == tilestate.box)
                 {
                     GameObject box_tile = Instantiate(referenece_box, transform);
                     box_tile.transform.position = new Vector2(x, y);
+                    object_list[row, col] = box_tile;
                 }
             }
         }
+        return object_list;
     }
     // Update is called once per frame
     void Update()
