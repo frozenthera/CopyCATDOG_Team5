@@ -34,15 +34,20 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        gameGrid = new Grid(5,5);
-        for(int i=0; i<gameGrid.rows; i++)
+        
+    }
+
+    public void OnEnable()
+    {
+        gameGrid = new Grid(4, 5);
+        for (int i = 0; i < gameGrid.rows; i++)
         {
-            for(int j=0; j<gameGrid.cols; j++)
+            for (int j = 0; j < gameGrid.cols; j++)
             {
-                gameGrid.tileset[i,j] = tilestate.block;
+                gameGrid.tileset[i, j] = tilestate.block;
             }
         }
-        gameGrid.tileset[0,0] = tilestate.empty;
+        gameGrid.tileset[1, 0] = tilestate.empty;
     }
 
 }

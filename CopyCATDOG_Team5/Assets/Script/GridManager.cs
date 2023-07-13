@@ -21,8 +21,8 @@ public class GridManager : MonoBehaviour
         {
             for (int col = 0; col < gamegrid.cols; col++)
             {
-                float x = col;
-                float y = row;
+                float x = row;
+                float y = col;
 
                 if (gamegrid.tileset[row, col] == tilestate.empty)
                 {
