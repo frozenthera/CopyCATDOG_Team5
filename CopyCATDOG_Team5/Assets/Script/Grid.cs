@@ -19,7 +19,13 @@ public class Grid
     {
         tileset = new tilestate[rows, cols];
     }
-
+    
+    /*public Vector3 get_coord()
+    {
+        
+        return 
+    }
+    */
 }
 
 public enum tilestate

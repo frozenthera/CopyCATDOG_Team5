@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
         return object_list;
     }
 
-    //Å¸ÀÏ ºÎ¼ö±â
+
     public void destroy_tile(int x, int y)
     {
         gameGrid.tileset[x, y] = tilestate.empty;
@@ -109,6 +109,9 @@ public class GameManager : MonoBehaviour
         Object_List[x_dest, y_dest] = Object_List[x_origin, y_origin];
         Object_List[x_origin, y_origin] = null;
 
-        //box sprite ÀÌµ¿ ¾Ö´Ï¸ŞÀÌ¼Ç
+        //box sprite ì´ë™ ì• ë‹ˆë©”ì´ì…˜
+        Object_List[x_dest, y_dest].transform.Translate(new Vector3(x_dest, y_dest, 0));
+
     }
+
 }
