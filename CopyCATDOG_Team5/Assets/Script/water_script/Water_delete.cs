@@ -3,21 +3,18 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEditor.U2D.Aseprite;
 using UnityEngine;
+using UnityEngine.UIElements;
+
+
 
 public class Water_delete : MonoBehaviour
 {
     float timecount = 0;
-    bool ones = true;
-    bool chgrid = true;
     Vector2 pos;
-
-
 
     void Start()
     {
         pos = this.transform.position;
-        Destroy(gameObject, 2.3f); //≈Õ¡ˆ¥¬ ¿Ã∆—∆Æ 0.3√ 
-
     }
 
     void Update()
@@ -26,19 +23,80 @@ public class Water_delete : MonoBehaviour
 
         if (timecount >= 2)
         {
-            if (ones)
+            
+
+            int rx = (int)pos.x;
+            int ry = (int)pos.y;
+
+            Debug.Log("π∞«≥º± ≈Õ¡¸");
+            Debug.Log(pos);
+
+            Destroy(gameObject);
+
+            for (int i = 1; i < GameManager.Instance.gameGrid.cols - ry; i++)
             {
-                Debug.Log("π∞«≥º± ≈Õ¡¸");
-                ones = false;
 
-                Debug.Log(pos);
-                Debug.Log(pos.x);
-                Debug.Log(pos.y);
+                if(GameManager.Instance.gameGrid.tileset[rx, ry + i] == tilestate.wall)
+                {
+                    break;
+                }
 
-
+                if (GameManager.Instance.gameGrid.tileset[rx, ry + i] == tilestate.box || GameManager.Instance.gameGrid.tileset[rx, ry + i] == tilestate.block)
+                {
+                    GameManager.Instance.destroy_tile(rx, ry + i);
+                    break;
+                }
 
             }
-            
-        }
+
+            for (int i = 1; i < ry + 1; i++)
+            {
+
+                if (GameManager.Instance.gameGrid.tileset[rx, ry - i] == tilestate.wall)
+                {
+                    break;
+                }
+
+                if (GameManager.Instance.gameGrid.tileset[rx, ry - i] == tilestate.box || GameManager.Instance.gameGrid.tileset[rx, ry - i] == tilestate.block)
+                {
+                    GameManager.Instance.destroy_tile(rx, ry - i);
+                    break;
+                }
+
+            }
+
+            for (int i = 1; i < GameManager.Instance.gameGrid.rows - rx; i++)
+            {
+
+                if (GameManager.Instance.gameGrid.tileset[rx + i, ry] == tilestate.wall)
+                {
+                    break;
+                }
+
+                if (GameManager.Instance.gameGrid.tileset[rx + i, ry] == tilestate.box || GameManager.Instance.gameGrid.tileset[rx + i, ry] == tilestate.block)
+                {
+                    GameManager.Instance.destroy_tile(rx + i, ry);
+                    break;
+                }
+
+            }
+
+            for (int i = 1; i < rx + 1; i++)
+            {
+
+                if (GameManager.Instance.gameGrid.tileset[rx - i, ry] == tilestate.wall)
+                {
+                    break;
+                }
+
+                if (GameManager.Instance.gameGrid.tileset[rx - i, ry] == tilestate.box || GameManager.Instance.gameGrid.tileset[rx - i, ry] == tilestate.block)
+                {
+                    GameManager.Instance.destroy_tile(rx - i, ry);
+                    break;
+                }
+
+            }
+
+        }       
     }
 }
