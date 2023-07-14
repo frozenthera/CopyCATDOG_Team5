@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -34,6 +35,8 @@ public class Character_Controller : MonoBehaviour
             myKey3 = KeyCode.A;
             myKey4 = KeyCode.D;
         }
+
+        timer = 0f;
     }
     // Update is called once per frame
     int temp;
@@ -104,42 +107,42 @@ public class Character_Controller : MonoBehaviour
 
     private int direction;
     float timer;
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        timer = 0f;
-        if(collision.gameObject.tag == "Block")
-        {
-            Vector2 target = transform.position - collision.gameObject.transform.position;
-            float angle = Vector2.SignedAngle(Vector2.left, target);
-            direction = 4;
-            print(angle);
-            if(angle >= -10f && angle <= 10f)
-            {
-                //오른쪽
-                direction = 3;
-            }
-            else if (angle >= 80f  && angle <= 100f)
-            {
-                //위쪽
-                direction = 0;
-            }
-            else if (angle >= 170f || angle <= -170f)
-            {
-                //왼쪽
-                direction = 2;
-            }
-            else if (angle <= -80f && angle >= -100f)
-            {
-                //아래쪽
-                direction = 1;
-            }
-            print(direction);
-        }
-    }
+
     //일정 시간 이상(대략 1초쯤) 밀어야 움직이게 하기
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if(direction == temp && active == 1)
+        if(collision.gameObject.tag != "Box")
+        {
+            return;
+        }
+
+        //오브젝트와 플레이어의 방향 구하기
+        Vector2 Target = transform.position - collision.gameObject.transform.position;
+        float angle = Vector2.SignedAngle(Vector2.left, Target);
+        direction = 4;
+        if (angle >= -10f && angle <= 10f)
+        {
+            //오른쪽
+            direction = 3;
+        }
+        else if (angle >= 80f && angle <= 100f)
+        {
+            //위쪽
+            direction = 0;
+        }
+        else if (angle >= 170f || angle <= -170f)
+        {
+            //왼쪽
+            direction = 2;
+        }
+        else if (angle <= -80f && angle >= -100f)
+        {
+            //아래쪽
+            direction = 1;
+        }
+
+        //Box 방향으로 밀었는지 테스트
+        if (direction == temp && active == 1)
         {
             timer += Time.deltaTime;
         }
@@ -167,9 +170,9 @@ public class Character_Controller : MonoBehaviour
             }
             int x_dest = (int)target.x + (int)vector.x;
             int y_dest = (int)target.y + (int)vector.y;
-            if (GameObject.Find("Game Manager").GetComponent<GameManager>().gameGrid.tileset[x_dest, y_dest] == tilestate.empty)
+            if (GameManager.Instance.gameGrid.tileset[x_dest, y_dest] == tilestate.empty)
             {
-                GameObject.Find("Game Manager").GetComponent<GameManager>().move_box((int)target.x, (int)target.y, x_dest, y_dest);
+                GameManager.Instance.move_box((int)target.x, (int)target.y, x_dest, y_dest);
                 print(target);
                 print(vector);
                 collision.gameObject.transform.Translate(vector);
