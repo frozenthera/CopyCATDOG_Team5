@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Character_Controller : MonoBehaviour
 {
@@ -98,6 +99,57 @@ public class Character_Controller : MonoBehaviour
         {
             active = 0;
             rigidbody.velocity = new Vector2(0, 0);
+        }
+    }
+
+    private int direction;
+    float timer;
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        timer = 0f;
+        if(collision.gameObject.tag == "Block")
+        {
+            Vector2 target = transform.position - collision.gameObject.transform.position;
+            float angle = Vector2.SignedAngle(Vector2.left, target);
+            direction = 4;
+            print(angle);
+            if(angle >= -10f && angle <= 10f)
+            {
+                //오른쪽
+                direction = 3;
+            }
+            else if (angle >= 80f  && angle <= 100f)
+            {
+                //위쪽
+                direction = 0;
+            }
+            else if (angle >= 170f || angle <= -170f)
+            {
+                //왼쪽
+                direction = 2;
+            }
+            else if (angle <= -80f && angle >= -100f)
+            {
+                //아래쪽
+                direction = 1;
+            }
+            print(direction);
+        }
+    }
+    //일정 시간 이상(대략 0.3초쯤) 밀어야 움직이게 하기
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if(direction == temp && active == 1)
+        {
+            timer += Time.deltaTime;
+        }
+        else
+        {
+            timer = 0f;
+        }
+        if(timer > 0.3f)
+        {
+
         }
     }
 }
