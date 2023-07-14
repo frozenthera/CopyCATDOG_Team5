@@ -136,7 +136,7 @@ public class Character_Controller : MonoBehaviour
             print(direction);
         }
     }
-    //일정 시간 이상(대략 0.3초쯤) 밀어야 움직이게 하기
+    //일정 시간 이상(대략 1초쯤) 밀어야 움직이게 하기
     private void OnCollisionStay2D(Collision2D collision)
     {
         if(direction == temp && active == 1)
@@ -149,7 +149,32 @@ public class Character_Controller : MonoBehaviour
         }
         if(timer > 0.3f)
         {
-
+            Vector2 target = collision.gameObject.transform.position;
+            switch (temp)
+            {
+                case 0:
+                    vector = Vector2.up;
+                    break;
+                case 1:
+                    vector = Vector2.down;
+                    break;
+                case 2:
+                    vector = Vector2.left;
+                    break;
+                case 3:
+                    vector = Vector2.right;
+                    break;
+            }
+            int x_dest = (int)target.x + (int)vector.x;
+            int y_dest = (int)target.y + (int)vector.y;
+            if (GameObject.Find("Game Manager").GetComponent<GameManager>().gameGrid.tileset[x_dest, y_dest] == tilestate.empty)
+            {
+                GameObject.Find("Game Manager").GetComponent<GameManager>().move_box((int)target.x, (int)target.y, x_dest, y_dest);
+                print(target);
+                print(vector);
+                collision.gameObject.transform.Translate(vector);
+                timer = 0f;
+            }
         }
     }
 }
