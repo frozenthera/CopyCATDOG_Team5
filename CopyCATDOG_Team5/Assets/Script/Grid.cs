@@ -38,6 +38,15 @@ public class Grid
 
         return gridtile;
     }
+
+    public bool is_empty(Coordinate dest)
+    {
+        if (dest.X >= 0 && dest.X < rows && dest.Y >= 0 && dest.Y < cols)
+        {
+            return true;
+        }
+        else return false;
+    }
     
 }
 
