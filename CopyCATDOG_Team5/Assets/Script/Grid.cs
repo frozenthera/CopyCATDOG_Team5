@@ -19,7 +19,22 @@ public class Grid
     {
         tileset = new tilestate[rows, cols];
     }
+    
+    public Vector2 grid_to_unity(int[] gridtile)
+    {
+        Vector2 unityVector = new Vector2(gridtile[0], gridtile[1]);
+        return unityVector;
+    }
 
+    public float[] unity_to_grid(Vector2 targetVector)
+    {
+        float[] gridtile = new float[2];
+        gridtile[0] = targetVector.x;
+        gridtile[1] = targetVector.y;
+        
+        return gridtile;
+    }
+    
 }
 
 public enum tilestate
