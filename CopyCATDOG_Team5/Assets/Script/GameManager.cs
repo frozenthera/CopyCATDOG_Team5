@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
             }
         }
         gameGrid.tileset[1, 0] = tilestate.block;
+        gameGrid.tileset[1, 2] = tilestate.box;
     }
 
     public GameObject[,] Object_List;
