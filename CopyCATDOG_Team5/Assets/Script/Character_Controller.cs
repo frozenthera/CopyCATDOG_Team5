@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -14,6 +15,10 @@ public class Character_Controller : MonoBehaviour
     private Rigidbody2D rigidbody;
     private Vector2 vector;
 
+    public Coordinate characterPos;
+
+    public int range = 2;
+    public int maxInstall = 2;
 
     private KeyCode myKey1, myKey2, myKey3, myKey4;
     // Start is called before the first frame update
@@ -175,9 +180,21 @@ public class Character_Controller : MonoBehaviour
                 GameManager.Instance.move_box((int)target.x, (int)target.y, x_dest, y_dest);
                 print(target);
                 print(vector);
-                collision.gameObject.transform.Translate(vector);
+                // collision.gameObject.transform.Translate(vector);
                 timer = 0f;
             }
         }
+    }
+
+    //플레이어가 물줄기에 맞았을 때의 동작 구현
+    public void GetHittedByWater()
+    { 
+
+    }
+
+    //캐릭터의 현재 위치에 물풍선 설치
+    public void InstallWaterBalloon()
+    {
+
     }
 }

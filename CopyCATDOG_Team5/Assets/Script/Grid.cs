@@ -20,22 +20,48 @@ public class Grid
         tileset = new tilestate[rows, cols];
     }
     
-    public Vector2 grid_to_unity(int[] gridtile)
+    public Vector2 grid_to_unity(Coordinate gridtile)
     {
-        Vector2 unityVector = new Vector2(gridtile[0], gridtile[1]);
+        Vector2 unityVector = new Vector2(gridtile.X, gridtile.Y);
         return unityVector;
     }
 
-    public float[] unity_to_grid(Vector2 targetVector)
+    public Coordinate unity_to_grid(Vector2 targetVector)
     {
-        float[] gridtile = new float[2];
-        gridtile[0] = targetVector.x;
-        gridtile[1] = targetVector.y;
+        Coordinate gridtile = new Coordinate();
+
+        // gridtile.X = targetVector.x;
+        // gridtile.Y = targetVector.y;
         
         return gridtile;
     }
     
 }
+
+//좌표값을 저장하기 위한 구조체
+public class Coordinate
+{
+    public int X;
+    public int Y;
+    
+    public Coordinate(int _x, int _y)
+    {
+        X = _x;
+        Y = _y;
+    }
+    
+    public Coordinate()
+    {
+        X = -1;
+        Y = -1;
+    }
+
+    public override string ToString()
+    {
+        return X.ToString() + "," + Y.ToString();
+    }
+}
+
 
 public enum tilestate
 {

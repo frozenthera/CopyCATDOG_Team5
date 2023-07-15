@@ -5,12 +5,11 @@ using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-
-
 public class Water_delete : MonoBehaviour
 {
     float timecount = 0;
     Vector2 pos;
+    public int range = 0;
 
     void Start()
     {

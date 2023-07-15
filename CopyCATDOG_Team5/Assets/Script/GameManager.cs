@@ -5,6 +5,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance = null;
+
+    public Character_Controller character_1;
+    public Character_Controller character_2;
+
     void Awake()
     {
         if (null == instance)
