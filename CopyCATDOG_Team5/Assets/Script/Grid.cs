@@ -30,9 +30,12 @@ public class Grid
     {
         Coordinate gridtile = new Coordinate();
 
+        gridtile.X = (int)(targetVector.x + 0.5);
+        gridtile.Y = (int)(targetVector.y + 0.5);
+
         // gridtile.X = targetVector.x;
         // gridtile.Y = targetVector.y;
-        
+
         return gridtile;
     }
     

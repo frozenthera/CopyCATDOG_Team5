@@ -109,13 +109,14 @@ public class GameManager : MonoBehaviour
     {
         if (gameGrid.tileset[x_dest, y_dest] != tilestate.empty) return;
 
+       
         gameGrid.tileset[x_origin, y_origin] = tilestate.empty;
         gameGrid.tileset[x_dest, y_dest] = tilestate.box;
         Object_List[x_dest, y_dest] = Object_List[x_origin, y_origin];
         Object_List[x_origin, y_origin] = null;
 
         //box sprite 이동 애니메이션
-        Object_List[x_dest, y_dest].transform.Translate(new Vector3(x_dest, y_dest, 0));
+        Object_List[x_dest, y_dest].transform.position = new Vector3(x_dest, y_dest, 0);
 
     }
 
