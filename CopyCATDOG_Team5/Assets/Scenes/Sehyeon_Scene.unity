@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 160434840}
   m_Layer: 6
   m_Name: Character1
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -355,7 +355,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -373,11 +373,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxprefab: {fileID: 141937327528663298, guid: 8cd4e5891c367c9428c4fcf38028bdba, type: 3}
+  OtherPlayer: {fileID: 741623171}
   FirstCharacter: 1
   StartPosition: {x: -6.46, y: 0, z: 0}
   speed: 5
   range: 2
   maxInstall: 2
+  getHit: 0
 --- !u!1001 &219942434
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -634,7 +636,7 @@ GameObject:
   - component: {fileID: 741623172}
   m_Layer: 6
   m_Name: Character2
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -652,11 +654,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxprefab: {fileID: 141937327528663298, guid: 8cd4e5891c367c9428c4fcf38028bdba, type: 3}
+  OtherPlayer: {fileID: 160434835}
   FirstCharacter: 0
   StartPosition: {x: 6.53, y: 0, z: 0}
   speed: 5
   range: 2
   maxInstall: 2
+  getHit: 0
 --- !u!50 &741623173
 Rigidbody2D:
   serializedVersion: 4
@@ -679,7 +683,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
