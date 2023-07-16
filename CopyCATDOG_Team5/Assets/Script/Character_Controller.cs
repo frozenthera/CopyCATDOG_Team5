@@ -8,6 +8,8 @@ using UnityEngine.UIElements;
 
 public class Character_Controller : MonoBehaviour
 {
+    public GameObject boxprefab;
+
     public bool FirstCharacter;
     public Vector3 StartPosition;
 
@@ -108,6 +110,15 @@ public class Character_Controller : MonoBehaviour
             active = 0;
             rigidbody.velocity = new Vector2(0, 0);
         }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            create_water_left();
+        }
+        if (Input.GetKeyDown(KeyCode.RightShift))
+        {
+            create_water_right();
+        }
     }
 
     private int direction;
@@ -193,8 +204,13 @@ public class Character_Controller : MonoBehaviour
     }
 
     //캐릭터의 현재 위치에 물풍선 설치
-    public void InstallWaterBalloon()
+    void create_water_left()
     {
+        GameObject newball = Instantiate(boxprefab, new Vector2(1, 0), Quaternion.identity);   // + 좌 플레이어 좌표 할당
+    }
 
+    void create_water_right()
+    {
+        GameObject newball = Instantiate(boxprefab, new Vector2(2, 0), Quaternion.identity);   // + 우 플레이어 좌표 할당
     }
 }
