@@ -133,6 +133,7 @@ public class Character_Controller : MonoBehaviour
         {
             GetHittedByWater();
         }
+<<<<<<< HEAD
 =======
         if (this.gameObject.name == "Character1")
             if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -142,6 +143,8 @@ public class Character_Controller : MonoBehaviour
                 create_water_right();
 
 >>>>>>> 05921a57e173eabf25eefa9d07af235dd62e87c9
+=======
+>>>>>>> d77d60d6635b5e12d6b08a51a39c80cf6368b7a8
     }
 
     private int direction;
