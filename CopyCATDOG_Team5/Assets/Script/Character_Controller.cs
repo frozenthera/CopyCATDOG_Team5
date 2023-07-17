@@ -5,11 +5,11 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using System;
 
 public class Character_Controller : MonoBehaviour
 {
     public GameObject boxprefab;
-    public GameObject OtherPlayer;
 
 
     public bool FirstCharacter;
@@ -28,7 +28,7 @@ public class Character_Controller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), OtherPlayer.GetComponent<BoxCollider2D>());
+        gameObject.layer = 6;
         getHit = false;
         speed = 5;
         transform.position = StartPosition;
@@ -55,9 +55,10 @@ public class Character_Controller : MonoBehaviour
     int active;
     void Update()
     {
-        
+        //characterPos.X = (int)Math.Round(transform.position.x);
+        //characterPos.Y = (int)Math.Round(transform.position.y);
         // 동시입력관리
-        if(Input.GetKeyDown(myKey1))
+        if (Input.GetKeyDown(myKey1))
         {
             temp = 0;
             active = 1;
@@ -117,7 +118,6 @@ public class Character_Controller : MonoBehaviour
             rigidbody.velocity = new Vector2(0, 0);
         }
 
-<<<<<<< HEAD
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             create_water_left();
@@ -133,18 +133,12 @@ public class Character_Controller : MonoBehaviour
         {
             GetHittedByWater();
         }
-<<<<<<< HEAD
-=======
         if (this.gameObject.name == "Character1")
             if (Input.GetKeyDown(KeyCode.LeftShift))
                 create_water_left();
         if (this.gameObject.name == "Character2")
             if (Input.GetKeyDown(KeyCode.RightShift))
                 create_water_right();
-
->>>>>>> 05921a57e173eabf25eefa9d07af235dd62e87c9
-=======
->>>>>>> d77d60d6635b5e12d6b08a51a39c80cf6368b7a8
     }
 
     private int direction;
@@ -230,7 +224,7 @@ public class Character_Controller : MonoBehaviour
     public void GetHittedByWater()
     {
         getHit = true;
-        Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), OtherPlayer.GetComponent<BoxCollider2D>(), false);
+        gameObject.layer = 9;
         speed = 1;
         StartCoroutine(WaitForRescue());
     }
@@ -242,7 +236,7 @@ public class Character_Controller : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(getHit == true && collision.gameObject.tag == "Player")
+        if(getHit == true && collision.gameObject.layer == 8)
         {
             GameOver();
         }
@@ -255,6 +249,12 @@ public class Character_Controller : MonoBehaviour
         if(getHit == true)
         {
             GameOver();
+        }
+        else
+        {
+            getHit = false;
+            gameObject.layer = 8;
+            speed = 5;
         }
     }
 
