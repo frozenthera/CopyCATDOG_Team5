@@ -11,6 +11,7 @@ public class Water_delete : MonoBehaviour
     Vector2 pos;
     public int range = 2;
     public GameObject waveprefab;
+    public Character_Controller owner;
 
     void Start()
     {

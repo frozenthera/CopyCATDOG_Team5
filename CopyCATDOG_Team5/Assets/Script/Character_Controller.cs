@@ -9,14 +9,14 @@ using System;
 
 public class Character_Controller : MonoBehaviour
 {
-    public GameObject boxprefab;
-
+    //물풍선 프리팹
+    public GameObject waterBalloonprefab;
 
     public bool FirstCharacter;
     public Vector3 StartPosition;
 
     public int speed;
-    private Rigidbody2D rigidbody;
+    private Rigidbody2D rb;
     private Vector2 vector;
 
     public Coordinate characterPos;
@@ -32,7 +32,7 @@ public class Character_Controller : MonoBehaviour
         getHit = false;
         speed = 5;
         transform.position = StartPosition;
-        rigidbody = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         if(FirstCharacter == true)
         {
             myKey1 = KeyCode.UpArrow;
@@ -80,7 +80,7 @@ public class Character_Controller : MonoBehaviour
         }
         if (Input.GetKey(myKey1) || Input.GetKey(myKey2) || Input.GetKey(myKey3) || Input.GetKey(myKey4) && active == 1)
         {
-            rigidbody.velocity = vector * speed;
+            rb.velocity = vector * speed;
             switch (temp)
             {
                 case 0:
@@ -100,22 +100,22 @@ public class Character_Controller : MonoBehaviour
         if (Input.GetKeyUp(myKey1) && temp == 0)
         {
             active = 0;
-            rigidbody.velocity = new Vector2(0, 0);
+            rb.velocity = new Vector2(0, 0);
         }
         if (Input.GetKeyUp(myKey2) && temp == 1)
         {
             active = 0;
-            rigidbody.velocity = new Vector2(0, 0);
+            rb.velocity = new Vector2(0, 0);
         }
         if (Input.GetKeyUp(myKey3) && temp == 2)
         {
             active = 0;
-            rigidbody.velocity = new Vector2(0, 0);
+            rb.velocity = new Vector2(0, 0);
         }
         if (Input.GetKeyUp(myKey4) && temp == 3)
         {
             active = 0;
-            rigidbody.velocity = new Vector2(0, 0);
+            rb.velocity = new Vector2(0, 0);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -261,11 +261,11 @@ public class Character_Controller : MonoBehaviour
     //캐릭터의 현재 위치에 물풍선 설치
     void create_water_left()
     {
-        GameObject newball = Instantiate(boxprefab, new Vector2(1, 0), Quaternion.identity);   // + 좌 플레이어 좌표 할당
+        GameObject newball = Instantiate(waterBalloonprefab, new Vector2(1, 0), Quaternion.identity);   // + 좌 플레이어 좌표 할당
     }
 
     void create_water_right()
     {
-        GameObject newball = Instantiate(boxprefab, new Vector2(2, 0), Quaternion.identity);   // + 우 플레이어 좌표 할당
+        GameObject newball = Instantiate(waterBalloonprefab, new Vector2(2, 0), Quaternion.identity);   // + 우 플레이어 좌표 할당
     }
 }

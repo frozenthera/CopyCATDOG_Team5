@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     public void OnEnable()
     {
-        gameGrid = new Grid(4, 5);
+        gameGrid = new Grid(5, 5);
         for (int i = 0; i < gameGrid.rows; i++)
         {
             for (int j = 0; j < gameGrid.cols; j++)
@@ -46,8 +46,11 @@ public class GameManager : MonoBehaviour
                 gameGrid.tileset[i, j] = tilestate.empty;
             }
         }
-        gameGrid.tileset[1, 0] = tilestate.block;
-        gameGrid.tileset[1, 2] = tilestate.box;
+        gameGrid.tileset[0, 2] = tilestate.box;
+        gameGrid.tileset[1, 2] = tilestate.block;
+        gameGrid.tileset[2, 2] = tilestate.wall;
+        gameGrid.tileset[3, 2] = tilestate.block;
+        gameGrid.tileset[4, 2] = tilestate.box;
     }
 
     public GameObject[,] Object_List;
