@@ -111,14 +111,13 @@ public class Character_Controller : MonoBehaviour
             rigidbody.velocity = new Vector2(0, 0);
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            create_water_left();
-        }
-        if (Input.GetKeyDown(KeyCode.RightShift))
-        {
-            create_water_right();
-        }
+        if (this.gameObject.name == "Character1")
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+                create_water_left();
+        if (this.gameObject.name == "Character2")
+            if (Input.GetKeyDown(KeyCode.RightShift))
+                create_water_right();
+
     }
 
     private int direction;
