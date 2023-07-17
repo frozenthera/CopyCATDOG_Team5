@@ -38,6 +38,17 @@ public class Grid
 
         return gridtile;
     }
+
+    public bool is_empty(Coordinate dest)
+    {
+        if (dest.X >= 0 && dest.X < rows && dest.Y >= 0 && dest.Y < cols && tileset[dest.X, dest.Y] == tilestate.empty)
+        {
+            return true;
+        }
+        else return false;
+    }
+
+    //is reachable과 is empty가 구분될 필요성??
     
 }
 
