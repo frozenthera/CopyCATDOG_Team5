@@ -41,7 +41,16 @@ public class Grid
 
     public bool is_empty(Coordinate dest)
     {
-        if (dest.X >= 0 && dest.X < rows && dest.Y >= 0 && dest.Y < cols && tileset[dest.X, dest.Y] == tilestate.empty)
+        if (tileset[dest.X, dest.Y] == tilestate.empty)
+        {
+            return true;
+        }
+        else return false;
+    }
+
+    public bool is_reachable(Coordinate dest)
+    {
+        if (dest.X >= 0 && dest.X < rows && dest.Y >= 0 && dest.Y < cols)
         {
             return true;
         }
@@ -49,7 +58,7 @@ public class Grid
     }
 
     //is reachable과 is empty가 구분될 필요성??
-    
+
 }
 
 //좌표값을 저장하기 위한 구조체
