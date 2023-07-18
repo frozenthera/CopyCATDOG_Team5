@@ -5,29 +5,36 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using System;
 
 public class Character_Controller : MonoBehaviour
 {
-    public GameObject boxprefab;
+    [SerializeField]
+    private GameObject waterBalloonprefab;
 
     public bool FirstCharacter;
     public Vector3 StartPosition;
 
     public int speed;
-    private Rigidbody2D rigidbody;
+    private Rigidbody2D rb;
     private Vector2 vector;
 
     public Coordinate characterPos;
 
     public int range = 2;
-    public int maxInstall = 2;
+    public int maxInstall_First = 2;
+    public int maxInstall_second = 2;
+
 
     private KeyCode myKey1, myKey2, myKey3, myKey4;
     // Start is called before the first frame update
     void Start()
     {
+        gameObject.layer = 6;
+        getHit = false;
+        speed = 5;
         transform.position = StartPosition;
-        rigidbody = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         if(FirstCharacter == true)
         {
             myKey1 = KeyCode.UpArrow;
@@ -50,8 +57,10 @@ public class Character_Controller : MonoBehaviour
     int active;
     void Update()
     {
-        // µ¿½ÃÀÔ·Â°ü¸®
-        if(Input.GetKeyDown(myKey1))
+        //characterPos.X = (int)Math.Round(transform.position.x);
+        //characterPos.Y = (int)Math.Round(transform.position.y);
+        // ë™ì‹œì…ë ¥ê´€ë¦¬
+        if (Input.GetKeyDown(myKey1))
         {
             temp = 0;
             active = 1;
@@ -73,7 +82,7 @@ public class Character_Controller : MonoBehaviour
         }
         if (Input.GetKey(myKey1) || Input.GetKey(myKey2) || Input.GetKey(myKey3) || Input.GetKey(myKey4) && active == 1)
         {
-            rigidbody.velocity = vector * speed;
+            rb.velocity = vector * speed;
             switch (temp)
             {
                 case 0:
@@ -93,71 +102,86 @@ public class Character_Controller : MonoBehaviour
         if (Input.GetKeyUp(myKey1) && temp == 0)
         {
             active = 0;
-            rigidbody.velocity = new Vector2(0, 0);
+            rb.velocity = new Vector2(0, 0);
         }
         if (Input.GetKeyUp(myKey2) && temp == 1)
         {
             active = 0;
-            rigidbody.velocity = new Vector2(0, 0);
+            rb.velocity = new Vector2(0, 0);
         }
         if (Input.GetKeyUp(myKey3) && temp == 2)
         {
             active = 0;
-            rigidbody.velocity = new Vector2(0, 0);
+            rb.velocity = new Vector2(0, 0);
         }
         if (Input.GetKeyUp(myKey4) && temp == 3)
         {
             active = 0;
-            rigidbody.velocity = new Vector2(0, 0);
+            rb.velocity = new Vector2(0, 0);
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        //Test key
+        if(Input.GetKeyDown(KeyCode.Space))
         {
-            create_water_left();
+            GetHittedByWater();
         }
-        if (Input.GetKeyDown(KeyCode.RightShift))
+
+        if (FirstCharacter)
         {
-            create_water_right();
+            if (maxInstall_First > 0)
+                if (Input.GetKeyDown(KeyCode.LeftShift))
+                {
+                    create_water_left();
+                    maxInstall_First--;
+                }
         }
+        else
+            if (maxInstall_second > 0)
+                if (Input.GetKeyDown(KeyCode.RightShift))
+                {
+                    create_water_right();
+                    maxInstall_second--;
+                }
     }
 
     private int direction;
     float timer;
 
-    //ÀÏÁ¤ ½Ã°£ ÀÌ»ó(´ë·« 1ÃÊÂë) ¹Ğ¾î¾ß ¿òÁ÷ÀÌ°Ô ÇÏ±â
+    //ì¼ì • ì‹œê°„ ì´ìƒ(ëŒ€ëµ 1ì´ˆì¯¤) ë°€ì–´ì•¼ ì›€ì§ì´ê²Œ í•˜ê¸°
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if(collision.gameObject.tag != "Box")
+
+        if(collision.gameObject.tag != "Box" || getHit == true)
         {
             return;
         }
 
-        //¿ÀºêÁ§Æ®¿Í ÇÃ·¹ÀÌ¾îÀÇ ¹æÇâ ±¸ÇÏ±â
+        //ì˜¤ë¸Œì íŠ¸ì™€ í”Œë ˆì´ì–´ì˜ ë°©í–¥ êµ¬í•˜ê¸°
         Vector2 Target = transform.position - collision.gameObject.transform.position;
         float angle = Vector2.SignedAngle(Vector2.left, Target);
         direction = 4;
         if (angle >= -10f && angle <= 10f)
         {
-            //¿À¸¥ÂÊ
+            //ì˜¤ë¥¸ìª½
             direction = 3;
         }
         else if (angle >= 80f && angle <= 100f)
         {
-            //À§ÂÊ
+            //ìœ„ìª½
             direction = 0;
         }
         else if (angle >= 170f || angle <= -170f)
         {
-            //¿ŞÂÊ
+            //ì™¼ìª½
             direction = 2;
         }
         else if (angle <= -80f && angle >= -100f)
         {
-            //¾Æ·¡ÂÊ
+            //ì•„ë˜ìª½
             direction = 1;
         }
 
-        //Box ¹æÇâÀ¸·Î ¹Ğ¾ú´ÂÁö Å×½ºÆ®
+        //Box ë°©í–¥ìœ¼ë¡œ ë°€ì—ˆëŠ”ì§€ í…ŒìŠ¤íŠ¸
         if (direction == temp && active == 1)
         {
             timer += Time.deltaTime;
@@ -197,20 +221,58 @@ public class Character_Controller : MonoBehaviour
         }
     }
 
-    //ÇÃ·¹ÀÌ¾î°¡ ¹°ÁÙ±â¿¡ ¸Â¾ÒÀ» ¶§ÀÇ µ¿ÀÛ ±¸Çö
-    public void GetHittedByWater()
-    { 
 
+    public bool getHit;
+    //í”Œë ˆì´ì–´ê°€ ë¬¼ì¤„ê¸°ì— ë§ì•˜ì„ ë•Œì˜ ë™ì‘ êµ¬í˜„
+    public void GetHittedByWater()
+    {
+        getHit = true;
+        gameObject.layer = 9;
+        speed = 1;
+        StartCoroutine(WaitForRescue());
     }
 
-    //Ä³¸¯ÅÍÀÇ ÇöÀç À§Ä¡¿¡ ¹°Ç³¼± ¼³Ä¡
+    public void GameOver()
+    {
+        print("GameOver");
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(getHit == true && collision.gameObject.layer == 8)
+        {
+            GameOver();
+        }
+    }
+
+    IEnumerator WaitForRescue()
+    {
+        print('!');
+        yield return new WaitForSeconds(3.0f);
+        if(getHit == true)
+        {
+            GameOver();
+        }
+        else
+        {
+            getHit = false;
+            gameObject.layer = 8;
+            speed = 5;
+        }
+    }
+
+    //ìºë¦­í„°ì˜ í˜„ì¬ ìœ„ì¹˜ì— ë¬¼í’ì„  ì„¤ì¹˜
     void create_water_left()
     {
-        GameObject newball = Instantiate(boxprefab, new Vector2(1, 0), Quaternion.identity);   // + ÁÂ ÇÃ·¹ÀÌ¾î ÁÂÇ¥ ÇÒ´ç
+        GameObject newball = Instantiate(waterBalloonprefab, new Vector3(1, 0, -1), Quaternion.identity);   // + ì¢Œ í”Œë ˆì´ì–´ ì¢Œí‘œ í• ë‹¹
+        GameManager.Instance.gameGrid.tileset[1, 0] = tilestate.ballon;
+        newball.GetComponent<Water_delete>().water_owner = 1;
     }
 
     void create_water_right()
     {
-        GameObject newball = Instantiate(boxprefab, new Vector2(2, 0), Quaternion.identity);   // + ¿ì ÇÃ·¹ÀÌ¾î ÁÂÇ¥ ÇÒ´ç
+        GameObject newball = Instantiate(waterBalloonprefab, new Vector3(2, 0, -1), Quaternion.identity);   // + ìš° í”Œë ˆì´ì–´ ì¢Œí‘œ í• ë‹¹
+        GameManager.Instance.gameGrid.tileset[2, 0] = tilestate.ballon;
+        newball.GetComponent<Water_delete>().water_owner = 2;
     }
 }

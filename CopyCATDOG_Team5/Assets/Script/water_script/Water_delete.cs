@@ -10,7 +10,11 @@ public class Water_delete : MonoBehaviour
     float timecount = 0;
     Vector2 pos;
     public int range = 2;
-    public GameObject waveprefab;
+    [SerializeField]
+    private GameObject waveprefab;
+    public Character_Controller owner;
+    public int water_owner=0;
+    private GameObject obj;
 
     void Start()
     {
@@ -31,6 +35,18 @@ public class Water_delete : MonoBehaviour
             Debug.Log(pos);
 
             Destroy(gameObject);
+            GameManager.Instance.gameGrid.tileset[rx, ry] = tilestate.empty;
+
+            if (water_owner == 1)
+            {
+                obj = GameObject.Find("Character1");
+                obj.GetComponent<Character_Controller>().maxInstall_First++;
+            }
+            if (water_owner == 2)
+            {
+                obj = GameObject.Find("Character2");
+                obj.GetComponent<Character_Controller>().maxInstall_second++;
+            }
 
             for (int i = 1; i < GameManager.Instance.gameGrid.cols - ry; i++)
             {
