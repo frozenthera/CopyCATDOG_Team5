@@ -158,8 +158,8 @@ MonoBehaviour:
   FirstCharacter: 0
   StartPosition: {x: 6.53, y: 0, z: 0}
   speed: 5
-  range: 2
-  maxInstall: 2
+  maxInstall_First: 2
+  maxInstall_second: 2
   getHit: 0
 --- !u!50 &59606792
 Rigidbody2D:
@@ -376,8 +376,8 @@ MonoBehaviour:
   FirstCharacter: 1
   StartPosition: {x: -6.46, y: 0, z: 0}
   speed: 5
-  range: 2
-  maxInstall: 2
+  maxInstall_First: 2
+  maxInstall_second: 2
   getHit: 0
 --- !u!50 &406104421
 Rigidbody2D:

@@ -21,12 +21,12 @@ public class Character_Controller : MonoBehaviour
 
     public Coordinate characterPos;
 
-    public int range = 2;
+    private int range_First = 2;
     public int maxInstall_First = 2;
+    private int range_second = 3;
     public int maxInstall_second = 2;
 
-
-    private KeyCode myKey1, myKey2, myKey3, myKey4;
+    private KeyCode myKey1, myKey2, myKey3, myKey4;    
     // Start is called before the first frame update
     void Start()
     {
@@ -260,6 +260,7 @@ public class Character_Controller : MonoBehaviour
             speed = 5;
         }
     }
+ 
 
     //캐릭터의 현재 위치에 물풍선 설치
     void create_water_left()
@@ -267,12 +268,14 @@ public class Character_Controller : MonoBehaviour
         GameObject newball = Instantiate(waterBalloonprefab, new Vector3(1, 0, -1), Quaternion.identity);   // + 좌 플레이어 좌표 할당
         GameManager.Instance.gameGrid.tileset[1, 0] = tilestate.ballon;
         newball.GetComponent<Water_delete>().water_owner = 1;
+        newball.GetComponent<Water_delete>().range = range_First;
     }
 
     void create_water_right()
     {
-        GameObject newball = Instantiate(waterBalloonprefab, new Vector3(2, 0, -1), Quaternion.identity);   // + 우 플레이어 좌표 할당
-        GameManager.Instance.gameGrid.tileset[2, 0] = tilestate.ballon;
+        GameObject newball = Instantiate(waterBalloonprefab, new Vector3(3, 0, -1), Quaternion.identity);   // + 우 플레이어 좌표 할당
+        GameManager.Instance.gameGrid.tileset[3, 0] = tilestate.ballon;
         newball.GetComponent<Water_delete>().water_owner = 2;
+        newball.GetComponent<Water_delete>().range = range_second;
     }
 }
