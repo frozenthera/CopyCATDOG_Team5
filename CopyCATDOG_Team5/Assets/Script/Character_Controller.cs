@@ -78,8 +78,7 @@ public class Character_Controller : MonoBehaviour
     int active;
     void Update()
     {
-        characterPos.X = (int)Math.Round(transform.position.x);
-        characterPos.Y = (int)Math.Round(transform.position.y);
+        characterPos = GameManager.Instance.gameGrid.unity_to_grid(transform.position);
         // 동시입력관리
         if (Input.GetKeyDown(myKey1))
         {

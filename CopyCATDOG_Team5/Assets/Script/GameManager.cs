@@ -58,10 +58,8 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         Object_List = Generate_grid(gameGrid);
-        character_1.StartPosition = new Vector2(2, 0);
-        character_1.transform.position = new Vector2(2, 0);
-        character_2.StartPosition = new Vector2(2, 4);
-        character_2.transform.position = new Vector2(2, 4);
+        character_1.StartPosition = gameGrid.grid_to_unity(new Coordinate(2, 0));
+        character_2.StartPosition = gameGrid.grid_to_unity(new Coordinate(2, 4));
         for (int i = 0; i < 2; i++)
         {
             int maxInstall = 0, speed = 0, range = 0;
