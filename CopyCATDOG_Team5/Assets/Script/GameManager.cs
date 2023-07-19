@@ -162,6 +162,13 @@ public class GameManager : MonoBehaviour
     {
         gameGrid.tileset[x, y] = tilestate.empty;
         Destroy(Object_List[x, y]);
+
+        Coordinate tile = new Coordinate(x, y);
+        int rand = Random.Range(0, 10);
+        if (rand == 2 || rand == 9)
+        {
+            itemSpawn(tile);
+        }
     }
 
 
@@ -178,6 +185,18 @@ public class GameManager : MonoBehaviour
         //box sprite 이동 애니메이션
         Object_List[x_dest, y_dest].transform.position = new Vector3(x_dest, y_dest, 0);
 
+    }
+
+    public void itemSpawn(Coordinate itemdest)
+    {
+        if (gameGrid.tileset[itemdest.X, itemdest.Y] != tilestate.empty)
+        {
+            itemSpawn(itemdest);
+        }
+        else
+        {
+            gameGrid.tileset[itemdest.X, itemdest.Y] = tilestate.item;
+        }
     }
 
 }
