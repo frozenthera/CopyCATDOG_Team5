@@ -158,8 +158,9 @@ MonoBehaviour:
   FirstCharacter: 0
   StartPosition: {x: 6.53, y: 0, z: 0}
   speed: 5
-  maxInstall_First: 2
-  maxInstall_second: 2
+  range_level: 0
+  speed_level: 0
+  maxInstall: 0
   getHit: 0
 --- !u!50 &59606792
 Rigidbody2D:
@@ -376,8 +377,9 @@ MonoBehaviour:
   FirstCharacter: 1
   StartPosition: {x: -6.46, y: 0, z: 0}
   speed: 5
-  maxInstall_First: 2
-  maxInstall_second: 2
+  range_level: 0
+  speed_level: 0
+  maxInstall: 0
   getHit: 0
 --- !u!50 &406104421
 Rigidbody2D:
@@ -559,6 +561,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 81965674153142287, guid: 7a96438354432c446a12b7b59a3db94e, type: 3}
+      propertyPath: character_1
+      value: 
+      objectReference: {fileID: 406104420}
+    - target: {fileID: 81965674153142287, guid: 7a96438354432c446a12b7b59a3db94e, type: 3}
+      propertyPath: character_2
+      value: 
+      objectReference: {fileID: 59606791}
     - target: {fileID: 81965674153142287, guid: 7a96438354432c446a12b7b59a3db94e, type: 3}
       propertyPath: referenece_box
       value: 
