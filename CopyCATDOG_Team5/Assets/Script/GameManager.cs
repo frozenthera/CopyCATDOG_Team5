@@ -58,6 +58,53 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         Object_List = Generate_grid(gameGrid);
+        character_1.StartPosition = new Vector2(2, 0);
+        character_1.transform.position = new Vector2(2, 0);
+        character_2.StartPosition = new Vector2(2, 4);
+        character_2.transform.position = new Vector2(2, 4);
+        for (int i = 0; i < 2; i++)
+        {
+            int maxInstall = 0, speed = 0, range = 0;
+            switch(Random.Range(0, 3))
+            {
+                case 0:
+                    print("0");
+                    maxInstall = 1;
+                    speed = 2;
+                    range = 2;
+                    break;
+                case 1:
+                    print("1");
+                    maxInstall = 1;
+                    speed = 1;
+                    range = 3;
+                    break;
+                case 2:
+                    print("2");
+                    maxInstall = 2;
+                    speed = 1;
+                    range = 1;
+                    break;
+            }
+            if(i == 0)
+            {
+                character_1.maxInstall = maxInstall;
+                character_1.speed_level = speed;
+                character_1.range_level = range;
+                character_1.FirstCharacter = true;
+                character_1.characterPos = new Coordinate(2, 0);
+                character_1.StartCharacter();
+            }
+            else
+            {
+                character_2.maxInstall = maxInstall;
+                character_2.speed_level = speed;
+                character_2.range_level = range;
+                character_2.FirstCharacter = false;
+                character_2.characterPos = new Coordinate(2, 4);
+                character_2.StartCharacter();
+            }
+        }
     }
 
     public GameObject referenece_empty;

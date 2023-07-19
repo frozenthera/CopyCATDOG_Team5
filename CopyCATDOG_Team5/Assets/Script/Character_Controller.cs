@@ -9,9 +9,8 @@ using System;
 
 public class Character_Controller : MonoBehaviour
 {
-    //물풍선 프리팹
-    public GameObject waterBalloonprefab;
-
+    [SerializeField]
+    private GameObject waterBalloonprefab;
     public bool FirstCharacter;
     public Vector3 StartPosition;
 
@@ -21,19 +20,43 @@ public class Character_Controller : MonoBehaviour
 
     public Coordinate characterPos;
 
-    public int range = 2;
-    public int maxInstall = 2;
+    public int range_level, speed_level;
+    private int range;
+    public int maxInstall;
 
-    private KeyCode myKey1, myKey2, myKey3, myKey4;
+    private void range_apply(int temp)
+    {
+        //임시수치
+        if(temp > 5)
+        {
+            temp = 5;
+        }
+        range = temp * 2;
+    }
+
+    private void speed_apply(int temp)
+    {
+        //임시수치
+        if (temp > 5)
+        {
+            temp = 5;
+        }
+        speed = temp * 3;
+    }
+
+    private KeyCode myKey1, myKey2, myKey3, myKey4;    
     // Start is called before the first frame update
     void Start()
     {
         gameObject.layer = 6;
         getHit = false;
-        speed = 5;
-        transform.position = StartPosition;
         rb = GetComponent<Rigidbody2D>();
-        if(FirstCharacter == true)
+        timer = 0f;
+    }
+    public void StartCharacter()
+    {
+        transform.position = StartPosition;
+        if (FirstCharacter == true)
         {
             myKey1 = KeyCode.UpArrow;
             myKey2 = KeyCode.DownArrow;
@@ -47,16 +70,16 @@ public class Character_Controller : MonoBehaviour
             myKey3 = KeyCode.A;
             myKey4 = KeyCode.D;
         }
-
-        timer = 0f;
+        speed_apply(speed_level);
+        range_apply(range_level);
     }
     // Update is called once per frame
     int temp;
     int active;
     void Update()
     {
-        //characterPos.X = (int)Math.Round(transform.position.x);
-        //characterPos.Y = (int)Math.Round(transform.position.y);
+        characterPos.X = (int)Math.Round(transform.position.x);
+        characterPos.Y = (int)Math.Round(transform.position.y);
         // 동시입력관리
         if (Input.GetKeyDown(myKey1))
         {
@@ -118,27 +141,28 @@ public class Character_Controller : MonoBehaviour
             rb.velocity = new Vector2(0, 0);
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            create_water_left();
-        }
-        if (Input.GetKeyDown(KeyCode.RightShift))
-        {
-            create_water_right();
-        }
-
-
         //Test key
         if(Input.GetKeyDown(KeyCode.Space))
         {
             GetHittedByWater();
         }
-        if (this.gameObject.name == "Character1")
-            if (Input.GetKeyDown(KeyCode.LeftShift))
-                create_water_left();
-        if (this.gameObject.name == "Character2")
-            if (Input.GetKeyDown(KeyCode.RightShift))
-                create_water_right();
+
+        if (FirstCharacter)
+        {
+            if (maxInstall > 0)
+                if (Input.GetKeyDown(KeyCode.LeftShift))
+                {
+                    create_water_left();
+                    maxInstall--;
+                }
+        }
+        else
+            if (maxInstall> 0)
+                if (Input.GetKeyDown(KeyCode.RightShift))
+                {
+                    create_water_right();
+                    maxInstall--;
+                }
     }
 
     private int direction;
@@ -257,15 +281,22 @@ public class Character_Controller : MonoBehaviour
             speed = 5;
         }
     }
+ 
 
     //캐릭터의 현재 위치에 물풍선 설치
     void create_water_left()
     {
-        GameObject newball = Instantiate(waterBalloonprefab, new Vector2(1, 0), Quaternion.identity);   // + 좌 플레이어 좌표 할당
+        GameObject newball = Instantiate(waterBalloonprefab, new Vector3(1, 0, -1), Quaternion.identity);   // + 좌 플레이어 좌표 할당
+        GameManager.Instance.gameGrid.tileset[1, 0] = tilestate.ballon;
+        newball.GetComponent<Water_delete>().water_owner = 1;
+        newball.GetComponent<Water_delete>().range = range;
     }
 
     void create_water_right()
     {
-        GameObject newball = Instantiate(waterBalloonprefab, new Vector2(2, 0), Quaternion.identity);   // + 우 플레이어 좌표 할당
+        GameObject newball = Instantiate(waterBalloonprefab, new Vector3(3, 0, -1), Quaternion.identity);   // + 우 플레이어 좌표 할당
+        GameManager.Instance.gameGrid.tileset[3, 0] = tilestate.ballon;
+        newball.GetComponent<Water_delete>().water_owner = 2;
+        newball.GetComponent<Water_delete>().range = range;
     }
 }
