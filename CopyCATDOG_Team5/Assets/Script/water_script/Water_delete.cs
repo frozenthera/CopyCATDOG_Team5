@@ -44,12 +44,12 @@ public class Water_delete : MonoBehaviour
             if (water_owner == 1)
             {
                 character_obj = GameObject.Find("Character1");
-                character_obj.GetComponent<Character_Controller>().maxInstall_First++;
+                //character_obj.GetComponent<Character_Controller>().maxInstall_First++;
             }
             if (water_owner == 2)
             {
                 character_obj = GameObject.Find("Character2");
-                character_obj.GetComponent<Character_Controller>().maxInstall_second++;
+                //character_obj.GetComponent<Character_Controller>().maxInstall_second++;
             }
 
             for (int i = 1; i < GameManager.Instance.gameGrid.cols - ry; i++)
