@@ -11,10 +11,14 @@ public class Water_delete : MonoBehaviour
     float timecount = 0;
     Vector2 pos;
     [SerializeField]
-    private GameObject waveprefab;
+    private GameObject waveprefab_1;
+    [SerializeField]
+    private GameObject waveprefab_2;
+    [SerializeField]
+    private GameObject waveprefab_3;
 
     [HideInInspector]
-    public int water_owner;
+    public bool First_owner;
 
     [HideInInspector]
     public int range;
@@ -45,12 +49,14 @@ public class Water_delete : MonoBehaviour
 
             Destroy(gameObject);
             GameManager.Instance.gameGrid.tileset[rx, ry] = tilestate.empty;
+            GameObject original_wave = Instantiate(waveprefab_3, new Vector3(rx, ry, ry), Quaternion.identity);
+            Destroy(original_wave, 0.3f);
 
-            if (water_owner == 1)
+            if (First_owner == true)
             {
                 GameManager.Instance.character_1.maxInstall++;
             }
-            if (water_owner == 2)
+            if (First_owner == false)
             {
                 GameManager.Instance.character_2.maxInstall++;
             }
@@ -71,7 +77,7 @@ public class Water_delete : MonoBehaviour
                     break;
                 }
 
-                GameObject newwave = Instantiate(waveprefab, new Vector2(rx, ry + i), Quaternion.Euler(0,0,90));
+                GameObject newwave = Instantiate(waveprefab_1, new Vector3(rx, ry + i, ry+ i), Quaternion.Euler(0,0,90));
                 Destroy(newwave, 0.3f);
 
                 if (rx == GameManager.Instance.character_1.characterPos.X && ry+i == GameManager.Instance.character_1.characterPos.Y)
@@ -102,7 +108,7 @@ public class Water_delete : MonoBehaviour
                     break;
                 }
 
-                GameObject newwave = Instantiate(waveprefab, new Vector2(rx, ry - i), Quaternion.Euler(0, 0, 90));
+                GameObject newwave = Instantiate(waveprefab_2, new Vector3(rx, ry - i, ry - i), Quaternion.Euler(0, 0, 90));
                 Destroy(newwave, 0.3f);
 
                 if (rx == GameManager.Instance.character_1.characterPos.X && ry-i == GameManager.Instance.character_1.characterPos.Y)
@@ -133,7 +139,7 @@ public class Water_delete : MonoBehaviour
                     break;
                 }
 
-                GameObject newwave = Instantiate(waveprefab, new Vector2(rx + i, ry), Quaternion.identity);
+                GameObject newwave = Instantiate(waveprefab_1, new Vector3(rx + i, ry, ry), Quaternion.identity);
                 Destroy(newwave, 0.3f);
 
                 if (rx+i == GameManager.Instance.character_1.characterPos.X && ry == GameManager.Instance.character_1.characterPos.Y)
@@ -164,7 +170,7 @@ public class Water_delete : MonoBehaviour
                     break;
                 }
 
-                GameObject newwave = Instantiate(waveprefab, new Vector2(rx - i, ry), Quaternion.identity);
+                GameObject newwave = Instantiate(waveprefab_2, new Vector3(rx - i, ry, ry), Quaternion.identity);
                 Destroy(newwave, 0.3f);
 
                 if (rx-i == GameManager.Instance.character_1.characterPos.X && ry == GameManager.Instance.character_1.characterPos.Y)
