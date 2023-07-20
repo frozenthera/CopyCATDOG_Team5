@@ -16,7 +16,6 @@ public class Character_Controller : MonoBehaviour
     public Vector3 StartPosition;
     private Vector2 unity_pos;
     private int rx, ry;
-    private Coordinate gridtile;
 
     public int speed;
     private Rigidbody2D rb;
@@ -290,8 +289,7 @@ public class Character_Controller : MonoBehaviour
     //캐릭터의 현재 위치에 물풍선 설치
     void create_ballon()
     {
-        gridtile = new Coordinate((int)this.transform.position.x, (int)(this.transform.position.y));
-        unity_pos = GameManager.Instance.gameGrid.grid_to_unity(gridtile);
+        unity_pos = GameManager.Instance.gameGrid.grid_to_unity(characterPos);
         rx = (int)unity_pos.x;
         ry = (int)unity_pos.y;
 
