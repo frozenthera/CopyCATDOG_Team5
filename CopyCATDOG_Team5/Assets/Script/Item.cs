@@ -6,8 +6,12 @@ using UnityEngine;
 public class Item
 {
     public Coordinate itemPos;
-
     public itemEnum itemname;
+    public Item(int i_n, Coordinate i_p)
+    {
+        itemPos = i_p;
+        itemname = itemEnum.bubble + i_n ;
+    }
 
 }
 public enum itemEnum
@@ -16,7 +20,7 @@ public enum itemEnum
     potion,
     roller,
     turtle,
-    piratet,
+    p_turtle,
     needle,
     shield,
     xray

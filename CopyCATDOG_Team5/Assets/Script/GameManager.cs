@@ -189,14 +189,9 @@ public class GameManager : MonoBehaviour
 
     public void itemSpawn(Coordinate itemdest)
     {
-        if (gameGrid.tileset[itemdest.X, itemdest.Y] != tilestate.empty)
-        {
-            itemSpawn(itemdest);
-        }
-        else
-        {
-            gameGrid.tileset[itemdest.X, itemdest.Y] = tilestate.item;
-        }
+        gameGrid.tileset[itemdest.X, itemdest.Y] = tilestate.item;
+        Item rand_item = new Item(Random.Range(0, 8), itemdest);
     }
 
+    //아이템 랜덤 스폰은 타이머 구현이 선행되어야 할것 같음
 }
