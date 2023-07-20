@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 using UnityEngine.UIElements;
+using System;
 
 public class Water_delete : MonoBehaviour
 {
@@ -13,16 +14,20 @@ public class Water_delete : MonoBehaviour
     private GameObject waveprefab;
 
     [HideInInspector]
-    public int water_owner=0;
+    public int water_owner;
 
     [HideInInspector]
-    public int range = 2;
+    public int range;
 
     private GameObject character_obj;
+    int rx, ry;
 
     void Start()
     {
-        pos = this.transform.position;
+        Coordinate gridtile = new Coordinate((int)this.transform.position.x, (int)(this.transform.position.y));
+        pos = GameManager.Instance.gameGrid.grid_to_unity(gridtile);
+        rx = (int)pos.x;
+        ry = (int)pos.y;
     }
 
     void Update()
@@ -43,13 +48,11 @@ public class Water_delete : MonoBehaviour
 
             if (water_owner == 1)
             {
-                character_obj = GameObject.Find("Character1");
-                //character_obj.GetComponent<Character_Controller>().maxInstall_First++;
+                GameManager.Instance.character_1.maxInstall++;
             }
             if (water_owner == 2)
             {
-                character_obj = GameObject.Find("Character2");
-                //character_obj.GetComponent<Character_Controller>().maxInstall_second++;
+                GameManager.Instance.character_2.maxInstall++;
             }
 
             for (int i = 1; i < GameManager.Instance.gameGrid.cols - ry; i++)
@@ -70,6 +73,16 @@ public class Water_delete : MonoBehaviour
 
                 GameObject newwave = Instantiate(waveprefab, new Vector2(rx, ry + i), Quaternion.Euler(0,0,90));
                 Destroy(newwave, 0.3f);
+
+                if (rx == GameManager.Instance.character_1.characterPos.X && ry+i == GameManager.Instance.character_1.characterPos.Y)
+                {
+                    GameManager.Instance.character_1.GetHittedByWater();
+                }
+
+                if (rx == GameManager.Instance.character_2.characterPos.X && ry == GameManager.Instance.character_2.characterPos.Y)
+                {
+                    GameManager.Instance.character_2.GetHittedByWater();
+                }
 
             }
 
@@ -92,6 +105,16 @@ public class Water_delete : MonoBehaviour
                 GameObject newwave = Instantiate(waveprefab, new Vector2(rx, ry - i), Quaternion.Euler(0, 0, 90));
                 Destroy(newwave, 0.3f);
 
+                if (rx == GameManager.Instance.character_1.characterPos.X && ry-i == GameManager.Instance.character_1.characterPos.Y)
+                {
+                    GameManager.Instance.character_1.GetHittedByWater();
+                }
+
+                if (rx == GameManager.Instance.character_2.characterPos.X && ry-i == GameManager.Instance.character_2.characterPos.Y)
+                {
+                    GameManager.Instance.character_2.GetHittedByWater();
+                }
+
             }
 
             for (int i = 1; i < GameManager.Instance.gameGrid.rows - rx; i++)
@@ -113,6 +136,16 @@ public class Water_delete : MonoBehaviour
                 GameObject newwave = Instantiate(waveprefab, new Vector2(rx + i, ry), Quaternion.identity);
                 Destroy(newwave, 0.3f);
 
+                if (rx+i == GameManager.Instance.character_1.characterPos.X && ry == GameManager.Instance.character_1.characterPos.Y)
+                {
+                    GameManager.Instance.character_1.GetHittedByWater();
+                }
+
+                if (rx+i == GameManager.Instance.character_2.characterPos.X && ry == GameManager.Instance.character_2.characterPos.Y)
+                {
+                    GameManager.Instance.character_2.GetHittedByWater();
+                }
+
             }
 
             for (int i = 1; i < rx + 1; i++)
@@ -133,6 +166,16 @@ public class Water_delete : MonoBehaviour
 
                 GameObject newwave = Instantiate(waveprefab, new Vector2(rx - i, ry), Quaternion.identity);
                 Destroy(newwave, 0.3f);
+
+                if (rx-i == GameManager.Instance.character_1.characterPos.X && ry == GameManager.Instance.character_1.characterPos.Y)
+                {
+                    GameManager.Instance.character_1.GetHittedByWater();
+                }
+
+                if (rx-i == GameManager.Instance.character_2.characterPos.X && ry == GameManager.Instance.character_2.characterPos.Y)
+                {
+                    GameManager.Instance.character_2.GetHittedByWater();
+                }
             }
         }       
     }
