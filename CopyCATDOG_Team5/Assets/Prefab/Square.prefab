@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -2696602430014504736}
   m_Layer: 0
   m_Name: Square
-  m_TagString: Untagged
+  m_TagString: Bomb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,7 +101,7 @@ MonoBehaviour:
   waveprefab_1: {fileID: 141937327528663298, guid: 9e3dfb3c0f0c44a469d44cd86d2436f1, type: 3}
   waveprefab_2: {fileID: 141937327528663298, guid: 513cd54e9647f9e4693480cfab20d207, type: 3}
   waveprefab_3: {fileID: 141937327528663298, guid: 8ae930c71b9431e49b8e654ab4571e2c, type: 3}
-  water_owner: 0
+  First_owner: 0
   range: 2
 --- !u!61 &-2696602430014504736
 BoxCollider2D:

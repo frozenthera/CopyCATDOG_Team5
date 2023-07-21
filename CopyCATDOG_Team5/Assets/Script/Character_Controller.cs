@@ -14,8 +14,10 @@ public class Character_Controller : MonoBehaviour
     private GameObject waterBalloonprefab;
     public bool FirstCharacter;
     public Vector3 StartPosition;
+    //물풍선
     private Vector2 unity_pos;
     private int rx, ry;
+    public bool WaterBallonDeployed;
 
     public int speed;
     private Rigidbody2D rb;
@@ -52,6 +54,7 @@ public class Character_Controller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        WaterBallonDeployed = false;
         gameObject.layer = 6;
         getHit = false;
         rb = GetComponent<Rigidbody2D>();
@@ -82,6 +85,16 @@ public class Character_Controller : MonoBehaviour
     int active;
     void Update()
     {
+        //물풍선 관리
+        if (WaterBallonDeployed == true)
+        {
+            float x = transform.position.x, y = transform.position.y;
+            if (x >= rx + 1 || x <= rx - 1 || y >= ry + 1 || y <= ry - 1)
+            {
+                Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), newball.GetComponent<BoxCollider2D>(), false);
+            }
+        }
+        //transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y);
         characterPos = GameManager.Instance.gameGrid.unity_to_grid(transform.position);
         // 동시입력관리
         if (Input.GetKeyDown(myKey1))
@@ -262,7 +275,7 @@ public class Character_Controller : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(getHit == true && collision.gameObject.layer == 8)
+        if(getHit == true && collision.gameObject.layer == 7)
         {
             GameOver();
         }
@@ -283,21 +296,22 @@ public class Character_Controller : MonoBehaviour
             speed = 5;
         }
     }
- 
 
+    private GameObject newball;
     //캐릭터의 현재 위치에 물풍선 설치
     void create_ballon()
     {
         unity_pos = GameManager.Instance.gameGrid.grid_to_unity(characterPos);
         rx = (int)unity_pos.x;
         ry = (int)unity_pos.y;
-
-        GameObject newball = Instantiate(waterBalloonprefab, new Vector3(rx, ry, ry), Quaternion.identity);
+        Debug.Log(rx + " " + ry);
+        //테스트용으로 z값 -5로 바꿔놓음
+        newball = Instantiate(waterBalloonprefab, new Vector3(rx, ry, -5), Quaternion.identity);
         GameManager.Instance.gameGrid.tileset[characterPos.X, characterPos.Y] = tilestate.ballon;
-
+        Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), newball.GetComponent<BoxCollider2D>());
+        WaterBallonDeployed = true;
         if(FirstCharacter == true)
             newball.GetComponent<Water_delete>().First_owner = true;
-
         newball.GetComponent<Water_delete>().range = range;
     }
 }

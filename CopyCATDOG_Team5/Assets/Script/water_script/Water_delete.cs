@@ -46,6 +46,8 @@ public class Water_delete : MonoBehaviour
 
             Debug.Log("π∞«≥º± ≈Õ¡¸");
             Debug.Log(pos);
+            GameManager.Instance.character_1.WaterBallonDeployed = false;
+            GameManager.Instance.character_2.WaterBallonDeployed = false;
 
             Destroy(gameObject);
             GameManager.Instance.gameGrid.tileset[rx, ry] = tilestate.empty;
