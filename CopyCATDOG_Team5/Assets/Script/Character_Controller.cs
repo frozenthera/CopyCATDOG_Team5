@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using System;
+using static UnityEditor.PlayerSettings;
 
 public class Character_Controller : MonoBehaviour
 {
@@ -13,15 +14,18 @@ public class Character_Controller : MonoBehaviour
     private GameObject waterBalloonprefab;
     public bool FirstCharacter;
     public Vector3 StartPosition;
+    private Vector2 unity_pos;
+    private int rx, ry;
 
     public int speed;
     private Rigidbody2D rb;
     private Vector2 vector;
 
     public Coordinate characterPos;
-
+    
     public int range_level, speed_level;
     private int range;
+    [HideInInspector]
     public int maxInstall;
 
     private void range_apply(int temp)
@@ -151,7 +155,7 @@ public class Character_Controller : MonoBehaviour
             if (maxInstall > 0)
                 if (Input.GetKeyDown(KeyCode.RightShift))
                 {
-                    create_water_left();
+                    create_ballon();
                     maxInstall--;
                 }
         }
@@ -159,7 +163,7 @@ public class Character_Controller : MonoBehaviour
             if (maxInstall> 0)
                 if (Input.GetKeyDown(KeyCode.LeftShift))
                 {
-                    create_water_right();
+                    create_ballon();
                     maxInstall--;
                 }
     }
@@ -241,7 +245,6 @@ public class Character_Controller : MonoBehaviour
         }
     }
 
-
     public bool getHit;
     //플레이어가 물줄기에 맞았을 때의 동작 구현
     public void GetHittedByWater()
@@ -283,19 +286,18 @@ public class Character_Controller : MonoBehaviour
  
 
     //캐릭터의 현재 위치에 물풍선 설치
-    void create_water_left()
+    void create_ballon()
     {
-        GameObject newball = Instantiate(waterBalloonprefab, new Vector3(characterPos.X, characterPos.Y, -1), Quaternion.identity);   // + 좌 플레이어 좌표 할당
-        GameManager.Instance.gameGrid.tileset[characterPos.X, characterPos.Y] = tilestate.ballon;
-        newball.GetComponent<Water_delete>().water_owner = 1;
-        newball.GetComponent<Water_delete>().range = range;
-    }
+        unity_pos = GameManager.Instance.gameGrid.grid_to_unity(characterPos);
+        rx = (int)unity_pos.x;
+        ry = (int)unity_pos.y;
 
-    void create_water_right()
-    {
-        GameObject newball = Instantiate(waterBalloonprefab, new Vector3(characterPos.X, characterPos.Y, -1), Quaternion.identity);   // + 우 플레이어 좌표 할당
+        GameObject newball = Instantiate(waterBalloonprefab, new Vector3(rx, ry, ry), Quaternion.identity);
         GameManager.Instance.gameGrid.tileset[characterPos.X, characterPos.Y] = tilestate.ballon;
-        newball.GetComponent<Water_delete>().water_owner = 2;
+
+        if(FirstCharacter == true)
+            newball.GetComponent<Water_delete>().First_owner = true;
+
         newball.GetComponent<Water_delete>().range = range;
     }
 }
