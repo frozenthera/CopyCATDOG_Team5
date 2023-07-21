@@ -125,11 +125,11 @@ public class GameManager : MonoBehaviour
 
                 if (gamegrid.tileset[row, col] == tilestate.wall)
                 {
-                    GameObject wall_tile = Instantiate(referenece_wall, new Vector3(x, y, 1), Quaternion.identity);
+                    GameObject wall_tile = Instantiate(referenece_wall, new Vector3(x, y, y), Quaternion.identity);
                 }
                 else 
                 {
-                    GameObject empty_tile = Instantiate(referenece_empty, new Vector3(x, y, 1), Quaternion.identity);
+                    GameObject empty_tile = Instantiate(referenece_empty, new Vector3(x, y, 255), Quaternion.identity);
                 //  empty_tile.transform.position = new Vector3(x, y, 0);
                 }
             }
@@ -144,12 +144,12 @@ public class GameManager : MonoBehaviour
 
                 if (gamegrid.tileset[row, col] == tilestate.block)
                 {
-                    GameObject block_tile = Instantiate(referenece_block, new Vector3(x, y, 0), Quaternion.identity);
+                    GameObject block_tile = Instantiate(referenece_block, new Vector3(x, y, y), Quaternion.identity);
                     object_list[row, col] = block_tile;
                 }
                 else if (gamegrid.tileset[row, col] == tilestate.box)
                 {
-                    GameObject box_tile = Instantiate(referenece_box, new Vector3(x, y, 0), Quaternion.identity);
+                    GameObject box_tile = Instantiate(referenece_box, new Vector3(x, y, y), Quaternion.identity);
                     object_list[row, col] = box_tile;
                 }
             }
@@ -165,7 +165,7 @@ public class GameManager : MonoBehaviour
 
         Coordinate tile = new Coordinate(x, y);
         int rand = Random.Range(0, 10);
-        if (rand == 2 || rand == 9)
+        if (rand < 2)
         {
             itemSpawn(tile);
         }
@@ -175,7 +175,6 @@ public class GameManager : MonoBehaviour
     public void move_box(int x_origin, int y_origin, int x_dest, int y_dest)
     {
         if (gameGrid.tileset[x_dest, y_dest] != tilestate.empty) return;
-
        
         gameGrid.tileset[x_origin, y_origin] = tilestate.empty;
         gameGrid.tileset[x_dest, y_dest] = tilestate.box;
@@ -184,7 +183,6 @@ public class GameManager : MonoBehaviour
 
         //box sprite 이동 애니메이션
         Object_List[x_dest, y_dest].transform.position = new Vector3(x_dest, y_dest, 0);
-
     }
 
     public void itemSpawn(Coordinate itemdest)
