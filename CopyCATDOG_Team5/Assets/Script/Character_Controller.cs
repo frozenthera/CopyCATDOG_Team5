@@ -149,7 +149,7 @@ public class Character_Controller : MonoBehaviour
         if (FirstCharacter)
         {
             if (maxInstall > 0)
-                if (Input.GetKeyDown(KeyCode.LeftShift))
+                if (Input.GetKeyDown(KeyCode.RightShift))
                 {
                     create_water_left();
                     maxInstall--;
@@ -157,7 +157,7 @@ public class Character_Controller : MonoBehaviour
         }
         else
             if (maxInstall> 0)
-                if (Input.GetKeyDown(KeyCode.RightShift))
+                if (Input.GetKeyDown(KeyCode.LeftShift))
                 {
                     create_water_right();
                     maxInstall--;
@@ -285,16 +285,16 @@ public class Character_Controller : MonoBehaviour
     //캐릭터의 현재 위치에 물풍선 설치
     void create_water_left()
     {
-        GameObject newball = Instantiate(waterBalloonprefab, new Vector3(1, 0, -1), Quaternion.identity);   // + 좌 플레이어 좌표 할당
-        GameManager.Instance.gameGrid.tileset[1, 0] = tilestate.ballon;
+        GameObject newball = Instantiate(waterBalloonprefab, new Vector3(characterPos.X, characterPos.Y, -1), Quaternion.identity);   // + 좌 플레이어 좌표 할당
+        GameManager.Instance.gameGrid.tileset[characterPos.X, characterPos.Y] = tilestate.ballon;
         newball.GetComponent<Water_delete>().water_owner = 1;
         newball.GetComponent<Water_delete>().range = range;
     }
 
     void create_water_right()
     {
-        GameObject newball = Instantiate(waterBalloonprefab, new Vector3(3, 0, -1), Quaternion.identity);   // + 우 플레이어 좌표 할당
-        GameManager.Instance.gameGrid.tileset[3, 0] = tilestate.ballon;
+        GameObject newball = Instantiate(waterBalloonprefab, new Vector3(characterPos.X, characterPos.Y, -1), Quaternion.identity);   // + 우 플레이어 좌표 할당
+        GameManager.Instance.gameGrid.tileset[characterPos.X, characterPos.Y] = tilestate.ballon;
         newball.GetComponent<Water_delete>().water_owner = 2;
         newball.GetComponent<Water_delete>().range = range;
     }

@@ -160,6 +160,13 @@ public class GameManager : MonoBehaviour
     {
         gameGrid.tileset[x, y] = tilestate.empty;
         Destroy(Object_List[x, y]);
+
+        Coordinate tile = new Coordinate(x, y);
+        int rand = Random.Range(0, 10);
+        if (rand == 2 || rand == 9)
+        {
+            itemSpawn(tile);
+        }
     }
 
 
@@ -178,4 +185,11 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void itemSpawn(Coordinate itemdest)
+    {
+        gameGrid.tileset[itemdest.X, itemdest.Y] = tilestate.item;
+        Item rand_item = new Item(Random.Range(0, 8), itemdest);
+    }
+
+    //아이템 랜덤 스폰은 타이머 구현이 선행되어야 할것 같음
 }
