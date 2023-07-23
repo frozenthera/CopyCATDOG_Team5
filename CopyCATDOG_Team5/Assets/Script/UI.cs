@@ -18,10 +18,6 @@ public class UI : MonoBehaviour
     private GameObject startbutton;
 
     private MainmenuData mainmenuData;
-    public void StartButton()
-    {
-        SceneManager.LoadScene("Main_chaehun");
-    }
     public void left_arrow()
     {
         if (mainmenuData.map_select != 0)
@@ -85,6 +81,7 @@ public class UI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Screen.SetResolution(1920, 1080, true);
         startbutton.SetActive(false);
         mainmenuData = new MainmenuData() { map_select = 0, player1_select = 0, player2_select = 0 , player1_shift = false, player2_shift = false};
         Update_mapimages();

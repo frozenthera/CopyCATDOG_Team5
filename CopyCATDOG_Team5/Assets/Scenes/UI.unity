@@ -932,7 +932,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1029076675}
-        m_TargetAssemblyTypeName: UI, Assembly-CSharp
+        m_TargetAssemblyTypeName: Start_button, Assembly-CSharp
         m_MethodName: StartButton
         m_Mode: 1
         m_Arguments:
@@ -990,22 +990,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1029076670}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 606c6f59b43490344a69347d01cedb68, type: 3}
+  m_Script: {fileID: 11500000, guid: 2ac78e8311125df4bb543dec9689e4d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maps:
-  - {fileID: 1134920006}
-  - {fileID: 88844187}
-  - {fileID: 1661480922}
-  character1_select_image:
-  - {fileID: 1539470358}
-  - {fileID: 2058362696}
-  - {fileID: 837601736}
-  character2_select_image:
-  - {fileID: 2029793895}
-  - {fileID: 2035943542}
-  - {fileID: 441536777}
-  startbutton: {fileID: 1029076670}
 --- !u!1 &1030634607
 GameObject:
   m_ObjectHideFlags: 0
