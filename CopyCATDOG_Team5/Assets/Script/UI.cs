@@ -16,6 +16,10 @@ public class UI : MonoBehaviour
     private List<Image> character2_select_image;
     [SerializeField]
     private GameObject startbutton;
+    [SerializeField]
+    private List<GameObject> character1_stats_image;
+    [SerializeField]
+    private List<GameObject> character2_stats_image;
 
     private MainmenuData mainmenuData;
     public void left_arrow()
@@ -75,6 +79,22 @@ public class UI : MonoBehaviour
                 character2_select_image[i].gameObject.SetActive(true);
             else
                 character2_select_image[i].gameObject.SetActive(false);
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            if (i == c2)
+                character1_stats_image[i].gameObject.SetActive(true);
+            else
+                character1_stats_image[i].gameObject.SetActive(false);
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            if (i == c1)
+                character2_stats_image[i].gameObject.SetActive(true);
+            else
+                character2_stats_image[i].gameObject.SetActive(false);
         }
     }
 
