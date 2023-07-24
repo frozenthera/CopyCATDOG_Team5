@@ -185,11 +185,49 @@ public class GameManager : MonoBehaviour
         Object_List[x_dest, y_dest].transform.position = new Vector3(x_dest, y_dest, 0);
     }
 
+    public GameObject referenece_bubble;
+    public GameObject referenece_potion;
+    public GameObject referenece_skate;
+    public GameObject referenece_needle;
     public void itemSpawn(Coordinate itemdest)
     {
+        int item_kind = Random.Range(0, 8);
         gameGrid.tileset[itemdest.X, itemdest.Y] = tilestate.item;
-        Item rand_item = new Item(Random.Range(0, 8), itemdest);
+        Item new_item = new Item(item_kind, itemdest);
+
+        switch (item_kind)
+        {
+            case 0: 
+                GameObject itemtile_bubble = Instantiate(referenece_bubble, new Vector3(itemdest.X, itemdest.Y, itemdest.Y), Quaternion.identity);
+                break;
+
+            case 1:
+                GameObject itemtile_potion = Instantiate(referenece_potion, new Vector3(itemdest.X, itemdest.Y, itemdest.Y), Quaternion.identity);
+                break;
+
+            case 4:
+                GameObject itemtile_skate = Instantiate(referenece_skate, new Vector3(itemdest.X, itemdest.Y, itemdest.Y), Quaternion.identity);
+                break;
+
+            case 5:
+                GameObject itemtile_needle = Instantiate(referenece_needle, new Vector3(itemdest.X, itemdest.Y, itemdest.Y), Quaternion.identity);
+                break;
+
+        }
     }
 
-    //아이템 랜덤 스폰은 타이머 구현이 선행되어야 할것 같음
+    public void item_randspawn()
+    {
+        int item_kind = Random.Range(0, 8);
+        Coordinate randdest = new Coordinate(Random.Range(0, gameGrid.rows), Random.Range(0, gameGrid.cols));
+        if (!gameGrid.is_empty(randdest))
+        {
+            item_randspawn();
+        }
+        else
+        {
+            itemSpawn(randdest);
+        }
+    }
+    //정해진 시간에 스폰되게 하는법을 모르겠네요
 }

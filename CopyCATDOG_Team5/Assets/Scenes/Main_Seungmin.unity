@@ -227,6 +227,22 @@ PrefabInstance:
       propertyPath: referenece_box
       value: 
       objectReference: {fileID: 2803020721533691415, guid: 7cfcead500899954b91fb26344d3cc70, type: 3}
+    - target: {fileID: 81965674153142287, guid: 7a96438354432c446a12b7b59a3db94e, type: 3}
+      propertyPath: referenece_skate
+      value: 
+      objectReference: {fileID: 895689410497146058, guid: 41b9dc2fa0923064e9e3d49f88bd9c67, type: 3}
+    - target: {fileID: 81965674153142287, guid: 7a96438354432c446a12b7b59a3db94e, type: 3}
+      propertyPath: referenece_bubble
+      value: 
+      objectReference: {fileID: 2438458511002011855, guid: cb59b46e596cfdc47b033786d6fea759, type: 3}
+    - target: {fileID: 81965674153142287, guid: 7a96438354432c446a12b7b59a3db94e, type: 3}
+      propertyPath: referenece_needle
+      value: 
+      objectReference: {fileID: 5757838792281856941, guid: 8ce9ad50d39eb8549975ce1df8f37c9e, type: 3}
+    - target: {fileID: 81965674153142287, guid: 7a96438354432c446a12b7b59a3db94e, type: 3}
+      propertyPath: referenece_potion
+      value: 
+      objectReference: {fileID: 2574669628546087268, guid: 84c9891ab94d31542b8eaa7a57ef2ef5, type: 3}
     - target: {fileID: 1177734942939920556, guid: 7a96438354432c446a12b7b59a3db94e, type: 3}
       propertyPath: m_Name
       value: Game Manager
