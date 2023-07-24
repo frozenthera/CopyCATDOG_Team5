@@ -68,33 +68,29 @@ public class UI : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             if (i == c1)
+            {
                 character1_select_image[i].gameObject.SetActive(true);
-            else
-                character1_select_image[i].gameObject.SetActive(false);
-        }
-
-        for (int i = 0; i < 3; i++)
-        {
-            if (i == c2)
-                character2_select_image[i].gameObject.SetActive(true);
-            else
-                character2_select_image[i].gameObject.SetActive(false);
-        }
-
-        for (int i = 0; i < 3; i++)
-        {
-            if (i == c2)
                 character1_stats_image[i].gameObject.SetActive(true);
+            }
             else
+            {
+                character1_select_image[i].gameObject.SetActive(false);
                 character1_stats_image[i].gameObject.SetActive(false);
+            }
         }
 
         for (int i = 0; i < 3; i++)
         {
-            if (i == c1)
+            if (i == c2)
+            {
+                character2_select_image[i].gameObject.SetActive(true);
                 character2_stats_image[i].gameObject.SetActive(true);
+            }
             else
+            {
+                character2_select_image[i].gameObject.SetActive(false);
                 character2_stats_image[i].gameObject.SetActive(false);
+            }
         }
     }
 

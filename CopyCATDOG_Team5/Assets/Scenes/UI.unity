@@ -437,7 +437,7 @@ GameObject:
   m_Component:
   - component: {fileID: 108171864}
   m_Layer: 0
-  m_Name: character_type_1_2p
+  m_Name: character_type_1_1p
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -928,7 +928,7 @@ GameObject:
   m_Component:
   - component: {fileID: 432533213}
   m_Layer: 0
-  m_Name: character_type_3_1p
+  m_Name: character_type_3_2p
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1407,7 +1407,7 @@ GameObject:
   m_Component:
   - component: {fileID: 544988702}
   m_Layer: 0
-  m_Name: character_type_3_2p
+  m_Name: character_type_3_1p
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3728,13 +3728,13 @@ MonoBehaviour:
   - {fileID: 441536777}
   startbutton: {fileID: 1029076670}
   character1_stats_image:
-  - {fileID: 1680931350}
-  - {fileID: 1482519609}
-  - {fileID: 432533212}
-  character2_stats_image:
   - {fileID: 108171863}
   - {fileID: 1648938127}
   - {fileID: 544988701}
+  character2_stats_image:
+  - {fileID: 1680931350}
+  - {fileID: 1482519609}
+  - {fileID: 432533212}
 --- !u!1 &1478446352
 GameObject:
   m_ObjectHideFlags: 0
@@ -3860,7 +3860,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1482519610}
   m_Layer: 0
-  m_Name: character_type_2_1p
+  m_Name: character_type_2_2p
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4200,7 +4200,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1648938128}
   m_Layer: 0
-  m_Name: character_type_2_2p
+  m_Name: character_type_2_1p
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4310,7 +4310,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1680931351}
   m_Layer: 0
-  m_Name: character_type_1_1p
+  m_Name: character_type_1_2p
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4949,13 +4949,13 @@ MonoBehaviour:
   - {fileID: 441536777}
   startbutton: {fileID: 1029076670}
   character1_stats_image:
-  - {fileID: 1680931350}
-  - {fileID: 1482519609}
-  - {fileID: 432533212}
-  character2_stats_image:
   - {fileID: 108171863}
   - {fileID: 1648938127}
   - {fileID: 544988701}
+  character2_stats_image:
+  - {fileID: 1680931350}
+  - {fileID: 1482519609}
+  - {fileID: 432533212}
 --- !u!1 &1980277214
 GameObject:
   m_ObjectHideFlags: 0
@@ -5288,12 +5288,12 @@ Transform:
   m_LocalScale: {x: 1.6768558, y: 1.6768558, z: 1.6768558}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1680931351}
-  - {fileID: 1482519610}
-  - {fileID: 432533213}
   - {fileID: 108171864}
   - {fileID: 1648938128}
   - {fileID: 544988702}
+  - {fileID: 1680931351}
+  - {fileID: 1482519610}
+  - {fileID: 432533213}
   m_Father: {fileID: 911550595}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
