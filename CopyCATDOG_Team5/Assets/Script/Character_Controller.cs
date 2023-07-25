@@ -78,10 +78,10 @@ public class Character_Controller : MonoBehaviour
     int active;
     void Update()
     {
-
-        if(characterPos != GameManager.Instance.gameGrid.unity_to_grid(transform.position))
+        Coordinate nextCoord = GameManager.Instance.gameGrid.unity_to_grid(transform.position);
+        if (characterPos != nextCoord)
         {
-            if(GameManager.Instance.gameGrid.tileset[characterPos.X, characterPos.Y] == tilestate.item)
+            if(GameManager.Instance.gameGrid.is_reachable(nextCoord) && GameManager.Instance.gameGrid.tileset[characterPos.X, characterPos.Y] == tilestate.item)
             {
                 switch(GameManager.Instance.Object_List[characterPos.X, characterPos.Y].GetComponent<Item>().itemname)
                 {
@@ -98,13 +98,12 @@ public class Character_Controller : MonoBehaviour
                         break;
                 }
 
-                GameManager.Instance.destroy_tile(characterPos.X, characterPos.Y);
+                GameManager.Instance.destroy_tile(nextCoord.X, nextCoord.Y);
             }
         }
 
+        characterPos = nextCoord;
 
-        characterPos.X = (int)Math.Round(transform.position.x);
-        characterPos.Y = (int)Math.Round(transform.position.y);
         // 동시입력관리
         if (Input.GetKeyDown(myKey1))
         {

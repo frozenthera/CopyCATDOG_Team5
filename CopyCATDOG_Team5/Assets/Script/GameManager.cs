@@ -157,7 +157,7 @@ public class GameManager : MonoBehaviour
         return object_list;
     }
 
-
+    public void destroy_tile(Coordinate coord) => destroy_tile(coord.X, coord.X);
     public void destroy_tile(int x, int y)
     {
         bool is_item = gameGrid.tileset[x, y] == tilestate.item;
@@ -178,8 +178,12 @@ public class GameManager : MonoBehaviour
 
     public void move_box(int x_origin, int y_origin, int x_dest, int y_dest)
     {
-        if (gameGrid.tileset[x_dest, y_dest] != tilestate.empty) return;
-       
+        Coordinate destCoord = new Coordinate(x_dest, y_dest);
+        if (!gameGrid.is_empty(destCoord) && destCoord != character_1.characterPos && destCoord != character_2.characterPos) return;
+        else if (gameGrid.tileset[x_dest, y_dest] == tilestate.item)
+        {
+            destroy_tile(x_dest, y_dest);
+        }
         gameGrid.tileset[x_origin, y_origin] = tilestate.empty;
         gameGrid.tileset[x_dest, y_dest] = tilestate.box;
         Object_List[x_dest, y_dest] = Object_List[x_origin, y_origin];
@@ -197,7 +201,7 @@ public class GameManager : MonoBehaviour
         //int item_kind = Random.Range(0, 8);
         int item_kind = 0;
         gameGrid.tileset[itemdest.X, itemdest.Y] = tilestate.item;
-        Item new_item = new Item(item_kind, itemdest);
+        //Item new_item = new Item(item_kind, itemdest);
         Vector3 item_v3 = gameGrid.grid_to_unity(itemdest);
 
         switch (item_kind)
