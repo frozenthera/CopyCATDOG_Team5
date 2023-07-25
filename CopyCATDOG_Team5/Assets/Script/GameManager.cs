@@ -154,20 +154,24 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-                return object_list;
+        return object_list;
     }
 
 
     public void destroy_tile(int x, int y)
     {
+        bool is_item = gameGrid.tileset[x, y] == tilestate.item;
         gameGrid.tileset[x, y] = tilestate.empty;
         Destroy(Object_List[x, y]);
 
-        Coordinate tile = new Coordinate(x, y);
-        int rand = Random.Range(0, 10);
-        if (rand < 2)
+        if (!is_item)
         {
-            itemSpawn(tile);
+            Coordinate tile = new Coordinate(x, y);
+            int rand = Random.Range(0, 10);
+            if (true)
+            {
+                itemSpawn(tile);
+            }
         }
     }
 
@@ -188,31 +192,30 @@ public class GameManager : MonoBehaviour
     public GameObject referenece_bubble;
     public GameObject referenece_potion;
     public GameObject referenece_skate;
-    public GameObject referenece_needle;
     public void itemSpawn(Coordinate itemdest)
     {
-        int item_kind = Random.Range(0, 8);
+        //int item_kind = Random.Range(0, 8);
+        int item_kind = 0;
         gameGrid.tileset[itemdest.X, itemdest.Y] = tilestate.item;
         Item new_item = new Item(item_kind, itemdest);
+        Vector3 item_v3 = gameGrid.grid_to_unity(itemdest);
 
         switch (item_kind)
         {
             case 0: 
-                GameObject itemtile_bubble = Instantiate(referenece_bubble, new Vector3(itemdest.X, itemdest.Y, itemdest.Y), Quaternion.identity);
+                GameObject itemtile_bubble = Instantiate(referenece_bubble, item_v3, Quaternion.identity);
+                Object_List[itemdest.X, itemdest.Y] = itemtile_bubble;
                 break;
 
             case 1:
-                GameObject itemtile_potion = Instantiate(referenece_potion, new Vector3(itemdest.X, itemdest.Y, itemdest.Y), Quaternion.identity);
+                GameObject itemtile_potion = Instantiate(referenece_potion, item_v3, Quaternion.identity);
+                Object_List[itemdest.X, itemdest.Y] = itemtile_potion;
                 break;
 
             case 4:
-                GameObject itemtile_skate = Instantiate(referenece_skate, new Vector3(itemdest.X, itemdest.Y, itemdest.Y), Quaternion.identity);
+                GameObject itemtile_skate = Instantiate(referenece_skate, item_v3, Quaternion.identity);
+                Object_List[itemdest.X, itemdest.Y] = itemtile_skate;
                 break;
-
-            case 5:
-                GameObject itemtile_needle = Instantiate(referenece_needle, new Vector3(itemdest.X, itemdest.Y, itemdest.Y), Quaternion.identity);
-                break;
-
         }
     }
 

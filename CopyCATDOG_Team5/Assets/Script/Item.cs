@@ -60,11 +60,6 @@ public class Item
                         GameManager.Instance.character_2.speed += 1;
                     }
                     break;
-
-                case itemEnum.needle:
-                    //character controller에서 needle count를 계산하고 물풍선에 갇힌 상태에서 벗어날 수 있도록 기능을 넣어야할듯
-                    
-                    break;
             }
         }
     }

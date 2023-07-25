@@ -83,6 +83,16 @@ public class Coordinate
     {
         return X.ToString() + "," + Y.ToString();
     }
+
+    public static bool operator ==(Coordinate lhs, Coordinate rhs)
+    {
+        return lhs.X == rhs.X && lhs.Y == rhs.Y;
+    }
+    
+    public static bool operator !=(Coordinate lhs, Coordinate rhs)
+    {
+        return lhs.X != rhs.X || lhs.Y != rhs.Y;
+    }
 }
 
 
