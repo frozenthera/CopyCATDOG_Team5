@@ -80,6 +80,8 @@ public class Character_Controller : MonoBehaviour
     }
     public void StartCharacter()
     {
+        Anim = transform.GetChild(0).GetComponent<Animator>();
+        Anim.speed = 0f;
         transform.position = StartPosition;
         if (FirstCharacter == true)
         {
@@ -101,6 +103,8 @@ public class Character_Controller : MonoBehaviour
     // Update is called once per frame
     int temp;
     int active;
+
+    Animator Anim;
     void Update()
     {
         //물풍선 관리
@@ -138,39 +142,54 @@ public class Character_Controller : MonoBehaviour
         if (Input.GetKey(myKey1) || Input.GetKey(myKey2) || Input.GetKey(myKey3) || Input.GetKey(myKey4) && active == 1)
         {
             rb.velocity = vector * speed;
+            SpriteRenderer characterSprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
+            Anim.speed = 2f;
+            Anim.SetBool("moving_x", false);
+            Anim.SetBool("moving_up", false);
+            Anim.SetBool("moving_down", false);
             switch (temp)
             {
                 case 0:
+                    Anim.SetBool("moving_up", true);
                     vector = Vector2.up;
                     break;
                 case 1:
+                    Anim.SetBool("moving_down", true);
                     vector = Vector2.down;
                     break;
                 case 2:
+                    characterSprite.flipX = false;
+                    Anim.SetBool("moving_x", true);
                     vector = Vector2.left;
                     break;
                 case 3:
+                    characterSprite.flipX = true;
+                    Anim.SetBool("moving_x", true);
                     vector = Vector2.right;
                     break;
             }
         }
         if (Input.GetKeyUp(myKey1) && temp == 0)
         {
+            Anim.speed = 0f;
             active = 0;
             rb.velocity = new Vector2(0, 0);
         }
         if (Input.GetKeyUp(myKey2) && temp == 1)
         {
+            Anim.speed = 0f;
             active = 0;
             rb.velocity = new Vector2(0, 0);
         }
         if (Input.GetKeyUp(myKey3) && temp == 2)
         {
+            Anim.speed = 0f;
             active = 0;
             rb.velocity = new Vector2(0, 0);
         }
         if (Input.GetKeyUp(myKey4) && temp == 3)
         {
+            Anim.speed = 0f;
             active = 0;
             rb.velocity = new Vector2(0, 0);
         }

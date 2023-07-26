@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 20b9830f0d89bc745836d758715fae7d
+guid: 151061a4df7faff44917dc9a72448092
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: left_0
+      name: up2_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 18e68a8784759e84ab9aa852e135d47c
-      internalID: -1852340767
+      spriteID: c6579860a7c83db4dae1ce829686ec87
+      internalID: -1240711314
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: left_1
+      name: up2_1
       rect:
         serializedVersion: 2
         x: 32
@@ -145,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 646f1d1e7500a214ba9db7f6c7a9c80e
-      internalID: 1802185770
+      spriteID: 03aeae4867fa38349b92d6d78902718f
+      internalID: 1316185235
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: left_2
+      name: up2_2
       rect:
         serializedVersion: 2
         x: 64
@@ -166,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 84e9c7086b4bb3145a0a29adb2851e4a
-      internalID: -222851732
+      spriteID: 8b3376a6670675b40a64a1f9b037e47f
+      internalID: -2018699915
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: left_3
+      name: up2_3
       rect:
         serializedVersion: 2
         x: 96
@@ -187,14 +187,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e76bc9a127e4b343b347687a0cbf892
-      internalID: -797886495
+      spriteID: c538668a51af3af4facd02d25ff392e2
+      internalID: 211973175
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: left_4
+      name: up2_4
       rect:
         serializedVersion: 2
         x: 128
@@ -208,14 +208,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 928a6191a1a8cbd4d982398b7cddbd0b
-      internalID: -1225786879
+      spriteID: c1574c03b7b9a99448700603f5b817e3
+      internalID: -734075204
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: left_5
+      name: up2_5
       rect:
         serializedVersion: 2
         x: 160
@@ -229,8 +229,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 072bfabf742e1d743b70595431000bb1
-      internalID: -1056569269
+      spriteID: 762dc4adeb7c1864b9efbb370dbbcaea
+      internalID: -741717694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: up2_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7caba0799b71863418ed86154fd2ab4e
+      internalID: 194728843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: up2_7
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 32
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e7e26ba1e5f3094ca94c9c0e35eea09
+      internalID: -457596606
       vertices: []
       indices: 
       edges: []
@@ -246,12 +288,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      left_0: -1852340767
-      left_1: 1802185770
-      left_2: -222851732
-      left_3: -797886495
-      left_4: -1225786879
-      left_5: -1056569269
+      up2_0: -1240711314
+      up2_1: 1316185235
+      up2_2: -2018699915
+      up2_3: 211973175
+      up2_4: -734075204
+      up2_5: -741717694
+      up2_6: 194728843
+      up2_7: -457596606
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
