@@ -7,6 +7,7 @@ public class Start_button : MonoBehaviour
 {
     public void StartButton()
     {
-        SceneManager.LoadScene("Main_chaehun");
+        Debug.Log("!");
+        SceneManager.LoadScene("Sehyeon_Scene");
     }
 }

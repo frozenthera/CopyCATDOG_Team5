@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Main_chaehun.unity
     guid: c6b4b98d832540e4fa1429f1a5036f98
+  - enabled: 1
+    path: Assets/Scenes/Sehyeon_Scene.unity
+    guid: ba227241473941a45acf3be51fa1ba45
   m_configObjects: {}

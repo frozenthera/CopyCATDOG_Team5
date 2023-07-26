@@ -30,6 +30,24 @@ public class Character_Controller : MonoBehaviour
     [HideInInspector]
     public int maxInstall;
 
+
+    //능력치 증가 함수
+
+    public void addrange()
+    {
+        range += 1;
+    }
+
+    public void addspeed()
+    {
+        speed += 2;
+    }
+
+    public void addmaxinstall()
+    {
+        maxInstall += 1;
+    }
+
     private void range_apply(int temp)
     {
         //임시수치

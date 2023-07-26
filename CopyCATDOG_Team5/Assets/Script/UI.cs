@@ -165,7 +165,10 @@ public class UI : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             if (mainmenuData.player2_shift == false)
+            {
                 mainmenuData.player2_shift = true;
+                GameManager.Instance.player2Select = mainmenuData.player2_select;
+            }
             else
             {
                 mainmenuData.player2_shift = false;
@@ -177,7 +180,10 @@ public class UI : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.RightShift))
         {
             if (mainmenuData.player1_shift == false)
+            {
                 mainmenuData.player1_shift = true;
+                GameManager.Instance.player1Select = mainmenuData.player1_select;
+            }
             else
             {
                 mainmenuData.player1_shift = false;

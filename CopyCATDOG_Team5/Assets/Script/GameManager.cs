@@ -36,8 +36,15 @@ public class GameManager : MonoBehaviour
 
     public Grid gameGrid;
 
-    public void OnEnable()
+
+    public GameObject[,] Object_List;
+
+    public int player1Select, player2Select;
+    void OnLevelWasLoaded()
     {
+        character_1 = GameObject.Find("Character1").GetComponent<Character_Controller>();
+        character_2 = GameObject.Find("Character2").GetComponent<Character_Controller>();
+
         gameGrid = new Grid(5, 5);
         for (int i = 0; i < gameGrid.rows; i++)
         {
@@ -51,12 +58,8 @@ public class GameManager : MonoBehaviour
         gameGrid.tileset[2, 2] = tilestate.wall;
         gameGrid.tileset[3, 2] = tilestate.block;
         gameGrid.tileset[4, 2] = tilestate.box;
-    }
 
-    public GameObject[,] Object_List;
-
-    public void Start()
-    {
+        //씬이 로드되었을 때 할일
         Screen.SetResolution(1920, 1080, true);
 
         Object_List = Generate_grid(gameGrid);
@@ -64,8 +67,13 @@ public class GameManager : MonoBehaviour
         character_2.StartPosition = gameGrid.grid_to_unity(new Coordinate(2, 4));
         for (int i = 0; i < 2; i++)
         {
+            int selectPlayer;
+            if (i == 0)
+                selectPlayer = player1Select;
+            else
+                selectPlayer = player2Select;
             int maxInstall = 0, speed = 0, range = 0;
-            switch(Random.Range(0, 3))
+            switch (selectPlayer)
             {
                 case 0:
                     print("0");
@@ -86,7 +94,7 @@ public class GameManager : MonoBehaviour
                     range = 1;
                     break;
             }
-            if(i == 0)
+            if (i == 0)
             {
                 character_1.maxInstall = maxInstall;
                 character_1.speed_level = speed;
@@ -106,6 +114,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
 
     public GameObject referenece_empty;
     public GameObject referenece_wall;
