@@ -57,6 +57,8 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
+        Screen.SetResolution(1920, 1080, true);
+
         Object_List = Generate_grid(gameGrid);
         character_1.StartPosition = gameGrid.grid_to_unity(new Coordinate(2, 0));
         character_2.StartPosition = gameGrid.grid_to_unity(new Coordinate(2, 4));
