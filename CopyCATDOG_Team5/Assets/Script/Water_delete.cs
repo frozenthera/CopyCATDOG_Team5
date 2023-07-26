@@ -66,6 +66,11 @@ public class Water_delete : MonoBehaviour
                 if (i > range)
                     break;
 
+                if (GameManager.Instance.gameGrid.tileset[rx, ry + i] == tilestate.item)
+                {
+                    GameManager.Instance.destroy_tile(rx, ry + i);
+                }
+
                 if (GameManager.Instance.gameGrid.tileset[rx, ry + i] == tilestate.wall)
                 {
                     break;
@@ -96,6 +101,11 @@ public class Water_delete : MonoBehaviour
             {
                 if (i > range)
                     break;
+
+                if (GameManager.Instance.gameGrid.tileset[rx, ry - i] == tilestate.item)
+                {
+                    GameManager.Instance.destroy_tile(rx, ry - i);
+                }
 
                 if (GameManager.Instance.gameGrid.tileset[rx, ry - i] == tilestate.wall)
                 {
@@ -128,6 +138,11 @@ public class Water_delete : MonoBehaviour
                 if (i > range)
                     break;
 
+                if (GameManager.Instance.gameGrid.tileset[rx + i, ry] == tilestate.item)
+                {
+                    GameManager.Instance.destroy_tile(rx + i, ry);
+                }
+
                 if (GameManager.Instance.gameGrid.tileset[rx + i, ry] == tilestate.wall)
                 {
                     break;
@@ -158,6 +173,11 @@ public class Water_delete : MonoBehaviour
             {
                 if (i > range)
                     break;
+
+                if (GameManager.Instance.gameGrid.tileset[rx - i, ry] == tilestate.item)
+                {
+                    GameManager.Instance.destroy_tile(rx - i, ry);
+                }
 
                 if (GameManager.Instance.gameGrid.tileset[rx - i, ry] == tilestate.wall)
                 {

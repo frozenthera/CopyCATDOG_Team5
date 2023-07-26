@@ -2288,12 +2288,12 @@ RectTransform:
   - {fileID: 1480446991}
   - {fileID: 545730371}
   - {fileID: 594724139}
-  - {fileID: 1029076671}
   - {fileID: 827151736}
   - {fileID: 1203488971}
   - {fileID: 752670296}
   - {fileID: 497569459}
   - {fileID: 2116207063}
+  - {fileID: 1029076671}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
