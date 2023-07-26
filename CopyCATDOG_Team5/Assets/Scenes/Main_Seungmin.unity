@@ -380,6 +380,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2803020721533691415, guid: 7cfcead500899954b91fb26344d3cc70, type: 3}
     - target: {fileID: 81965674153142287, guid: 7a96438354432c446a12b7b59a3db94e, type: 3}
+      propertyPath: reference_border
+      value: 
+      objectReference: {fileID: 3312907518145557907, guid: 3a4e41f526be22d49b9679249aca16da, type: 3}
+    - target: {fileID: 81965674153142287, guid: 7a96438354432c446a12b7b59a3db94e, type: 3}
       propertyPath: referenece_skate
       value: 
       objectReference: {fileID: 895689410497146058, guid: 41b9dc2fa0923064e9e3d49f88bd9c67, type: 3}

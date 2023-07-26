@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         Object_List = Generate_grid(gameGrid);
+        Generate_border(gameGrid);
         character_1.StartPosition = new Vector2(2, 0);
         character_1.transform.position = new Vector2(2, 0);
         character_2.StartPosition = new Vector2(2, 4);
@@ -111,6 +112,7 @@ public class GameManager : MonoBehaviour
     public GameObject referenece_wall;
     public GameObject referenece_box;
     public GameObject referenece_block;
+    public GameObject reference_border;
 
     private GameObject[,] Generate_grid(Grid gamegrid)
     {
@@ -155,6 +157,21 @@ public class GameManager : MonoBehaviour
             }
         }
         return object_list;
+    }
+
+    private void Generate_border(Grid gamegrid) 
+    {
+        for(int row = -1; row <= gamegrid.rows; row++)
+        {
+            GameObject transparent_wall = Instantiate(reference_border, new Vector3(row, -1, -1), Quaternion.identity);
+            GameObject tp_wall = Instantiate(reference_border, new Vector3(row, gamegrid.cols, gamegrid.cols), Quaternion.identity);
+        }
+
+        for(int col = 0; col < gamegrid.cols; col++)
+        {
+            GameObject transparent_wall = Instantiate(reference_border, new Vector3(-1, col, col), Quaternion.identity);
+            GameObject tp_wall = Instantiate(reference_border, new Vector3(gamegrid.rows, col, col), Quaternion.identity);
+        }
     }
 
     public void destroy_tile(Coordinate coord) => destroy_tile(coord.X, coord.X);
