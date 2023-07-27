@@ -7,11 +7,12 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System;
 using static UnityEditor.PlayerSettings;
+using UnityEngine.SceneManagement;
 
 public class Character_Controller : MonoBehaviour
 {
     [SerializeField]
-    private GameObject waterBalloonprefab;
+    private GameObject waterBalloonprefab, GameOver_panel;
     public bool FirstCharacter;
     public Vector3 StartPosition;
     private Vector2 unity_pos;
@@ -258,7 +259,14 @@ public class Character_Controller : MonoBehaviour
 
     public void GameOver()
     {
-        print("GameOver");
+        StartCoroutine(ReturntoUI());
+        GameOver_panel.SetActive(true);
+    }
+
+    private IEnumerator ReturntoUI()
+    {
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene("UI");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
