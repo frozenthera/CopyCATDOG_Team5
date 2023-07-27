@@ -35,10 +35,11 @@ public class GameManager : MonoBehaviour
     }
 
     public Grid gameGrid;
+    private tilestate[] map = new tilestate[15*13];
 
     public void OnEnable()
     {
-        gameGrid = new Grid(5, 5);
+        gameGrid = new Grid(15, 13);
         for (int i = 0; i < gameGrid.rows; i++)
         {
             for (int j = 0; j < gameGrid.cols; j++)
@@ -150,6 +151,51 @@ public class GameManager : MonoBehaviour
                     object_list[row, col] = block_tile;
                 }
                 else if (gamegrid.tileset[row, col] == tilestate.box)
+                {
+                    GameObject box_tile = Instantiate(referenece_box, new Vector3(x, y, y), Quaternion.identity);
+                    object_list[row, col] = box_tile;
+                }
+            }
+        }
+        return object_list;
+    }
+
+    private GameObject[,] Generate_map(tilestate[] maplist)
+    {
+        GameObject[,] object_list = new GameObject[gameGrid.rows, gameGrid.cols];
+
+        for (int row = 0; row < 15; row++)
+        {
+            for (int col = 0; col < 13; col++)
+            {
+                float x = row;
+                float y = col;
+
+                if (maplist[row + 15 * col] == tilestate.wall)
+                {
+                    GameObject wall_tile = Instantiate(referenece_wall, new Vector3(x, y, y), Quaternion.identity);
+                }
+                else
+                {
+                    GameObject empty_tile = Instantiate(referenece_empty, new Vector3(x, y, 255), Quaternion.identity);
+                    //  empty_tile.transform.position = new Vector3(x, y, 0);
+                }
+            }
+        }
+
+        for (int row = 0; row < 15; row++)
+        {
+            for (int col = 0; col < 13; col++)
+            {
+                float x = row;
+                float y = col;
+
+                if (maplist[row + 15 * col] == tilestate.block)
+                {
+                    GameObject block_tile = Instantiate(referenece_block, new Vector3(x, y, y), Quaternion.identity);
+                    object_list[row, col] = block_tile;
+                }
+                else if (maplist[row + 15 * col] == tilestate.box)
                 {
                     GameObject box_tile = Instantiate(referenece_box, new Vector3(x, y, y), Quaternion.identity);
                     object_list[row, col] = box_tile;
