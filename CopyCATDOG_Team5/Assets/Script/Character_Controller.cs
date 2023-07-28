@@ -83,91 +83,95 @@ public class Character_Controller : MonoBehaviour
     int active;
     void Update()
     {
-        characterPos.X = (int)Math.Round(transform.position.x);
-        characterPos.Y = (int)Math.Round(transform.position.y);
-        // 동시입력관리
-        if (Input.GetKeyDown(myKey1))
+        if (GameManager.Instance.game_is_pause == false)
         {
-            temp = 0;
-            active = 1;
-        }
-        if (Input.GetKeyDown(myKey2))
-        {
-            temp = 1;
-            active = 1;
-        }
-        if (Input.GetKeyDown(myKey3))
-        {
-            temp = 2;
-            active = 1;
-        }
-        if (Input.GetKeyDown(myKey4))
-        {
-            temp = 3;
-            active = 1;
-        }
-        if (Input.GetKey(myKey1) || Input.GetKey(myKey2) || Input.GetKey(myKey3) || Input.GetKey(myKey4) && active == 1)
-        {
-            rb.velocity = vector * speed;
-            switch (temp)
+
+            characterPos.X = (int)Math.Round(transform.position.x);
+            characterPos.Y = (int)Math.Round(transform.position.y);
+            // 동시입력관리
+            if (Input.GetKeyDown(myKey1))
             {
-                case 0:
-                    vector = Vector2.up;
-                    break;
-                case 1:
-                    vector = Vector2.down;
-                    break;
-                case 2:
-                    vector = Vector2.left;
-                    break;
-                case 3:
-                    vector = Vector2.right;
-                    break;
+                temp = 0;
+                active = 1;
             }
-        }
-        if (Input.GetKeyUp(myKey1) && temp == 0)
-        {
-            active = 0;
-            rb.velocity = new Vector2(0, 0);
-        }
-        if (Input.GetKeyUp(myKey2) && temp == 1)
-        {
-            active = 0;
-            rb.velocity = new Vector2(0, 0);
-        }
-        if (Input.GetKeyUp(myKey3) && temp == 2)
-        {
-            active = 0;
-            rb.velocity = new Vector2(0, 0);
-        }
-        if (Input.GetKeyUp(myKey4) && temp == 3)
-        {
-            active = 0;
-            rb.velocity = new Vector2(0, 0);
-        }
-
-        //Test key
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            GetHittedByWater();
-        }
-
-        if (FirstCharacter)
-        {
-            if (maxInstall > 0)
-                if (Input.GetKeyDown(KeyCode.RightShift))
+            if (Input.GetKeyDown(myKey2))
+            {
+                temp = 1;
+                active = 1;
+            }
+            if (Input.GetKeyDown(myKey3))
+            {
+                temp = 2;
+                active = 1;
+            }
+            if (Input.GetKeyDown(myKey4))
+            {
+                temp = 3;
+                active = 1;
+            }
+            if (Input.GetKey(myKey1) || Input.GetKey(myKey2) || Input.GetKey(myKey3) || Input.GetKey(myKey4) && active == 1)
+            {
+                rb.velocity = vector * speed;
+                switch (temp)
                 {
-                    create_ballon();
-                    maxInstall--;
+                    case 0:
+                        vector = Vector2.up;
+                        break;
+                    case 1:
+                        vector = Vector2.down;
+                        break;
+                    case 2:
+                        vector = Vector2.left;
+                        break;
+                    case 3:
+                        vector = Vector2.right;
+                        break;
                 }
-        }
-        else
-            if (maxInstall> 0)
+            }
+            if (Input.GetKeyUp(myKey1) && temp == 0)
+            {
+                active = 0;
+                rb.velocity = new Vector2(0, 0);
+            }
+            if (Input.GetKeyUp(myKey2) && temp == 1)
+            {
+                active = 0;
+                rb.velocity = new Vector2(0, 0);
+            }
+            if (Input.GetKeyUp(myKey3) && temp == 2)
+            {
+                active = 0;
+                rb.velocity = new Vector2(0, 0);
+            }
+            if (Input.GetKeyUp(myKey4) && temp == 3)
+            {
+                active = 0;
+                rb.velocity = new Vector2(0, 0);
+            }
+
+            //Test key
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                GetHittedByWater();
+            }
+
+            if (FirstCharacter)
+            {
+                if (maxInstall > 0)
+                    if (Input.GetKeyDown(KeyCode.RightShift))
+                    {
+                        create_ballon();
+                        maxInstall--;
+                    }
+            }
+            else
+                if (maxInstall > 0)
                 if (Input.GetKeyDown(KeyCode.LeftShift))
                 {
                     create_ballon();
                     maxInstall--;
                 }
+        }
     }
 
     private int direction;

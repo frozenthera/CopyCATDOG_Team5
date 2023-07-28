@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public Character_Controller character_1;
     public Character_Controller character_2;
 
+    public bool game_is_pause = false;
+
     void Awake()
     {
         if (null == instance)
