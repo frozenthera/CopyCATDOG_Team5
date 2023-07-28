@@ -37,7 +37,7 @@ public class UI : MonoBehaviour
 
         startbutton.onClick.AddListener(() =>
         {
-            SceneManager.LoadScene("Main");
+            SceneManager.LoadScene("Sehyeon_Scene");
         });
 
         left_check.onClick.AddListener(() =>

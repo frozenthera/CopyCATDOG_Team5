@@ -34,18 +34,18 @@ public class GridManager : MonoBehaviour
                 else if (gamegrid.tileset[row, col] == tilestate.wall)
                 {
                     GameObject wall_tile = Instantiate(referenece_wall, transform);
-                    wall_tile.transform.position = new Vector2(x, y);
+                    wall_tile.transform.position = new Vector3(x, y, y);
                 }
                 else if (gamegrid.tileset[row, col] == tilestate.block)
                 {
                     GameObject block_tile = Instantiate(referenece_block, transform);
-                    block_tile.transform.position = new Vector2(x, y);
+                    block_tile.transform.position = new Vector3(x, y, y);
                     object_list[row, col] = block_tile;
                 }
                 else if (gamegrid.tileset[row, col] == tilestate.box)
                 {
                     GameObject box_tile = Instantiate(referenece_box, transform);
-                    box_tile.transform.position = new Vector2(x, y);
+                    box_tile.transform.position = new Vector3(x, y, y);
                     object_list[row, col] = box_tile;
                 }
             }

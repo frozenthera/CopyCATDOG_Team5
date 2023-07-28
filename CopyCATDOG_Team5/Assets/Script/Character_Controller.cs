@@ -174,8 +174,8 @@ public class Character_Controller : MonoBehaviour
                 Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), newball.GetComponent<BoxCollider2D>(), false);
             }
         }
-        //transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y);
         characterPos = GameManager.Instance.gameGrid.unity_to_grid(transform.position);
+        transform.position = new Vector3(transform.position.x, transform.position.y, characterPos.Y);
         // 동시입력관리
         if (Input.GetKeyDown(myKey1))
         {
