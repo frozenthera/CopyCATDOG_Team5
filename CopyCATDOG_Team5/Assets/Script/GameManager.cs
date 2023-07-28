@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
     
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if(scene.name == "Main_chaehun")
+        if(scene.name == "Main")
         {
             SetMainScene();
         }
