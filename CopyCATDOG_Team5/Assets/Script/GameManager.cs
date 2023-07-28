@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     }
 
     public Grid gameGrid;
-    private tilestate[] map = new tilestate[15*13];
+    public List<tilestate> map = new();
 
     public void OnEnable()
     {
@@ -160,7 +160,7 @@ public class GameManager : MonoBehaviour
         return object_list;
     }
 
-    private GameObject[,] Generate_map(tilestate[] maplist)
+    private GameObject[,] Generate_map(List<tilestate> maplist)
     {
         GameObject[,] object_list = new GameObject[gameGrid.rows, gameGrid.cols];
 
