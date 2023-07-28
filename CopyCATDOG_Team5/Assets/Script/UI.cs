@@ -19,7 +19,7 @@ public class UI : MonoBehaviour
     [SerializeField]
     private Button startbutton, left_check, right_check, Minigame_button;
     [SerializeField]
-    private GameObject[] select_mark;
+    private GameObject fixed_1p, fixed_2p;
     [SerializeField]
     private List<GameObject> character1_stats_image;
     [SerializeField]
@@ -199,15 +199,16 @@ public class UI : MonoBehaviour
                 mainmenuData.player2_shift = true;
 
                 UI_AudioSource.clip = audioClip[0];
+
+                fixed_1p.gameObject.SetActive(true);
                 UI_AudioSource.Play();
-                select_mark[1].gameObject.SetActive(true);
 
                 GameManager.Instance.player2Select = mainmenuData.player2_select;
             }
             else
             {
                 mainmenuData.player2_shift = false;
-                select_mark[1].gameObject.SetActive(false);
+                fixed_1p.gameObject.SetActive(false);
                 startbutton.gameObject.SetActive(false);
             }
 
@@ -220,15 +221,16 @@ public class UI : MonoBehaviour
                 mainmenuData.player1_shift = true;
 
                 UI_AudioSource.clip = audioClip[0];
+
+                fixed_2p.gameObject.SetActive(true);
                 UI_AudioSource.Play();
-                select_mark[0].gameObject.SetActive(true);
 
                 GameManager.Instance.player1Select = mainmenuData.player1_select;
             }
             else
             {
                 mainmenuData.player1_shift = false;
-                select_mark[0].gameObject.SetActive(false);
+                fixed_2p.gameObject.SetActive(false);
                 startbutton.gameObject.SetActive(false);
             }
                 
