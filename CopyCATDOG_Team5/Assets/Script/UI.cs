@@ -12,13 +12,14 @@ public class UI : MonoBehaviour
     private List<Image> maps;
     [SerializeField]
     private AudioClip[] audioClip;
-
     [SerializeField]
     private List<Image> character1_select_image;
     [SerializeField]
     private List<Image> character2_select_image;
     [SerializeField]
-    private Button startbutton, left_check, right_check;
+    private Button startbutton, left_check, right_check, Minigame_button;
+    [SerializeField]
+    private GameObject[] select_mark;
     [SerializeField]
     private List<GameObject> character1_stats_image;
     [SerializeField]
@@ -37,7 +38,12 @@ public class UI : MonoBehaviour
 
         startbutton.onClick.AddListener(() =>
         {
-            SceneManager.LoadScene("Sehyeon_Scene");
+            SceneManager.LoadScene("Main");
+        });
+
+        Minigame_button.onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene("Main_chaehun");
         });
 
         left_check.onClick.AddListener(() =>
@@ -193,16 +199,15 @@ public class UI : MonoBehaviour
                 mainmenuData.player2_shift = true;
 
                 UI_AudioSource.clip = audioClip[0];
-                left_check.gameObject.SetActive(true);
-                if (gameObject.name == "left_arrow")
-                    UI_AudioSource.Play();
+                UI_AudioSource.Play();
+                select_mark[1].gameObject.SetActive(true);
 
                 GameManager.Instance.player2Select = mainmenuData.player2_select;
             }
             else
             {
                 mainmenuData.player2_shift = false;
-                left_check.gameObject.SetActive(false);
+                select_mark[1].gameObject.SetActive(false);
                 startbutton.gameObject.SetActive(false);
             }
 
@@ -215,16 +220,15 @@ public class UI : MonoBehaviour
                 mainmenuData.player1_shift = true;
 
                 UI_AudioSource.clip = audioClip[0];
-                right_check.gameObject.SetActive(true);
-                if (gameObject.name == "right_arrow")
-                    UI_AudioSource.Play();
+                UI_AudioSource.Play();
+                select_mark[0].gameObject.SetActive(true);
 
                 GameManager.Instance.player1Select = mainmenuData.player1_select;
             }
             else
             {
                 mainmenuData.player1_shift = false;
-                right_check.gameObject.SetActive(false);
+                select_mark[0].gameObject.SetActive(false);
                 startbutton.gameObject.SetActive(false);
             }
                 

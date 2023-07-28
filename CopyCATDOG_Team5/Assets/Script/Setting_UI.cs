@@ -52,7 +52,7 @@ public class Setting_UI : MonoBehaviour
     public void go_UI()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene("UI");
+        SceneManager.LoadScene("Lobby");
         GameManager.Instance.game_is_pause = true;
     }
 }
