@@ -443,7 +443,6 @@ public class Character_Controller : MonoBehaviour
             print("die!");
             GameOver();
             GameOver_panel.SetActive(true);
-            GameManager.Instance.game_is_over = true;
         }
         else
         {
