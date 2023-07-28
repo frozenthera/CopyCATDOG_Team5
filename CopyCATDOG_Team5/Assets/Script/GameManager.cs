@@ -29,11 +29,8 @@ public class GameManager : MonoBehaviour
     public int player1Select, player2Select;
 
     public bool game_is_pause = false;
-<<<<<<< HEAD
     public bool game_is_over = false;
-=======
     public bool game_is_end = false;
->>>>>>> main
 
     void Awake()
     {
