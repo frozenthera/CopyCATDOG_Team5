@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
 
     public Grid gameGrid;
     public List<tilestate> map = new();
+    public List<tilestate> mini_map = new();
+
 
     public GameObject[,] Object_List;
 
@@ -59,7 +61,10 @@ public class GameManager : MonoBehaviour
         {
             SetMainScene();
         }
-
+        if(scene.name == "Main_chaehun")
+        {
+            SetMINIinScene();
+        }
     }
 
     void  SetMainScene()
@@ -75,6 +80,68 @@ public class GameManager : MonoBehaviour
 
         character_1.StartPosition = gameGrid.grid_to_unity(new Coordinate(1, 0));
         character_2.StartPosition = gameGrid.grid_to_unity(new Coordinate(1, 1));
+
+        for (int i = 0; i < 2; i++)
+        {
+            int selectPlayer;
+            if (i == 0)
+                selectPlayer = player1Select;
+            else
+                selectPlayer = player2Select;
+            int maxInstall = 0, speed = 0, range = 0;
+            switch (selectPlayer)
+            {
+                case 0:
+                    print("0");
+                    maxInstall = 1;
+                    speed = 2;
+                    range = 2;
+                    break;
+                case 1:
+                    print("1");
+                    maxInstall = 1;
+                    speed = 1;
+                    range = 3;
+                    break;
+                case 2:
+                    print("2");
+                    maxInstall = 2;
+                    speed = 1;
+                    range = 1;
+                    break;
+            }
+            if (i == 0)
+            {
+                character_1.maxInstall = maxInstall;
+                character_1.speed_level = speed;
+                character_1.range_level = range;
+                character_1.FirstCharacter = true;
+                character_1.characterPos = new Coordinate(1, 0);
+                character_1.StartCharacter();
+            }
+            else
+            {
+                character_2.maxInstall = maxInstall;
+                character_2.speed_level = speed;
+                character_2.range_level = range;
+                character_2.FirstCharacter = false;
+                character_2.characterPos = new Coordinate(1, 1);
+                character_2.StartCharacter();
+            }
+        }
+    }
+    void SetMINIinScene()
+    {
+        character_1 = GameObject.Find("Character1").GetComponent<Character_Controller>();
+        character_2 = GameObject.Find("Character2").GetComponent<Character_Controller>();
+
+        Screen.SetResolution(1920, 1080, true);
+
+        Object_List = Generate_map(mini_map);
+        Generate_border(gameGrid);
+
+        character_1.StartPosition = gameGrid.grid_to_unity(new Coordinate(2, 2));
+        character_2.StartPosition = gameGrid.grid_to_unity(new Coordinate(3, 2));
 
         for (int i = 0; i < 2; i++)
         {
