@@ -1045,6 +1045,10 @@ PrefabInstance:
       propertyPath: m_FlipX
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 329354570583702197, guid: 27b89ab120bdd7742a08ba716c4367d2, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1852340767, guid: 20b9830f0d89bc745836d758715fae7d, type: 3}
     - target: {fileID: 535020846767323817, guid: 27b89ab120bdd7742a08ba716c4367d2, type: 3}
       propertyPath: hitted_sprite
       value: 
@@ -1059,7 +1063,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5792127800052100920, guid: 27b89ab120bdd7742a08ba716c4367d2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.4598
+      value: -5.29
       objectReference: {fileID: 0}
     - target: {fileID: 5792127800052100920, guid: 27b89ab120bdd7742a08ba716c4367d2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1103,7 +1107,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8176870419068642797, guid: 27b89ab120bdd7742a08ba716c4367d2, type: 3}
       propertyPath: m_Size.y
-      value: 0.6
+      value: 0.23660982
+      objectReference: {fileID: 0}
+    - target: {fileID: 8176870419068642797, guid: 27b89ab120bdd7742a08ba716c4367d2, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.2602327
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1198,7 +1206,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1755912450}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 7.98, y: 5.19, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

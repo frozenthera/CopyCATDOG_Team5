@@ -152,7 +152,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.2602327}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -163,7 +163,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.8}
+  m_Size: {x: 0.8, y: 0.2366098}
   m_EdgeRadius: 0
 --- !u!50 &6145463756052157029
 Rigidbody2D:
@@ -206,15 +206,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waterBalloonprefab: {fileID: 141937327528663298, guid: 8cd4e5891c367c9428c4fcf38028bdba, type: 3}
   GameOver_panel: {fileID: 0}
-  audioClip:
-  - {fileID: 8300000, guid: abb270d41e20e814586bdcdb7470e735, type: 3}
+  audioClips: []
   FirstCharacter: 1
   StartPosition: {x: 0, y: 0, z: 0}
+  WaterBallonDeployed: 0
   speed: 5
   range_level: 0
   speed_level: 0
   maxInstall: 0
   getHit: 0
+  dying: 0
+  gameOver: 0
+  speed_save: 0
+  hitted_sprite: {fileID: 0}
 --- !u!82 &2573212598894960590
 AudioSource:
   m_ObjectHideFlags: 0
