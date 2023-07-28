@@ -9,7 +9,6 @@ public class minigame_script : MonoBehaviour
     [SerializeField]
     private GameObject waterBalloonprefab, record_prefab;
     private IEnumerator coroutine;
-    private float re_waittime;
 
     [SerializeField]
     Text time_text, record_text;
@@ -28,7 +27,7 @@ public class minigame_script : MonoBehaviour
     {
         
         print("Mini Game Start !!!!!!!!!!!!");
-        coroutine = WaitAndballon(2f);
+        coroutine = WaitAndballon(0.8f);
         StartCoroutine(coroutine);
     }
 
@@ -63,13 +62,9 @@ public class minigame_script : MonoBehaviour
     {
         while (true)
         {
-            if (waitTime > 0.4)
-            {
-                re_waittime = waitTime - 0.02f;
-            }
-            yield return new WaitForSeconds(re_waittime);
             create_ballon();
-            Debug.Log("Time = " +Time.time); 
+            Debug.Log("Time = " +Time.time);
+            yield return new WaitForSeconds(waitTime);
         }
     }
 
@@ -77,7 +72,7 @@ public class minigame_script : MonoBehaviour
     {
         int rx = (int)Random.Range(1f, 14f);
         int ry = (int)Random.Range(1f, 12f);
-        newball = Instantiate(waterBalloonprefab, new Vector3(rx, ry, -5), Quaternion.identity);
+        newball = Instantiate(waterBalloonprefab, new Vector3(rx, ry, ry), Quaternion.identity);
         GameManager.Instance.gameGrid.tileset[rx, ry] = tilestate.ballon;
         newball.GetComponent<Water_delete>().range = 10;
     }

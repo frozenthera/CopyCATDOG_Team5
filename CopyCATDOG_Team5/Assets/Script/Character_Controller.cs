@@ -466,7 +466,7 @@ public class Character_Controller : MonoBehaviour
         ry = (int)unity_pos.y;
         Debug.Log(rx + " " + ry);
         //테스트용으로 z값 -5로 바꿔놓음
-        newball = Instantiate(waterBalloonprefab, new Vector3(rx, ry, -5), Quaternion.identity);
+        newball = Instantiate(waterBalloonprefab, new Vector3(rx, ry, ry), Quaternion.identity);
         GameManager.Instance.gameGrid.tileset[characterPos.X, characterPos.Y] = tilestate.ballon;
         Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), newball.GetComponent<BoxCollider2D>());
         WaterBallonDeployed = true;
