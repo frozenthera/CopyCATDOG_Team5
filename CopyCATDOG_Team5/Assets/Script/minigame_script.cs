@@ -27,7 +27,7 @@ public class minigame_script : MonoBehaviour
     {
         
         print("Mini Game Start !!!!!!!!!!!!");
-        coroutine = WaitAndballon(0.8f);
+        coroutine = WaitAndballon(2f);
         StartCoroutine(coroutine);
     }
 
@@ -62,6 +62,10 @@ public class minigame_script : MonoBehaviour
     {
         while (true)
         {
+            if (waitTime > 0.4)
+            {
+                float re_waittime = waitTime - 0.002f;
+            }
             yield return new WaitForSeconds(waitTime);
             create_ballon();
             Debug.Log("Time = " +Time.time); 
