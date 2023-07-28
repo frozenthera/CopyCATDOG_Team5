@@ -2983,8 +2983,8 @@ RectTransform:
   - {fileID: 1029076671}
   - {fileID: 786836590}
   - {fileID: 88948603}
-  - {fileID: 1547664238}
   - {fileID: 870761122}
+  - {fileID: 1547664238}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3024,7 +3024,6 @@ MonoBehaviour:
   left_check: {fileID: 1887385269}
   right_check: {fileID: 1356640077}
   Minigame_button: {fileID: 1745809988}
-  select_mark: []
   fixed_1p: {fileID: 417937209}
   fixed_2p: {fileID: 1432286225}
   character1_stats_image:
