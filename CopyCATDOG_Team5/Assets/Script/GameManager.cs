@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public Character_Controller character_1;
     public Character_Controller character_2;
 
+    public bool game_is_pause = false;
+
     void Awake()
     {
         if (null == instance)
@@ -60,6 +62,9 @@ public class GameManager : MonoBehaviour
     {
         Object_List = Generate_map(map);
         Generate_border(gameGrid);
+
+        Screen.SetResolution(1920, 1080, true);
+
         character_1.StartPosition = new Vector2(2, 0);
         character_1.transform.position = new Vector2(2, 0);
         character_2.StartPosition = new Vector2(2, 4);

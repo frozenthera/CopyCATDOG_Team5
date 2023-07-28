@@ -6,22 +6,30 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using System;
+using static UnityEditor.PlayerSettings;
+using UnityEngine.SceneManagement;
 
 public class Character_Controller : MonoBehaviour
 {
+    private AudioSource charater_audioSource;
     [SerializeField]
-    private GameObject waterBalloonprefab;
+    private GameObject waterBalloonprefab, GameOver_panel;
+    [SerializeField]
+    private AudioClip[] audioClips;
     public bool FirstCharacter;
     public Vector3 StartPosition;
+    private Vector2 unity_pos;
+    private int rx, ry;
 
     public int speed;
     private Rigidbody2D rb;
     private Vector2 vector;
 
     public Coordinate characterPos;
-
+    
     public int range_level, speed_level;
     private int range;
+    [HideInInspector]
     public int maxInstall;
 
     private void range_apply(int temp)
@@ -48,6 +56,7 @@ public class Character_Controller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        charater_audioSource = GetComponent<AudioSource>();
         gameObject.layer = 6;
         getHit = false;
         rb = GetComponent<Rigidbody2D>();
@@ -78,6 +87,8 @@ public class Character_Controller : MonoBehaviour
     int active;
     void Update()
     {
+        if (GameManager.Instance.game_is_pause == false) return;
+
         Coordinate nextCoord = GameManager.Instance.gameGrid.unity_to_grid(transform.position);
         if (characterPos != nextCoord)
         {
@@ -107,86 +118,93 @@ public class Character_Controller : MonoBehaviour
         // 동시입력관리
         if (Input.GetKeyDown(myKey1))
         {
-            temp = 0;
-            active = 1;
-        }
-        if (Input.GetKeyDown(myKey2))
-        {
-            temp = 1;
-            active = 1;
-        }
-        if (Input.GetKeyDown(myKey3))
-        {
-            temp = 2;
-            active = 1;
-        }
-        if (Input.GetKeyDown(myKey4))
-        {
-            temp = 3;
-            active = 1;
-        }
-        if (Input.GetKey(myKey1) || Input.GetKey(myKey2) || Input.GetKey(myKey3) || Input.GetKey(myKey4) && active == 1)
-        {
-            rb.velocity = vector * speed;
-            switch (temp)
+
+            characterPos.X = (int)Math.Round(transform.position.x);
+            characterPos.Y = (int)Math.Round(transform.position.y);
+            // 동시입력관리
+            if (Input.GetKeyDown(myKey1))
             {
-                case 0:
-                    vector = Vector2.up;
-                    break;
-                case 1:
-                    vector = Vector2.down;
-                    break;
-                case 2:
-                    vector = Vector2.left;
-                    break;
-                case 3:
-                    vector = Vector2.right;
-                    break;
+                temp = 0;
+                active = 1;
             }
-        }
-        if (Input.GetKeyUp(myKey1) && temp == 0)
-        {
-            active = 0;
-            rb.velocity = new Vector2(0, 0);
-        }
-        if (Input.GetKeyUp(myKey2) && temp == 1)
-        {
-            active = 0;
-            rb.velocity = new Vector2(0, 0);
-        }
-        if (Input.GetKeyUp(myKey3) && temp == 2)
-        {
-            active = 0;
-            rb.velocity = new Vector2(0, 0);
-        }
-        if (Input.GetKeyUp(myKey4) && temp == 3)
-        {
-            active = 0;
-            rb.velocity = new Vector2(0, 0);
-        }
-
-        //Test key
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            GetHittedByWater();
-        }
-
-        if (FirstCharacter)
-        {
-            if (maxInstall > 0)
-                if (Input.GetKeyDown(KeyCode.RightShift))
+            if (Input.GetKeyDown(myKey2))
+            {
+                temp = 1;
+                active = 1;
+            }
+            if (Input.GetKeyDown(myKey3))
+            {
+                temp = 2;
+                active = 1;
+            }
+            if (Input.GetKeyDown(myKey4))
+            {
+                temp = 3;
+                active = 1;
+            }
+            if (Input.GetKey(myKey1) || Input.GetKey(myKey2) || Input.GetKey(myKey3) || Input.GetKey(myKey4) && active == 1)
+            {
+                rb.velocity = vector * speed;
+                switch (temp)
                 {
-                    create_water_left();
-                    maxInstall--;
+                    case 0:
+                        vector = Vector2.up;
+                        break;
+                    case 1:
+                        vector = Vector2.down;
+                        break;
+                    case 2:
+                        vector = Vector2.left;
+                        break;
+                    case 3:
+                        vector = Vector2.right;
+                        break;
                 }
-        }
-        else
-            if (maxInstall> 0)
+            }
+            if (Input.GetKeyUp(myKey1) && temp == 0)
+            {
+                active = 0;
+                rb.velocity = new Vector2(0, 0);
+            }
+            if (Input.GetKeyUp(myKey2) && temp == 1)
+            {
+                active = 0;
+                rb.velocity = new Vector2(0, 0);
+            }
+            if (Input.GetKeyUp(myKey3) && temp == 2)
+            {
+                active = 0;
+                rb.velocity = new Vector2(0, 0);
+            }
+            if (Input.GetKeyUp(myKey4) && temp == 3)
+            {
+                active = 0;
+                rb.velocity = new Vector2(0, 0);
+            }
+
+            //Test key
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                GetHittedByWater();
+            }
+
+            if (FirstCharacter)
+            {
+                if (maxInstall > 0)
+                    if (Input.GetKeyDown(KeyCode.RightShift))
+                    {
+                        create_ballon();
+                        maxInstall--;
+                    }
+            }
+            else
+                if (maxInstall > 0)
                 if (Input.GetKeyDown(KeyCode.LeftShift))
                 {
-                    create_water_right();
+                    create_ballon();
                     maxInstall--;
                 }
+        }
     }
 
     private int direction;
@@ -266,7 +284,6 @@ public class Character_Controller : MonoBehaviour
         }
     }
 
-
     public bool getHit;
     //플레이어가 물줄기에 맞았을 때의 동작 구현
     public void GetHittedByWater()
@@ -279,7 +296,14 @@ public class Character_Controller : MonoBehaviour
 
     public void GameOver()
     {
-        print("GameOver");
+        StartCoroutine(ReturntoUI());
+        GameOver_panel.SetActive(true);
+    }
+
+    private IEnumerator ReturntoUI()
+    {
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene("UI");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -296,6 +320,7 @@ public class Character_Controller : MonoBehaviour
         yield return new WaitForSeconds(3.0f);
         if(getHit == true)
         {
+            audio_play(0);
             GameOver();
         }
         else
@@ -305,22 +330,26 @@ public class Character_Controller : MonoBehaviour
             speed = 5;
         }
     }
- 
 
-    //캐릭터의 현재 위치에 물풍선 설치
-    void create_water_left()
+    void audio_play(int x)
     {
-        GameObject newball = Instantiate(waterBalloonprefab, new Vector3(characterPos.X, characterPos.Y, -1), Quaternion.identity);   // + 좌 플레이어 좌표 할당
-        GameManager.Instance.gameGrid.tileset[characterPos.X, characterPos.Y] = tilestate.ballon;
-        newball.GetComponent<Water_delete>().water_owner = 1;
-        newball.GetComponent<Water_delete>().range = range;
+        charater_audioSource.clip = audioClips[x];
+        charater_audioSource.Play();
     }
 
-    void create_water_right()
+    //캐릭터의 현재 위치에 물풍선 설치
+    void create_ballon()
     {
-        GameObject newball = Instantiate(waterBalloonprefab, new Vector3(characterPos.X, characterPos.Y, -1), Quaternion.identity);   // + 우 플레이어 좌표 할당
+        unity_pos = GameManager.Instance.gameGrid.grid_to_unity(characterPos);
+        rx = (int)unity_pos.x;
+        ry = (int)unity_pos.y;
+
+        GameObject newball = Instantiate(waterBalloonprefab, new Vector3(rx, ry, ry), Quaternion.identity);
         GameManager.Instance.gameGrid.tileset[characterPos.X, characterPos.Y] = tilestate.ballon;
-        newball.GetComponent<Water_delete>().water_owner = 2;
+
+        if(FirstCharacter == true)
+            newball.GetComponent<Water_delete>().First_owner = true;
+
         newball.GetComponent<Water_delete>().range = range;
     }
 }
