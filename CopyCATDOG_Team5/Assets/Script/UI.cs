@@ -17,7 +17,7 @@ public class UI : MonoBehaviour
     [SerializeField]
     private List<Image> character2_select_image;
     [SerializeField]
-    private Button startbutton, left_check, right_check;
+    private Button startbutton, left_check, right_check, Minigame_button;
     [SerializeField]
     private GameObject[] select_mark;
     [SerializeField]
@@ -37,6 +37,11 @@ public class UI : MonoBehaviour
         Update_character_selcet();
 
         startbutton.onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene("Main");
+        });
+
+        Minigame_button.onClick.AddListener(() =>
         {
             SceneManager.LoadScene("Main_chaehun");
         });
