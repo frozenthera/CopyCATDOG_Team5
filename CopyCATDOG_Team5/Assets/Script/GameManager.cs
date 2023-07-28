@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     public int player1Select, player2Select;
 
     public bool game_is_pause = false;
+    public bool game_is_end = false;
 
     void Awake()
     {
@@ -128,6 +129,8 @@ public class GameManager : MonoBehaviour
                 character_2.StartCharacter();
             }
         }
+
+        StartCoroutine(itemTimer());
     }
     void SetMINIinScene()
     {
@@ -384,5 +387,24 @@ public class GameManager : MonoBehaviour
             itemSpawn(randdest);
         }
     }
-    //정해진 시간에 스폰되게 하는법을 모르겠네요
+
+    //정해진 타이밍에 스폰
+    private IEnumerator itemTimer()
+    {
+        if (game_is_end) yield break;
+        while (game_is_pause)
+        {
+            yield return null; // 1frame
+        }
+        float timerTime = 30f;
+        float curTime = 0f;
+        while (curTime > timerTime)
+        {
+            if (game_is_end) yield break;
+            curTime += Time.deltaTime;
+            yield return null;
+        }
+        item_randspawn();
+        StartCoroutine(itemTimer());
+    }
 }

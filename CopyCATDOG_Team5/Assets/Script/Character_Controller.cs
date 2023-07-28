@@ -113,7 +113,7 @@ public class Character_Controller : MonoBehaviour
     int temp;
     int active;
 
-    private int needlecount;
+    private int needlecount = 1;
 
     Animator Anim;
     void Update()
@@ -149,18 +149,6 @@ public class Character_Controller : MonoBehaviour
 
         characterPos = nextCoord;
 
- /*       if(Input.GetKeyDown(KeyCode.Space))
-        {
-            getHit = false;
-            dying = false;
-            gameObject.layer = 8;
-            speed = speed_save;
-            Anim.SetTrigger("live");
-            Anim.speed = 1f;
-        }
- */
-        
-        
         if (Input.GetKeyDown(KeyCode.RightControl))
         {
             if (FirstCharacter && needlecount > 0)
@@ -169,8 +157,9 @@ public class Character_Controller : MonoBehaviour
                 dying = false;
                 gameObject.layer = 8;
                 speed = speed_save;
-                Anim.SetTrigger("live");
+                Anim.SetTrigger("live2");
                 Anim.speed = 1f;
+                needlecount -= 1;
             }
         }
 
