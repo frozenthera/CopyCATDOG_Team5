@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     public Character_Controller character_1;
     public Character_Controller character_2;
+    public animal_move cat, dog;
 
     public GameObject referenece_empty;
     public GameObject referenece_wall;
@@ -72,6 +73,9 @@ public class GameManager : MonoBehaviour
         character_1 = GameObject.Find("Character1").GetComponent<Character_Controller>();
         character_2 = GameObject.Find("Character2").GetComponent<Character_Controller>();
 
+        cat = GameObject.Find("Cat").GetComponent<animal_move>();
+        dog = GameObject.Find("Dog").GetComponent<animal_move>();
+
         Screen.SetResolution(1920, 1080, true);
 
         Debug.Log(map.Count);
@@ -80,6 +84,12 @@ public class GameManager : MonoBehaviour
 
         character_1.StartPosition = gameGrid.grid_to_unity(new Coordinate(1, 0));
         character_2.StartPosition = gameGrid.grid_to_unity(new Coordinate(1, 1));
+
+        cat.StartPosition = gameGrid.grid_to_unity(new Coordinate(1, 0));
+        dog.StartPosition = gameGrid.grid_to_unity(new Coordinate(1, 1));
+
+        cat.StartAnimal();
+        dog.StartAnimal();
 
         for (int i = 0; i < 2; i++)
         {

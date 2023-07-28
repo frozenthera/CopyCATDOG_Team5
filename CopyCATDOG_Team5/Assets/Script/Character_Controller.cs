@@ -361,8 +361,6 @@ public class Character_Controller : MonoBehaviour
             if (GameManager.Instance.gameGrid.tileset[x_dest, y_dest] == tilestate.empty)
             {
                 GameManager.Instance.move_box((int)target.x, (int)target.y, x_dest, y_dest);
-                print(target);
-                print(vector);
                 // collision.gameObject.transform.Translate(vector);
                 timer = 0f;
             }
@@ -415,12 +413,7 @@ public class Character_Controller : MonoBehaviour
         if(getHit == true)
         {
             audio_play(0);
-            print("die!");
             GameOver();
-        }
-        else
-        {
-            print("live!");
         }
     }
 
@@ -438,7 +431,6 @@ public class Character_Controller : MonoBehaviour
         unity_pos = GameManager.Instance.gameGrid.grid_to_unity(characterPos);
         rx = (int)unity_pos.x;
         ry = (int)unity_pos.y;
-        Debug.Log(rx + " " + ry);
         //테스트용으로 z값 -5로 바꿔놓음
         newball = Instantiate(waterBalloonprefab, new Vector3(rx, ry, -5), Quaternion.identity);
         GameManager.Instance.gameGrid.tileset[characterPos.X, characterPos.Y] = tilestate.ballon;

@@ -1,13 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class animal_move : MonoBehaviour
 {
-    public Vector3 Start_position;
+    public Vector3 StartPosition;
     Vector3 Target;
     bool target_locked;
     Coordinate now_position;
+
+    public void StartAnimal()
+    {
+        transform.position = StartPosition;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -21,12 +27,14 @@ public class animal_move : MonoBehaviour
         now_position = GameManager.Instance.gameGrid.unity_to_grid(transform.position);
         if (target_locked)
         {
-            transform.position = Vector3.MoveTowards(transform.position, Target, Time.deltaTime);
+            print("targetlocked");
+            transform.position = Vector3.MoveTowards(transform.position, Target, Time.deltaTime * 2);
         }
         if (transform.position == Target)
         {
             target_locked = false;
-            Wait();
+            Target = new Vector3(-10, -10, -10);
+            StartCoroutine(Wait());
         }
     }
 
@@ -39,7 +47,7 @@ public class animal_move : MonoBehaviour
         Coordinate[] coordinates = {new Coordinate(x-1, y), new Coordinate(x, y-1), new Coordinate(x+1, y), new Coordinate(x, y+1)};
 ;       for(int i = 0; i < 4; i++)
         {
-            if (GameManager.Instance.gameGrid.is_reachable(coordinates[i]))
+            if (GameManager.Instance.gameGrid.is_reachable(coordinates[i]) && GameManager.Instance.gameGrid.tileset[coordinates[i].X, coordinates[i].Y] == tilestate.empty)
             {
                 temp[i] = true;
                 blocked = false;
@@ -60,6 +68,7 @@ public class animal_move : MonoBehaviour
         }
         Target = GameManager.Instance.gameGrid.grid_to_unity(coordinates[a]);
         target_locked = true;
+        print(Target);
     }
 
     IEnumerator Wait()
