@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System;
 using static UnityEditor.PlayerSettings;
+using System.Net;
 
 public class Character_Controller : MonoBehaviour
 {
@@ -80,6 +81,7 @@ public class Character_Controller : MonoBehaviour
     }
     public void StartCharacter()
     {
+        //gameOver = false;
         Anim = transform.GetChild(0).GetComponent<Animator>();
         Anim.speed = 0f;
         transform.position = StartPosition;
@@ -107,6 +109,29 @@ public class Character_Controller : MonoBehaviour
     Animator Anim;
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            getHit = false;
+            dying = false;
+            gameObject.layer = 8;
+            speed = speed_save;
+            Anim.SetTrigger("live");
+            Anim.speed = 1f;
+        }
+        //물폭탄 맞았을 때
+        if (dying == true && Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.1f)
+        {
+            if(Anim.GetCurrentAnimatorStateInfo(0).IsName("die1") || Anim.GetCurrentAnimatorStateInfo(0).IsName("die2"))
+            {
+                Anim.speed = 0f;
+                dying = false;
+            }
+        }
+        if (gameOver == true)
+        {
+            rb.velocity = Vector2.zero;
+            return;
+        }
         //물풍선 관리
         if (WaterBallonDeployed == true)
         {
@@ -141,30 +166,44 @@ public class Character_Controller : MonoBehaviour
         }
         if (Input.GetKey(myKey1) || Input.GetKey(myKey2) || Input.GetKey(myKey3) || Input.GetKey(myKey4) && active == 1)
         {
-            rb.velocity = vector * speed;
             SpriteRenderer characterSprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
-            Anim.speed = 2f;
-            Anim.SetBool("moving_x", false);
-            Anim.SetBool("moving_up", false);
-            Anim.SetBool("moving_down", false);
+            rb.velocity = vector * speed;
+
+
+            //애니메이션
+            if (getHit == false)
+            {
+                Anim.speed = 1f;
+                switch (temp)
+                {
+                    case 0:
+                        Anim.SetTrigger("up");
+                        break;
+                    case 1:
+                        Anim.SetTrigger("down");
+                        break;
+                    case 2:
+                        Anim.SetTrigger("moving_x");
+                        break;
+                    case 3:
+                        Anim.SetTrigger("moving_x");
+                        break;
+                }
+            }
             switch (temp)
             {
                 case 0:
-                    Anim.SetBool("moving_up", true);
                     vector = Vector2.up;
                     break;
                 case 1:
-                    Anim.SetBool("moving_down", true);
                     vector = Vector2.down;
                     break;
                 case 2:
                     characterSprite.flipX = false;
-                    Anim.SetBool("moving_x", true);
                     vector = Vector2.left;
                     break;
                 case 3:
                     characterSprite.flipX = true;
-                    Anim.SetBool("moving_x", true);
                     vector = Vector2.right;
                     break;
             }
@@ -192,12 +231,6 @@ public class Character_Controller : MonoBehaviour
             Anim.speed = 0f;
             active = 0;
             rb.velocity = new Vector2(0, 0);
-        }
-
-        //Test key
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            GetHittedByWater();
         }
 
         if (FirstCharacter)
@@ -295,18 +328,28 @@ public class Character_Controller : MonoBehaviour
         }
     }
 
-    public bool getHit;
+    public bool getHit, dying, gameOver;
+    public int speed_save;
     //플레이어가 물줄기에 맞았을 때의 동작 구현
+    public Sprite hitted_sprite;
     public void GetHittedByWater()
     {
+        SpriteRenderer characterSprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        characterSprite.sprite = hitted_sprite;
+        Anim.speed = 0.1f;
+        Anim.SetTrigger("die");
         getHit = true;
+        dying = true;
         gameObject.layer = 9;
+        speed_save = speed;
         speed = 1;
         StartCoroutine(WaitForRescue());
     }
 
     public void GameOver()
     {
+        Anim.speed = 1f;
+        gameOver = true;
         print("GameOver");
     }
 
@@ -320,17 +363,15 @@ public class Character_Controller : MonoBehaviour
 
     IEnumerator WaitForRescue()
     {
-        print('!');
         yield return new WaitForSeconds(3.0f);
         if(getHit == true)
         {
+            print("die!");
             GameOver();
         }
         else
         {
-            getHit = false;
-            gameObject.layer = 8;
-            speed = 5;
+            print("live!");
         }
     }
 

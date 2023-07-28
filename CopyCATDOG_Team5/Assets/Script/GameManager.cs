@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -40,6 +42,14 @@ public class GameManager : MonoBehaviour
     public GameObject[,] Object_List;
 
     public int player1Select, player2Select;
+    
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        //여기에 게임씬 입력
+        if (scene.name != "Sehyeon_Scene")
+            return;
+
+    }
     void OnLevelWasLoaded()
     {
         character_1 = GameObject.Find("Character1").GetComponent<Character_Controller>();

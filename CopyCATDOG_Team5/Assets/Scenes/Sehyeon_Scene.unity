@@ -1039,6 +1039,10 @@ PrefabInstance:
       propertyPath: m_FlipX
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 535020846767323817, guid: 27b89ab120bdd7742a08ba716c4367d2, type: 3}
+      propertyPath: hitted_sprite
+      value: 
+      objectReference: {fileID: -254714653, guid: 1bdd9b48d6881b647af5bc65f5d08c71, type: 3}
     - target: {fileID: 2627234586511283001, guid: 27b89ab120bdd7742a08ba716c4367d2, type: 3}
       propertyPath: m_Name
       value: Character1
