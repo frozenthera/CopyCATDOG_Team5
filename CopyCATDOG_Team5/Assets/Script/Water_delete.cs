@@ -16,6 +16,8 @@ public class Water_delete : MonoBehaviour
     private GameObject waveprefab_2;
     [SerializeField]
     private GameObject waveprefab_3;
+    [SerializeField]
+    private GameObject audio_pre;
 
     [HideInInspector]
     public bool First_owner;
@@ -40,9 +42,11 @@ public class Water_delete : MonoBehaviour
 
         if (timecount >= 2)
         {
-            
             int rx = (int)pos.x;
             int ry = (int)pos.y;
+
+            GameObject audio_object = Instantiate(audio_pre, new Vector3(rx, ry, ry), Quaternion.identity);
+            Destroy(audio_object, 1f);
 
             Debug.Log("π∞«≥º± ≈Õ¡¸");
             Debug.Log(pos);
