@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/BuildScene/Lobby.unity
+    path: Assets/Scenes/BuildScene/Lobby_backup.unity
     guid: 4c674862c4c80544d954f6b93b0e22a6
   - enabled: 1
     path: Assets/Scenes/BuildScene/Main.unity
@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Sehyeon_Scene.unity
     guid: ba227241473941a45acf3be51fa1ba45
+  - enabled: 1
+    path: Assets/Scenes/BuildScene/Lobby.unity
+    guid: 4efb6d43fdb77844a9a3eaa89513f440
   m_configObjects: {}
