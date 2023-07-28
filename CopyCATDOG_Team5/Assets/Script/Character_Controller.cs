@@ -129,14 +129,17 @@ public class Character_Controller : MonoBehaviour
                 {
                     case itemEnum.bubble:
                         addmaxinstall();
+                        audio_play(1);
                         break;
 
                     case itemEnum.potion:
                         addrange();
+                        audio_play(1);
                         break;
 
                     case itemEnum.roller:
                         addspeed();
+                        audio_play(1);
                         break;
                 }
 
@@ -424,7 +427,6 @@ public class Character_Controller : MonoBehaviour
     public void GameOver()
     {
         StartCoroutine(ReturntoUI());
-        //GameOver_panel.SetActive(true);
         Anim.speed = 1f;
         gameOver = true;
     }
@@ -451,6 +453,7 @@ public class Character_Controller : MonoBehaviour
             audio_play(0);
             print("die!");
             GameOver();
+            GameOver_panel.SetActive(true);
         }
         else
         {
@@ -460,7 +463,6 @@ public class Character_Controller : MonoBehaviour
 
     void audio_play(int x)
     {
-        return;
         charater_audioSource.clip = audioClips[x];
         charater_audioSource.Play();
     }

@@ -905,6 +905,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 535020846767323817, guid: 27b89ab120bdd7742a08ba716c4367d2, type: 3}
+      propertyPath: GameOver_panel
+      value: 
+      objectReference: {fileID: 2136877213}
+    - target: {fileID: 535020846767323817, guid: 27b89ab120bdd7742a08ba716c4367d2, type: 3}
+      propertyPath: audioClips.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 535020846767323817, guid: 27b89ab120bdd7742a08ba716c4367d2, type: 3}
+      propertyPath: audioClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: abb270d41e20e814586bdcdb7470e735, type: 3}
+    - target: {fileID: 535020846767323817, guid: 27b89ab120bdd7742a08ba716c4367d2, type: 3}
+      propertyPath: audioClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 5608876f462ac9f4e9b701a49e551919, type: 3}
     - target: {fileID: 2627234586511283001, guid: 27b89ab120bdd7742a08ba716c4367d2, type: 3}
       propertyPath: m_Name
       value: Character2
@@ -1217,6 +1233,22 @@ PrefabInstance:
       propertyPath: hitted_sprite
       value: 
       objectReference: {fileID: -254714653, guid: 1bdd9b48d6881b647af5bc65f5d08c71, type: 3}
+    - target: {fileID: 535020846767323817, guid: 27b89ab120bdd7742a08ba716c4367d2, type: 3}
+      propertyPath: GameOver_panel
+      value: 
+      objectReference: {fileID: 2136877213}
+    - target: {fileID: 535020846767323817, guid: 27b89ab120bdd7742a08ba716c4367d2, type: 3}
+      propertyPath: audioClips.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 535020846767323817, guid: 27b89ab120bdd7742a08ba716c4367d2, type: 3}
+      propertyPath: audioClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: abb270d41e20e814586bdcdb7470e735, type: 3}
+    - target: {fileID: 535020846767323817, guid: 27b89ab120bdd7742a08ba716c4367d2, type: 3}
+      propertyPath: audioClips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 5608876f462ac9f4e9b701a49e551919, type: 3}
     - target: {fileID: 2627234586511283001, guid: 27b89ab120bdd7742a08ba716c4367d2, type: 3}
       propertyPath: m_Name
       value: Character1

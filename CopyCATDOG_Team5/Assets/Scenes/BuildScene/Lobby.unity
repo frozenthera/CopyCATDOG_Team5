@@ -775,7 +775,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "How to Controll & Play\n\n1P\n\n              \u2191\nMove :   \u2190
+  m_text: "How to Controll & Play\n\n\n1P\n\n              \u2191\nMove :   \u2190
     \u2193 \u2192\n\nInstall water Ballon : Right shift \n\n\n\n2P\n\n           
     W\nMove :  A S D\n\nInstall water Ballon : Left shift "
   m_isRightToLeft: 0
@@ -6593,8 +6593,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35
-  m_fontSizeBase: 35
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
