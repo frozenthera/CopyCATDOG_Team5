@@ -39,9 +39,15 @@ public class UI : MonoBehaviour
         startbutton.onClick.AddListener(() =>
         {
             if(mainmenuData.map_select == 0)
+            {
+                GameManager.Instance.mapIdx = 0;
                 SceneManager.LoadScene("Main");
+            }   
             if (mainmenuData.map_select == 1)
+            {
+                GameManager.Instance.mapIdx = 1;
                 SceneManager.LoadScene("Main");
+            }
             if (mainmenuData.map_select == 2)
                 SceneManager.LoadScene("Main_chaehun");
         });

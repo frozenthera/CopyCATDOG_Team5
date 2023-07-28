@@ -7,17 +7,25 @@ using UnityEngine.UI;
 public class minigame_script : MonoBehaviour
 {
     [SerializeField]
-    private GameObject waterBalloonprefab;
+    private GameObject waterBalloonprefab, record_prefab;
     private IEnumerator coroutine;
 
     [SerializeField]
-    Text time_text;
+    Text time_text, record_text;
+    string str;
+    bool ones = true;
 
     float timecount = 0;
     int Min;
+
+    void Awake()
+    {
+        GameManager.Instance.game_is_over = false;
+    }
     // Start is called before the first frame update
     void Start()
     {
+        
         print("Mini Game Start !!!!!!!!!!!!");
         coroutine = WaitAndballon(0.8f);
         StartCoroutine(coroutine);
@@ -29,6 +37,14 @@ public class minigame_script : MonoBehaviour
     {
         timecount += Time.deltaTime;
         Clock();
+
+        if (GameManager.Instance.game_is_over && ones)
+        {
+            str = "Record : " + time_text.text;
+            record_text.text = string.Format(str);
+            record_prefab.SetActive(true);
+            ones = false;
+        }
     }
 
     void Clock()
@@ -46,10 +62,6 @@ public class minigame_script : MonoBehaviour
     {
         while (true)
         {
-<<<<<<< Updated upstream
-=======
-            yield return new WaitForSeconds(waitTime);
->>>>>>> Stashed changes
             create_ballon();
             Debug.Log("Time = " +Time.time);
             yield return new WaitForSeconds(waitTime);

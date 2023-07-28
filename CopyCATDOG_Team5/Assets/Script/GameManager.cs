@@ -19,14 +19,17 @@ public class GameManager : MonoBehaviour
 
     public Grid gameGrid;
     public List<tilestate> map = new();
+    public List<tilestate> map2 = new();
     public List<tilestate> mini_map = new();
-    
+
+    public int mapIdx = 0;
 
     public GameObject[,] Object_List;
 
     public int player1Select, player2Select;
 
     public bool game_is_pause = false;
+    public bool game_is_over = false;
     public bool game_is_end = false;
 
     void Awake()
@@ -74,12 +77,20 @@ public class GameManager : MonoBehaviour
 
         Screen.SetResolution(1920, 1080, true);
 
-        Debug.Log(map.Count);
-        Object_List = Generate_map(map);
+        
+        Object_List = Generate_map(mapIdx == 0  ? map : map2);
         Generate_border(gameGrid);
 
-        character_1.StartPosition = gameGrid.grid_to_unity(new Coordinate(1, 0));
-        character_2.StartPosition = gameGrid.grid_to_unity(new Coordinate(1, 1));
+        if(mapIdx ==  0)
+        {
+            character_1.StartPosition = gameGrid.grid_to_unity(new Coordinate(1, 1));
+            character_2.StartPosition = gameGrid.grid_to_unity(new Coordinate(11, 13));
+        }
+        else
+        {
+            character_1.StartPosition = gameGrid.grid_to_unity(new Coordinate(8, 12));
+            character_2.StartPosition = gameGrid.grid_to_unity(new Coordinate(14, 3));
+        }
 
         for (int i = 0; i < 2; i++)
         {
@@ -332,7 +343,7 @@ public class GameManager : MonoBehaviour
     public void move_box(int x_origin, int y_origin, int x_dest, int y_dest)
     {
         Coordinate destCoord = new Coordinate(x_dest, y_dest);
-        if (!gameGrid.is_empty(destCoord) || destCoord == character_1.characterPos || destCoord == character_2.characterPos) return;
+        if (!gameGrid.is_empty(destCoord) && destCoord != character_1.characterPos && destCoord != character_2.characterPos) return;
         else if (gameGrid.tileset[x_dest, y_dest] == tilestate.item)
         {
             destroy_tile(x_dest, y_dest);
