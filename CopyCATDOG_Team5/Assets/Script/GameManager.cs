@@ -17,11 +17,10 @@ public class GameManager : MonoBehaviour
     public GameObject referenece_block;
     public GameObject reference_border;
 
-
     public Grid gameGrid;
     public List<tilestate> map = new();
     public List<tilestate> mini_map = new();
-
+    
 
     public GameObject[,] Object_List;
 
