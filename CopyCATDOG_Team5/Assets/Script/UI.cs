@@ -12,19 +12,46 @@ public class UI : MonoBehaviour
     private List<Image> maps;
     [SerializeField]
     private AudioClip[] audioClip;
-
     [SerializeField]
     private List<Image> character1_select_image;
     [SerializeField]
     private List<Image> character2_select_image;
     [SerializeField]
-    private GameObject startbutton, left_check, right_check;
+    private Button startbutton, left_check, right_check;
+    [SerializeField]
+    private GameObject[] select_mark;
     [SerializeField]
     private List<GameObject> character1_stats_image;
     [SerializeField]
     private List<GameObject> character2_stats_image;
 
     private MainmenuData mainmenuData;
+
+    void Start()
+    {
+        Screen.SetResolution(1920, 1080, true);
+        UI_AudioSource = GetComponent<AudioSource>();
+        startbutton.gameObject.SetActive(false);
+        mainmenuData = new MainmenuData() { map_select = 0, player1_select = 0, player2_select = 0, player1_shift = false, player2_shift = false };
+        Update_mapimages();
+        Update_character_selcet();
+
+        startbutton.onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene("Main_chaehun");
+        });
+
+        left_check.onClick.AddListener(() =>
+        {
+            left_arrow();
+        });
+
+        right_check.onClick.AddListener(() =>
+        {
+            right_arrow();
+        });
+    }
+
     public void left_arrow()
     {
         UI_AudioSource.clip = audioClip[1];
@@ -68,7 +95,6 @@ public class UI : MonoBehaviour
         }
 
     }
-
     private void Update_character_selcet()
     {
         int c1 = mainmenuData.player1_select;
@@ -101,16 +127,6 @@ public class UI : MonoBehaviour
                 character2_stats_image[i].gameObject.SetActive(false);
             }
         }
-    }
-
-    void Start()
-    {
-        Screen.SetResolution(1920, 1080, true);
-        UI_AudioSource = GetComponent<AudioSource>();
-        startbutton.SetActive(false);
-        mainmenuData = new MainmenuData() { map_select = 0, player1_select = 0, player2_select = 0 , player1_shift = false, player2_shift = false};
-        Update_mapimages();
-        Update_character_selcet();
     }
 
     // Update is called once per frame
@@ -176,16 +192,18 @@ public class UI : MonoBehaviour
             if (mainmenuData.player2_shift == false)
             {
                 mainmenuData.player2_shift = true;
+
                 UI_AudioSource.clip = audioClip[0];
-                left_check.SetActive(true);
-                if (gameObject.name == "left_arrow")
-                    UI_AudioSource.Play();
+                UI_AudioSource.Play();
+                select_mark[1].gameObject.SetActive(true);
+
+                GameManager.Instance.player2Select = mainmenuData.player2_select;
             }
             else
             {
                 mainmenuData.player2_shift = false;
-                left_check.SetActive(false);
-                startbutton.SetActive(false);
+                select_mark[1].gameObject.SetActive(false);
+                startbutton.gameObject.SetActive(false);
             }
 
         }
@@ -195,23 +213,25 @@ public class UI : MonoBehaviour
             if (mainmenuData.player1_shift == false)
             {
                 mainmenuData.player1_shift = true;
+
                 UI_AudioSource.clip = audioClip[0];
-                right_check.SetActive(true);
-                if(gameObject.name=="right_arrow")
-                    UI_AudioSource.Play();
+                UI_AudioSource.Play();
+                select_mark[0].gameObject.SetActive(true);
+
+                GameManager.Instance.player1Select = mainmenuData.player1_select;
             }
             else
             {
                 mainmenuData.player1_shift = false;
-                right_check.SetActive(false);
-                startbutton.SetActive(false);
+                select_mark[0].gameObject.SetActive(false);
+                startbutton.gameObject.SetActive(false);
             }
                 
         }
 
         if(mainmenuData.player2_shift == true && mainmenuData.player1_shift == true)
         {
-            startbutton.SetActive(true);
+            startbutton.gameObject.SetActive(true);
         }
     }
 }
