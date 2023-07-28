@@ -146,7 +146,7 @@ public class Character_Controller : MonoBehaviour
         {
             getHit = false;
             dying = false;
-            gameObject.layer = 8;
+            gameObject.layer = 6;
             speed = speed_save;
             Anim.SetTrigger("live");
             Anim.speed = 1f;
@@ -379,7 +379,7 @@ public class Character_Controller : MonoBehaviour
         Anim.SetTrigger("die");
         getHit = true;
         dying = true;
-        gameObject.layer = 9;
+        gameObject.layer = 7;
         speed_save = speed;
         speed = 1;
         StartCoroutine(WaitForRescue());
@@ -401,8 +401,9 @@ public class Character_Controller : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(getHit == true && collision.gameObject.layer == 7)
+        if(getHit == true && collision.gameObject.tag == "Player")
         {
+            getHit = false;
             GameOver();
         }
     }
