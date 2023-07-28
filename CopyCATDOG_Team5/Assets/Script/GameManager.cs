@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        Object_List = Generate_grid(gameGrid);
+        Object_List = Generate_map(map);
         Generate_border(gameGrid);
         character_1.StartPosition = new Vector2(2, 0);
         character_1.transform.position = new Vector2(2, 0);
