@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     public int player1Select, player2Select;
 
     public bool game_is_pause = false;
+    public bool game_is_over = false;
 
     void Awake()
     {
