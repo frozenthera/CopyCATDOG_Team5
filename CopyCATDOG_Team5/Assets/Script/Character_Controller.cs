@@ -11,8 +11,11 @@ using UnityEngine.SceneManagement;
 
 public class Character_Controller : MonoBehaviour
 {
+    private AudioSource charater_audioSource;
     [SerializeField]
     private GameObject waterBalloonprefab, GameOver_panel;
+    [SerializeField]
+    private AudioClip[] audioClips;
     public bool FirstCharacter;
     public Vector3 StartPosition;
     private Vector2 unity_pos;
@@ -53,6 +56,7 @@ public class Character_Controller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        charater_audioSource = GetComponent<AudioSource>();
         gameObject.layer = 6;
         getHit = false;
         rb = GetComponent<Rigidbody2D>();
@@ -287,6 +291,7 @@ public class Character_Controller : MonoBehaviour
         yield return new WaitForSeconds(3.0f);
         if(getHit == true)
         {
+            audio_play(0);
             GameOver();
         }
         else
@@ -296,7 +301,12 @@ public class Character_Controller : MonoBehaviour
             speed = 5;
         }
     }
- 
+
+    void audio_play(int x)
+    {
+        charater_audioSource.clip = audioClips[x];
+        charater_audioSource.Play();
+    }
 
     //캐릭터의 현재 위치에 물풍선 설치
     void create_ballon()

@@ -7,15 +7,18 @@ using JetBrains.Annotations;
 
 public class UI : MonoBehaviour
 {
+    private AudioSource UI_AudioSource;
     [SerializeField]
     private List<Image> maps;
+    [SerializeField]
+    private AudioClip[] audioClip;
 
     [SerializeField]
     private List<Image> character1_select_image;
     [SerializeField]
     private List<Image> character2_select_image;
     [SerializeField]
-    private GameObject startbutton;
+    private GameObject startbutton, left_check, right_check;
     [SerializeField]
     private List<GameObject> character1_stats_image;
     [SerializeField]
@@ -24,6 +27,9 @@ public class UI : MonoBehaviour
     private MainmenuData mainmenuData;
     public void left_arrow()
     {
+        UI_AudioSource.clip = audioClip[1];
+        UI_AudioSource.Play();
+
         if (mainmenuData.map_select != 0)
         {
             mainmenuData.map_select--;
@@ -36,6 +42,9 @@ public class UI : MonoBehaviour
 
     public void right_arrow()
     {
+        UI_AudioSource.clip = audioClip[1];
+        UI_AudioSource.Play();
+
         if (mainmenuData.map_select != 2)
         {
             mainmenuData.map_select++;
@@ -97,6 +106,7 @@ public class UI : MonoBehaviour
     void Start()
     {
         Screen.SetResolution(1920, 1080, true);
+        UI_AudioSource = GetComponent<AudioSource>();
         startbutton.SetActive(false);
         mainmenuData = new MainmenuData() { map_select = 0, player1_select = 0, player2_select = 0 , player1_shift = false, player2_shift = false};
         Update_mapimages();
@@ -164,10 +174,17 @@ public class UI : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             if (mainmenuData.player2_shift == false)
+            {
                 mainmenuData.player2_shift = true;
+                UI_AudioSource.clip = audioClip[0];
+                left_check.SetActive(true);
+                if (gameObject.name == "left_arrow")
+                    UI_AudioSource.Play();
+            }
             else
             {
                 mainmenuData.player2_shift = false;
+                left_check.SetActive(false);
                 startbutton.SetActive(false);
             }
 
@@ -176,10 +193,17 @@ public class UI : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.RightShift))
         {
             if (mainmenuData.player1_shift == false)
+            {
                 mainmenuData.player1_shift = true;
+                UI_AudioSource.clip = audioClip[0];
+                right_check.SetActive(true);
+                if(gameObject.name=="right_arrow")
+                    UI_AudioSource.Play();
+            }
             else
             {
                 mainmenuData.player1_shift = false;
+                right_check.SetActive(false);
                 startbutton.SetActive(false);
             }
                 
