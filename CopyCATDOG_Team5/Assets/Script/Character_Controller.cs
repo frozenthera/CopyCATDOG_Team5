@@ -78,8 +78,32 @@ public class Character_Controller : MonoBehaviour
     int active;
     void Update()
     {
-        characterPos.X = (int)Math.Round(transform.position.x);
-        characterPos.Y = (int)Math.Round(transform.position.y);
+        Coordinate nextCoord = GameManager.Instance.gameGrid.unity_to_grid(transform.position);
+        if (characterPos != nextCoord)
+        {
+            if(GameManager.Instance.gameGrid.is_reachable(nextCoord) && GameManager.Instance.gameGrid.tileset[characterPos.X, characterPos.Y] == tilestate.item)
+            {
+                switch(GameManager.Instance.Object_List[characterPos.X, characterPos.Y].GetComponent<Item>().itemname)
+                {
+                    case itemEnum.bubble:
+                        maxInstall += 1;
+                        break;
+
+                    case itemEnum.potion:
+                        range += 1;
+                        break;
+
+                    case itemEnum.roller:
+                        speed += 1;
+                        break;
+                }
+
+                GameManager.Instance.destroy_tile(nextCoord.X, nextCoord.Y);
+            }
+        }
+
+        characterPos = nextCoord;
+
         // 동시입력관리
         if (Input.GetKeyDown(myKey1))
         {

@@ -20,9 +20,9 @@ public class Grid
         tileset = new tilestate[rows, cols];
     }
     
-    public Vector2 grid_to_unity(Coordinate gridtile)
+    public Vector3 grid_to_unity(Coordinate gridtile)
     {
-        Vector2 unityVector = new Vector2(gridtile.X, gridtile.Y);
+        Vector3 unityVector = new Vector3(gridtile.X, gridtile.Y, gridtile.Y);
         return unityVector;
     }
 
@@ -41,7 +41,7 @@ public class Grid
 
     public bool is_empty(Coordinate dest)
     {
-        if (tileset[dest.X, dest.Y] == tilestate.empty)
+        if (dest.X >= 0 && dest.X < rows && dest.Y >= 0 && dest.Y < cols && tileset[dest.X, dest.Y] == tilestate.empty && tileset[dest.X, dest.Y] == tilestate.item)
         {
             return true;
         }
@@ -82,6 +82,16 @@ public class Coordinate
     public override string ToString()
     {
         return X.ToString() + "," + Y.ToString();
+    }
+
+    public static bool operator ==(Coordinate lhs, Coordinate rhs)
+    {
+        return lhs.X == rhs.X && lhs.Y == rhs.Y;
+    }
+    
+    public static bool operator !=(Coordinate lhs, Coordinate rhs)
+    {
+        return lhs.X != rhs.X || lhs.Y != rhs.Y;
     }
 }
 

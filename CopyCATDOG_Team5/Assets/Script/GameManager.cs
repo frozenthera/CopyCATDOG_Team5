@@ -35,10 +35,11 @@ public class GameManager : MonoBehaviour
     }
 
     public Grid gameGrid;
+    public List<tilestate> map = new();
 
     public void OnEnable()
     {
-        gameGrid = new Grid(5, 5);
+        gameGrid = new Grid(15, 13);
         for (int i = 0; i < gameGrid.rows; i++)
         {
             for (int j = 0; j < gameGrid.cols; j++)
@@ -57,7 +58,8 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        Object_List = Generate_grid(gameGrid);
+        Object_List = Generate_map(map);
+        Generate_border(gameGrid);
         character_1.StartPosition = new Vector2(2, 0);
         character_1.transform.position = new Vector2(2, 0);
         character_2.StartPosition = new Vector2(2, 4);
@@ -111,6 +113,7 @@ public class GameManager : MonoBehaviour
     public GameObject referenece_wall;
     public GameObject referenece_box;
     public GameObject referenece_block;
+    public GameObject reference_border;
 
     private GameObject[,] Generate_grid(Grid gamegrid)
     {
@@ -125,11 +128,11 @@ public class GameManager : MonoBehaviour
 
                 if (gamegrid.tileset[row, col] == tilestate.wall)
                 {
-                    GameObject wall_tile = Instantiate(referenece_wall, new Vector3(x, y, 1), Quaternion.identity);
+                    GameObject wall_tile = Instantiate(referenece_wall, new Vector3(x, y, y), Quaternion.identity);
                 }
                 else 
                 {
-                    GameObject empty_tile = Instantiate(referenece_empty, new Vector3(x, y, 1), Quaternion.identity);
+                    GameObject empty_tile = Instantiate(referenece_empty, new Vector3(x, y, 255), Quaternion.identity);
                 //  empty_tile.transform.position = new Vector3(x, y, 0);
                 }
             }
@@ -144,39 +147,106 @@ public class GameManager : MonoBehaviour
 
                 if (gamegrid.tileset[row, col] == tilestate.block)
                 {
-                    GameObject block_tile = Instantiate(referenece_block, new Vector3(x, y, 0), Quaternion.identity);
+                    GameObject block_tile = Instantiate(referenece_block, new Vector3(x, y, y), Quaternion.identity);
                     object_list[row, col] = block_tile;
                 }
                 else if (gamegrid.tileset[row, col] == tilestate.box)
                 {
-                    GameObject box_tile = Instantiate(referenece_box, new Vector3(x, y, 0), Quaternion.identity);
+                    GameObject box_tile = Instantiate(referenece_box, new Vector3(x, y, y), Quaternion.identity);
                     object_list[row, col] = box_tile;
                 }
             }
         }
-                return object_list;
+        return object_list;
     }
 
+    private GameObject[,] Generate_map(List<tilestate> maplist)
+    {
+        GameObject[,] object_list = new GameObject[gameGrid.rows, gameGrid.cols];
 
+        for (int row = 0; row < 15; row++)
+        {
+            for (int col = 0; col < 13; col++)
+            {
+                float x = row;
+                float y = col;
+
+                if (maplist[row + 15 * col] == tilestate.wall)
+                {
+                    GameObject wall_tile = Instantiate(referenece_wall, new Vector3(x, y, y), Quaternion.identity);
+                }
+                else
+                {
+                    GameObject empty_tile = Instantiate(referenece_empty, new Vector3(x, y, 255), Quaternion.identity);
+                    //  empty_tile.transform.position = new Vector3(x, y, 0);
+                }
+            }
+        }
+
+        for (int row = 0; row < 15; row++)
+        {
+            for (int col = 0; col < 13; col++)
+            {
+                float x = row;
+                float y = col;
+
+                if (maplist[row + 15 * col] == tilestate.block)
+                {
+                    GameObject block_tile = Instantiate(referenece_block, new Vector3(x, y, y), Quaternion.identity);
+                    object_list[row, col] = block_tile;
+                }
+                else if (maplist[row + 15 * col] == tilestate.box)
+                {
+                    GameObject box_tile = Instantiate(referenece_box, new Vector3(x, y, y), Quaternion.identity);
+                    object_list[row, col] = box_tile;
+                }
+            }
+        }
+        return object_list;
+    }
+
+    private void Generate_border(Grid gamegrid) 
+    {
+        for(int row = -1; row <= gamegrid.rows; row++)
+        {
+            GameObject transparent_wall = Instantiate(reference_border, new Vector3(row, -1, -1), Quaternion.identity);
+            GameObject tp_wall = Instantiate(reference_border, new Vector3(row, gamegrid.cols, gamegrid.cols), Quaternion.identity);
+        }
+
+        for(int col = 0; col < gamegrid.cols; col++)
+        {
+            GameObject transparent_wall = Instantiate(reference_border, new Vector3(-1, col, col), Quaternion.identity);
+            GameObject tp_wall = Instantiate(reference_border, new Vector3(gamegrid.rows, col, col), Quaternion.identity);
+        }
+    }
+
+    public void destroy_tile(Coordinate coord) => destroy_tile(coord.X, coord.X);
     public void destroy_tile(int x, int y)
     {
+        bool is_item = gameGrid.tileset[x, y] == tilestate.item;
         gameGrid.tileset[x, y] = tilestate.empty;
         Destroy(Object_List[x, y]);
 
-        Coordinate tile = new Coordinate(x, y);
-        int rand = Random.Range(0, 10);
-        if (rand == 2 || rand == 9)
+        if (!is_item)
         {
-            itemSpawn(tile);
+            Coordinate tile = new Coordinate(x, y);
+            int rand = Random.Range(0, 10);
+            if (true)
+            {
+                itemSpawn(tile);
+            }
         }
     }
 
 
     public void move_box(int x_origin, int y_origin, int x_dest, int y_dest)
     {
-        if (gameGrid.tileset[x_dest, y_dest] != tilestate.empty) return;
-
-       
+        Coordinate destCoord = new Coordinate(x_dest, y_dest);
+        if (!gameGrid.is_empty(destCoord) && destCoord != character_1.characterPos && destCoord != character_2.characterPos) return;
+        else if (gameGrid.tileset[x_dest, y_dest] == tilestate.item)
+        {
+            destroy_tile(x_dest, y_dest);
+        }
         gameGrid.tileset[x_origin, y_origin] = tilestate.empty;
         gameGrid.tileset[x_dest, y_dest] = tilestate.box;
         Object_List[x_dest, y_dest] = Object_List[x_origin, y_origin];
@@ -184,14 +254,50 @@ public class GameManager : MonoBehaviour
 
         //box sprite 이동 애니메이션
         Object_List[x_dest, y_dest].transform.position = new Vector3(x_dest, y_dest, 0);
-
     }
 
+    public GameObject referenece_bubble;
+    public GameObject referenece_potion;
+    public GameObject referenece_skate;
     public void itemSpawn(Coordinate itemdest)
     {
+        //int item_kind = Random.Range(0, 8);
+        int item_kind = 0;
         gameGrid.tileset[itemdest.X, itemdest.Y] = tilestate.item;
-        Item rand_item = new Item(Random.Range(0, 8), itemdest);
+        //Item new_item = new Item(item_kind, itemdest);
+        Vector3 item_v3 = gameGrid.grid_to_unity(itemdest);
+
+        switch (item_kind)
+        {
+            case 0: 
+                GameObject itemtile_bubble = Instantiate(referenece_bubble, item_v3, Quaternion.identity);
+                Object_List[itemdest.X, itemdest.Y] = itemtile_bubble;
+                break;
+
+            case 1:
+                GameObject itemtile_potion = Instantiate(referenece_potion, item_v3, Quaternion.identity);
+                Object_List[itemdest.X, itemdest.Y] = itemtile_potion;
+                break;
+
+            case 4:
+                GameObject itemtile_skate = Instantiate(referenece_skate, item_v3, Quaternion.identity);
+                Object_List[itemdest.X, itemdest.Y] = itemtile_skate;
+                break;
+        }
     }
 
-    //아이템 랜덤 스폰은 타이머 구현이 선행되어야 할것 같음
+    public void item_randspawn()
+    {
+        int item_kind = Random.Range(0, 8);
+        Coordinate randdest = new Coordinate(Random.Range(0, gameGrid.rows), Random.Range(0, gameGrid.cols));
+        if (!gameGrid.is_empty(randdest))
+        {
+            item_randspawn();
+        }
+        else
+        {
+            itemSpawn(randdest);
+        }
+    }
+    //정해진 시간에 스폰되게 하는법을 모르겠네요
 }
