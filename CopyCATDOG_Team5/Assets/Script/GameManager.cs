@@ -19,8 +19,10 @@ public class GameManager : MonoBehaviour
 
     public Grid gameGrid;
     public List<tilestate> map = new();
+    public List<tilestate> map2 = new();
     public List<tilestate> mini_map = new();
-    
+
+    public int mapIdx = 0;
 
     public GameObject[,] Object_List;
 
@@ -74,12 +76,20 @@ public class GameManager : MonoBehaviour
 
         Screen.SetResolution(1920, 1080, true);
 
-        Debug.Log(map.Count);
-        Object_List = Generate_map(map);
+        
+        Object_List = Generate_map(mapIdx == 0  ? map : map2);
         Generate_border(gameGrid);
 
-        character_1.StartPosition = gameGrid.grid_to_unity(new Coordinate(1, 0));
-        character_2.StartPosition = gameGrid.grid_to_unity(new Coordinate(1, 1));
+        if(mapIdx ==  0)
+        {
+            character_1.StartPosition = gameGrid.grid_to_unity(new Coordinate(1, 1));
+            character_2.StartPosition = gameGrid.grid_to_unity(new Coordinate(11, 13));
+        }
+        else
+        {
+            character_1.StartPosition = gameGrid.grid_to_unity(new Coordinate(8, 12));
+            character_2.StartPosition = gameGrid.grid_to_unity(new Coordinate(14, 3));
+        }
 
         for (int i = 0; i < 2; i++)
         {
