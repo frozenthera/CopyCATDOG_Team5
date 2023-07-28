@@ -176,10 +176,13 @@ public class UI : MonoBehaviour
             if (mainmenuData.player2_shift == false)
             {
                 mainmenuData.player2_shift = true;
+
                 UI_AudioSource.clip = audioClip[0];
                 left_check.SetActive(true);
                 if (gameObject.name == "left_arrow")
                     UI_AudioSource.Play();
+
+                GameManager.Instance.player2Select = mainmenuData.player2_select;
             }
             else
             {
@@ -195,10 +198,13 @@ public class UI : MonoBehaviour
             if (mainmenuData.player1_shift == false)
             {
                 mainmenuData.player1_shift = true;
+
                 UI_AudioSource.clip = audioClip[0];
                 right_check.SetActive(true);
                 if(gameObject.name=="right_arrow")
                     UI_AudioSource.Play();
+
+                GameManager.Instance.player1Select = mainmenuData.player1_select;
             }
             else
             {

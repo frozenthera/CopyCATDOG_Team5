@@ -8,6 +8,7 @@ using UnityEngine.UIElements;
 using System;
 using static UnityEditor.PlayerSettings;
 using UnityEngine.SceneManagement;
+using System.Net;
 
 public class Character_Controller : MonoBehaviour
 {
@@ -18,8 +19,10 @@ public class Character_Controller : MonoBehaviour
     private AudioClip[] audioClips;
     public bool FirstCharacter;
     public Vector3 StartPosition;
+    //물풍선
     private Vector2 unity_pos;
     private int rx, ry;
+    public bool WaterBallonDeployed;
 
     public int speed;
     private Rigidbody2D rb;
@@ -31,6 +34,24 @@ public class Character_Controller : MonoBehaviour
     private int range;
     [HideInInspector]
     public int maxInstall;
+
+
+    //능력치 증가 함수
+
+    public void addrange()
+    {
+        range += 1;
+    }
+
+    public void addspeed()
+    {
+        speed += 2;
+    }
+
+    public void addmaxinstall()
+    {
+        maxInstall += 1;
+    }
 
     private void range_apply(int temp)
     {
@@ -57,6 +78,7 @@ public class Character_Controller : MonoBehaviour
     void Start()
     {
         charater_audioSource = GetComponent<AudioSource>();
+        WaterBallonDeployed = false;
         gameObject.layer = 6;
         getHit = false;
         rb = GetComponent<Rigidbody2D>();
@@ -64,6 +86,9 @@ public class Character_Controller : MonoBehaviour
     }
     public void StartCharacter()
     {
+        //gameOver = false;
+        Anim = transform.GetChild(0).GetComponent<Animator>();
+        Anim.speed = 0f;
         transform.position = StartPosition;
         if (FirstCharacter == true)
         {
@@ -85,6 +110,8 @@ public class Character_Controller : MonoBehaviour
     // Update is called once per frame
     int temp;
     int active;
+
+    Animator Anim;
     void Update()
     {
         if (GameManager.Instance.game_is_pause == false) return;
@@ -92,9 +119,9 @@ public class Character_Controller : MonoBehaviour
         Coordinate nextCoord = GameManager.Instance.gameGrid.unity_to_grid(transform.position);
         if (characterPos != nextCoord)
         {
-            if(GameManager.Instance.gameGrid.is_reachable(nextCoord) && GameManager.Instance.gameGrid.tileset[characterPos.X, characterPos.Y] == tilestate.item)
+            if (GameManager.Instance.gameGrid.is_reachable(nextCoord) && GameManager.Instance.gameGrid.tileset[characterPos.X, characterPos.Y] == tilestate.item)
             {
-                switch(GameManager.Instance.Object_List[characterPos.X, characterPos.Y].GetComponent<Item>().itemname)
+                switch (GameManager.Instance.Object_List[characterPos.X, characterPos.Y].GetComponent<Item>().itemname)
                 {
                     case itemEnum.bubble:
                         maxInstall += 1;
@@ -115,97 +142,155 @@ public class Character_Controller : MonoBehaviour
 
         characterPos = nextCoord;
 
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            getHit = false;
+            dying = false;
+            gameObject.layer = 8;
+            speed = speed_save;
+            Anim.SetTrigger("live");
+            Anim.speed = 1f;
+        }
+        //물폭탄 맞았을 때
+        if (dying == true && Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.1f)
+        {
+            if(Anim.GetCurrentAnimatorStateInfo(0).IsName("die1") || Anim.GetCurrentAnimatorStateInfo(0).IsName("die2"))
+            {
+                Anim.speed = 0f;
+                dying = false;
+            }
+        }
+        if (gameOver == true)
+        {
+            rb.velocity = Vector2.zero;
+            return;
+        }
+        //물풍선 관리
+        if (WaterBallonDeployed == true)
+        {
+            float x = transform.position.x, y = transform.position.y;
+            if (x >= rx + 1 || x <= rx - 1 || y >= ry + 1 || y <= ry - 1)
+            {
+                Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), newball.GetComponent<BoxCollider2D>(), false);
+            }
+        }
+        //transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.y);
+        characterPos = GameManager.Instance.gameGrid.unity_to_grid(transform.position);
         // 동시입력관리
         if (Input.GetKeyDown(myKey1))
         {
+            temp = 0;
+            active = 1;
+        }
+        if (Input.GetKeyDown(myKey2))
+        {
+            temp = 1;
+            active = 1;
+        }
+        if (Input.GetKeyDown(myKey3))
+        {
+            temp = 2;
+            active = 1;
+        }
+        if (Input.GetKeyDown(myKey4))
+        {
+            temp = 3;
+            active = 1;
+        }
+        if (Input.GetKey(myKey1) || Input.GetKey(myKey2) || Input.GetKey(myKey3) || Input.GetKey(myKey4) && active == 1)
+        {
+            SpriteRenderer characterSprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
+            rb.velocity = vector * speed;
 
-            characterPos.X = (int)Math.Round(transform.position.x);
-            characterPos.Y = (int)Math.Round(transform.position.y);
-            // 동시입력관리
-            if (Input.GetKeyDown(myKey1))
+
+            //애니메이션
+            if (getHit == false)
             {
-                temp = 0;
-                active = 1;
-            }
-            if (Input.GetKeyDown(myKey2))
-            {
-                temp = 1;
-                active = 1;
-            }
-            if (Input.GetKeyDown(myKey3))
-            {
-                temp = 2;
-                active = 1;
-            }
-            if (Input.GetKeyDown(myKey4))
-            {
-                temp = 3;
-                active = 1;
-            }
-            if (Input.GetKey(myKey1) || Input.GetKey(myKey2) || Input.GetKey(myKey3) || Input.GetKey(myKey4) && active == 1)
-            {
-                rb.velocity = vector * speed;
+                Anim.speed = 1f;
                 switch (temp)
                 {
                     case 0:
-                        vector = Vector2.up;
+                        Anim.SetTrigger("up");
                         break;
                     case 1:
-                        vector = Vector2.down;
+                        Anim.SetTrigger("down");
                         break;
                     case 2:
-                        vector = Vector2.left;
+                        Anim.SetTrigger("moving_x");
                         break;
                     case 3:
-                        vector = Vector2.right;
+                        Anim.SetTrigger("moving_x");
                         break;
                 }
             }
-            if (Input.GetKeyUp(myKey1) && temp == 0)
+            switch (temp)
             {
-                active = 0;
-                rb.velocity = new Vector2(0, 0);
+                case 0:
+                    vector = Vector2.up;
+                    break;
+                case 1:
+                    vector = Vector2.down;
+                    break;
+                case 2:
+                    characterSprite.flipX = false;
+                    vector = Vector2.left;
+                    break;
+                case 3:
+                    characterSprite.flipX = true;
+                    vector = Vector2.right;
+                    break;
             }
-            if (Input.GetKeyUp(myKey2) && temp == 1)
-            {
-                active = 0;
-                rb.velocity = new Vector2(0, 0);
-            }
-            if (Input.GetKeyUp(myKey3) && temp == 2)
-            {
-                active = 0;
-                rb.velocity = new Vector2(0, 0);
-            }
-            if (Input.GetKeyUp(myKey4) && temp == 3)
-            {
-                active = 0;
-                rb.velocity = new Vector2(0, 0);
-            }
+        }
+        if (Input.GetKeyUp(myKey1) && temp == 0)
+        {
+            Anim.speed = 0f;
+            active = 0;
+            rb.velocity = new Vector2(0, 0);
+        }
+        if (Input.GetKeyUp(myKey2) && temp == 1)
+        {
+            Anim.speed = 0f;
+            active = 0;
+            rb.velocity = new Vector2(0, 0);
+        }
+        if (Input.GetKeyUp(myKey3) && temp == 2)
+        {
+            Anim.speed = 0f;
+            active = 0;
+            rb.velocity = new Vector2(0, 0);
+        }
+        if (Input.GetKeyUp(myKey4) && temp == 3)
+        {
+            Anim.speed = 0f;
+            active = 0;
+            rb.velocity = new Vector2(0, 0);
+        }
 
-            //Test key
-            if (Input.GetKeyDown(KeyCode.Space))
+        if (FirstCharacter)
+        {
+            if (maxInstall > 0)
             {
-                GetHittedByWater();
+                if (Input.GetKeyDown(KeyCode.RightShift))
+                {
+                    create_ballon();
+                    maxInstall--;
+                }
             }
-
-            if (FirstCharacter)
+        }
+        else
+        {
+            if (maxInstall > 0)
             {
-                if (maxInstall > 0)
-                    if (Input.GetKeyDown(KeyCode.RightShift))
-                    {
-                        create_ballon();
-                        maxInstall--;
-                    }
-            }
-            else
-                if (maxInstall > 0)
                 if (Input.GetKeyDown(KeyCode.LeftShift))
                 {
                     create_ballon();
                     maxInstall--;
                 }
+            }
         }
+            
     }
+    
 
     private int direction;
     float timer;
@@ -284,12 +369,20 @@ public class Character_Controller : MonoBehaviour
         }
     }
 
-    public bool getHit;
+    public bool getHit, dying, gameOver;
+    public int speed_save;
     //플레이어가 물줄기에 맞았을 때의 동작 구현
+    public Sprite hitted_sprite;
     public void GetHittedByWater()
     {
+        SpriteRenderer characterSprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        characterSprite.sprite = hitted_sprite;
+        Anim.speed = 0.1f;
+        Anim.SetTrigger("die");
         getHit = true;
+        dying = true;
         gameObject.layer = 9;
+        speed_save = speed;
         speed = 1;
         StartCoroutine(WaitForRescue());
     }
@@ -298,6 +391,8 @@ public class Character_Controller : MonoBehaviour
     {
         StartCoroutine(ReturntoUI());
         GameOver_panel.SetActive(true);
+        Anim.speed = 1f;
+        gameOver = true;
     }
 
     private IEnumerator ReturntoUI()
@@ -308,7 +403,7 @@ public class Character_Controller : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(getHit == true && collision.gameObject.layer == 8)
+        if(getHit == true && collision.gameObject.layer == 7)
         {
             GameOver();
         }
@@ -316,18 +411,16 @@ public class Character_Controller : MonoBehaviour
 
     IEnumerator WaitForRescue()
     {
-        print('!');
         yield return new WaitForSeconds(3.0f);
         if(getHit == true)
         {
             audio_play(0);
+            print("die!");
             GameOver();
         }
         else
         {
-            getHit = false;
-            gameObject.layer = 8;
-            speed = 5;
+            print("live!");
         }
     }
 
@@ -337,19 +430,21 @@ public class Character_Controller : MonoBehaviour
         charater_audioSource.Play();
     }
 
+    private GameObject newball;
     //캐릭터의 현재 위치에 물풍선 설치
     void create_ballon()
     {
         unity_pos = GameManager.Instance.gameGrid.grid_to_unity(characterPos);
         rx = (int)unity_pos.x;
         ry = (int)unity_pos.y;
-
-        GameObject newball = Instantiate(waterBalloonprefab, new Vector3(rx, ry, ry), Quaternion.identity);
+        Debug.Log(rx + " " + ry);
+        //테스트용으로 z값 -5로 바꿔놓음
+        newball = Instantiate(waterBalloonprefab, new Vector3(rx, ry, -5), Quaternion.identity);
         GameManager.Instance.gameGrid.tileset[characterPos.X, characterPos.Y] = tilestate.ballon;
-
+        Physics2D.IgnoreCollision(GetComponent<BoxCollider2D>(), newball.GetComponent<BoxCollider2D>());
+        WaterBallonDeployed = true;
         if(FirstCharacter == true)
             newball.GetComponent<Water_delete>().First_owner = true;
-
         newball.GetComponent<Water_delete>().range = range;
     }
 }
