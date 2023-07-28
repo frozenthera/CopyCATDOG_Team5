@@ -2,25 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
-
-
-public class Item
+public class Item : MonoBehaviour
 {
-    public Coordinate itemPos;
     public itemEnum itemname;
-    public float duration;
 
-    
     public Item(int i_n, Coordinate i_p)
     {
-        itemPos = i_p;
         itemname = itemEnum.bubble + i_n;
     }
 
 }
-
 
 public enum itemEnum
 {

@@ -114,7 +114,7 @@ public class Character_Controller : MonoBehaviour
     Animator Anim;
     void Update()
     {
-        if (GameManager.Instance.game_is_pause == false) return;
+        if (GameManager.Instance.game_is_pause == true) return;
 
         Coordinate nextCoord = GameManager.Instance.gameGrid.unity_to_grid(transform.position);
         if (characterPos != nextCoord)
@@ -390,7 +390,7 @@ public class Character_Controller : MonoBehaviour
     public void GameOver()
     {
         StartCoroutine(ReturntoUI());
-        GameOver_panel.SetActive(true);
+        //GameOver_panel.SetActive(true);
         Anim.speed = 1f;
         gameOver = true;
     }
@@ -398,7 +398,7 @@ public class Character_Controller : MonoBehaviour
     private IEnumerator ReturntoUI()
     {
         yield return new WaitForSeconds(5f);
-        SceneManager.LoadScene("UI");
+        SceneManager.LoadScene("Lobby");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -426,6 +426,7 @@ public class Character_Controller : MonoBehaviour
 
     void audio_play(int x)
     {
+        return;
         charater_audioSource.clip = audioClips[x];
         charater_audioSource.Play();
     }

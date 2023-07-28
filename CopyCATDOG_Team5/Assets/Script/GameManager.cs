@@ -11,6 +11,20 @@ public class GameManager : MonoBehaviour
     public Character_Controller character_1;
     public Character_Controller character_2;
 
+    public GameObject referenece_empty;
+    public GameObject referenece_wall;
+    public GameObject referenece_box;
+    public GameObject referenece_block;
+    public GameObject reference_border;
+
+
+    public Grid gameGrid;
+    public List<tilestate> map = new();
+
+    public GameObject[,] Object_List;
+
+    public int player1Select, player2Select;
+
     public bool game_is_pause = false;
 
     void Awake()
@@ -18,6 +32,7 @@ public class GameManager : MonoBehaviour
         if (null == instance)
         {
             instance = this;
+            SceneManager.sceneLoaded += OnSceneLoaded;
             DontDestroyOnLoad(this.gameObject);
         }
         else
@@ -37,54 +52,29 @@ public class GameManager : MonoBehaviour
             return instance;
         }
     }
-
-    public Grid gameGrid;
-    public List<tilestate> map = new();
-
-
-    public GameObject[,] Object_List;
-
-    public int player1Select, player2Select;
     
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        //여기에 게임씬 입력
-        if (scene.name != "Sehyeon_Scene")
-            return;
+        if(scene.name == "Main")
+        {
+            SetMainScene();
+        }
 
     }
-    void OnLevelWasLoaded()
+
+    void  SetMainScene()
     {
         character_1 = GameObject.Find("Character1").GetComponent<Character_Controller>();
         character_2 = GameObject.Find("Character2").GetComponent<Character_Controller>();
 
-        gameGrid = new Grid(5, 5);
-        for (int i = 0; i < gameGrid.rows; i++)
-        {
-            for (int j = 0; j < gameGrid.cols; j++)
-            {
-                gameGrid.tileset[i, j] = tilestate.empty;
-            }
-        }
-        gameGrid.tileset[0, 2] = tilestate.box;
-        gameGrid.tileset[1, 2] = tilestate.block;
-        gameGrid.tileset[2, 2] = tilestate.wall;
-        gameGrid.tileset[3, 2] = tilestate.block;
-        gameGrid.tileset[4, 2] = tilestate.box;
-    }
-
-    public void Start()
-    {
-
-        //씬이 로드되었을 때 할일
         Screen.SetResolution(1920, 1080, true);
 
+        Debug.Log(map.Count);
         Object_List = Generate_map(map);
         Generate_border(gameGrid);
 
-        Screen.SetResolution(1920, 1080, true);
-        character_1.StartPosition = gameGrid.grid_to_unity(new Coordinate(2, 0));
-        character_2.StartPosition = gameGrid.grid_to_unity(new Coordinate(2, 4));
+        character_1.StartPosition = gameGrid.grid_to_unity(new Coordinate(1, 0));
+        character_2.StartPosition = gameGrid.grid_to_unity(new Coordinate(1, 1));
 
         for (int i = 0; i < 2; i++)
         {
@@ -121,7 +111,7 @@ public class GameManager : MonoBehaviour
                 character_1.speed_level = speed;
                 character_1.range_level = range;
                 character_1.FirstCharacter = true;
-                character_1.characterPos = new Coordinate(2, 0);
+                character_1.characterPos = new Coordinate(1, 0);
                 character_1.StartCharacter();
             }
             else
@@ -130,18 +120,11 @@ public class GameManager : MonoBehaviour
                 character_2.speed_level = speed;
                 character_2.range_level = range;
                 character_2.FirstCharacter = false;
-                character_2.characterPos = new Coordinate(2, 4);
+                character_2.characterPos = new Coordinate(1, 1);
                 character_2.StartCharacter();
             }
         }
     }
-
-
-    public GameObject referenece_empty;
-    public GameObject referenece_wall;
-    public GameObject referenece_box;
-    public GameObject referenece_block;
-    public GameObject reference_border;
 
     private GameObject[,] Generate_grid(Grid gamegrid)
     {
@@ -190,6 +173,15 @@ public class GameManager : MonoBehaviour
 
     private GameObject[,] Generate_map(List<tilestate> maplist)
     {
+        gameGrid = new Grid(15, 13);
+        for (int row = 0; row < 15; row++)
+        {
+            for (int col = 0; col < 13; col++)
+            {
+                gameGrid.tileset[row, col] = maplist[row + 15 * col];
+            }
+        }
+
         GameObject[,] object_list = new GameObject[gameGrid.rows, gameGrid.cols];
 
         for (int row = 0; row < 15; row++)
@@ -198,6 +190,8 @@ public class GameManager : MonoBehaviour
             {
                 float x = row;
                 float y = col;
+
+                Debug.Log(maplist[row + 15 * col]);
 
                 if (maplist[row + 15 * col] == tilestate.wall)
                 {
