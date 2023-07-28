@@ -73,7 +73,7 @@ public class Character_Controller : MonoBehaviour
         speed = temp * 3;
     }
 
-    private KeyCode myKey1, myKey2, myKey3, myKey4;    
+    private KeyCode myKey1, myKey2, myKey3, myKey4, myKey_n;    
     // Start is called before the first frame update
     void Start()
     {
@@ -96,6 +96,7 @@ public class Character_Controller : MonoBehaviour
             myKey2 = KeyCode.DownArrow;
             myKey3 = KeyCode.LeftArrow;
             myKey4 = KeyCode.RightArrow;
+            myKey_n = KeyCode.LeftControl;
         }
         else
         {
@@ -103,6 +104,7 @@ public class Character_Controller : MonoBehaviour
             myKey2 = KeyCode.S;
             myKey3 = KeyCode.A;
             myKey4 = KeyCode.D;
+            myKey_n = KeyCode.RightControl;
         }
         speed_apply(speed_level);
         range_apply(range_level);
@@ -110,6 +112,8 @@ public class Character_Controller : MonoBehaviour
     // Update is called once per frame
     int temp;
     int active;
+
+    private int needlecount;
 
     Animator Anim;
     void Update()
@@ -119,30 +123,30 @@ public class Character_Controller : MonoBehaviour
         Coordinate nextCoord = GameManager.Instance.gameGrid.unity_to_grid(transform.position);
         if (characterPos != nextCoord)
         {
-            if (GameManager.Instance.gameGrid.is_reachable(nextCoord) && GameManager.Instance.gameGrid.tileset[characterPos.X, characterPos.Y] == tilestate.item)
+            if (GameManager.Instance.gameGrid.is_reachable(nextCoord) && GameManager.Instance.gameGrid.tileset[nextCoord.X, nextCoord.Y] == tilestate.item)
             {
-                switch (GameManager.Instance.Object_List[characterPos.X, characterPos.Y].GetComponent<Item>().itemname)
+                switch (GameManager.Instance.Object_List[nextCoord.X, nextCoord.Y].GetComponent<Item>().itemname)
                 {
                     case itemEnum.bubble:
-                        maxInstall += 1;
+                        addmaxinstall();
                         break;
 
                     case itemEnum.potion:
-                        range += 1;
+                        addrange();
                         break;
 
                     case itemEnum.roller:
-                        speed += 1;
+                        addspeed();
                         break;
                 }
 
-                GameManager.Instance.destroy_tile(nextCoord.X, nextCoord.Y);
+                GameManager.Instance.destroy_tile(nextCoord);
             }
         }
 
         characterPos = nextCoord;
 
-        if(Input.GetKeyDown(KeyCode.Space))
+ /*       if(Input.GetKeyDown(KeyCode.Space))
         {
             getHit = false;
             dying = false;
@@ -151,6 +155,36 @@ public class Character_Controller : MonoBehaviour
             Anim.SetTrigger("live");
             Anim.speed = 1f;
         }
+ */
+        
+        
+        if (Input.GetKeyDown(KeyCode.RightControl))
+        {
+            if (FirstCharacter && needlecount > 0)
+            {
+                getHit = false;
+                dying = false;
+                gameObject.layer = 8;
+                speed = speed_save;
+                Anim.SetTrigger("live");
+                Anim.speed = 1f;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            if (!FirstCharacter && needlecount > 0)
+            {
+                getHit = false;
+                dying = false;
+                gameObject.layer = 8;
+                speed = speed_save;
+                Anim.SetTrigger("live");
+                Anim.speed = 1f;
+                needlecount -= 1;
+            }
+        }
+
         //물폭탄 맞았을 때
         if (dying == true && Anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.1f)
         {

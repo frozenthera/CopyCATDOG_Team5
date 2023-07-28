@@ -267,7 +267,6 @@ public class GameManager : MonoBehaviour
                 else
                 {
                     GameObject empty_tile = Instantiate(referenece_empty, new Vector3(x, y, 255), Quaternion.identity);
-                    //  empty_tile.transform.position = new Vector3(x, y, 0);
                 }
             }
         }
@@ -309,7 +308,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void destroy_tile(Coordinate coord) => destroy_tile(coord.X, coord.X);
+    public void destroy_tile(Coordinate coord) => destroy_tile(coord.X, coord.Y);
     public void destroy_tile(int x, int y)
     {
         bool is_item = gameGrid.tileset[x, y] == tilestate.item;
@@ -320,7 +319,7 @@ public class GameManager : MonoBehaviour
         {
             Coordinate tile = new Coordinate(x, y);
             int rand = Random.Range(0, 10);
-            if (true)
+            if (rand < 3)
             {
                 itemSpawn(tile);
             }
@@ -350,10 +349,8 @@ public class GameManager : MonoBehaviour
     public GameObject referenece_skate;
     public void itemSpawn(Coordinate itemdest)
     {
-        //int item_kind = Random.Range(0, 8);
-        int item_kind = 0;
+        int item_kind = Random.Range(0, 3);
         gameGrid.tileset[itemdest.X, itemdest.Y] = tilestate.item;
-        //Item new_item = new Item(item_kind, itemdest);
         Vector3 item_v3 = gameGrid.grid_to_unity(itemdest);
 
         switch (item_kind)
@@ -368,7 +365,7 @@ public class GameManager : MonoBehaviour
                 Object_List[itemdest.X, itemdest.Y] = itemtile_potion;
                 break;
 
-            case 4:
+            case 2:
                 GameObject itemtile_skate = Instantiate(referenece_skate, item_v3, Quaternion.identity);
                 Object_List[itemdest.X, itemdest.Y] = itemtile_skate;
                 break;
