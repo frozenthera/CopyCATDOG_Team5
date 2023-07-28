@@ -9,6 +9,7 @@ public class minigame_script : MonoBehaviour
     [SerializeField]
     private GameObject waterBalloonprefab, record_prefab;
     private IEnumerator coroutine;
+    private float re_waittime;
 
     [SerializeField]
     Text time_text, record_text;
@@ -64,9 +65,9 @@ public class minigame_script : MonoBehaviour
         {
             if (waitTime > 0.4)
             {
-                float re_waittime = waitTime - 0.002f;
+                re_waittime = waitTime - 0.02f;
             }
-            yield return new WaitForSeconds(waitTime);
+            yield return new WaitForSeconds(re_waittime);
             create_ballon();
             Debug.Log("Time = " +Time.time); 
         }
