@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
         if(mapIdx ==  0)
         {
             character_1.StartPosition = gameGrid.grid_to_unity(new Coordinate(1, 1));
-            character_2.StartPosition = gameGrid.grid_to_unity(new Coordinate(11, 13));
+            character_2.StartPosition = gameGrid.grid_to_unity(new Coordinate(13, 12));
         }
         else
         {
@@ -271,7 +271,7 @@ public class GameManager : MonoBehaviour
                 float x = row;
                 float y = col;
 
-                Debug.Log(maplist[row + 15 * col]);
+                //Debug.Log(maplist[row + 15 * col]);
 
                 if (maplist[row + 15 * col] == tilestate.wall)
                 {
@@ -388,14 +388,20 @@ public class GameManager : MonoBehaviour
     public void item_randspawn()
     {
         int item_kind = Random.Range(0, 8);
-        Coordinate randdest = new Coordinate(Random.Range(0, gameGrid.rows), Random.Range(0, gameGrid.cols));
-        if (!gameGrid.is_empty(randdest))
+        List<Coordinate> available = new List<Coordinate>();
+        for(int i=0; i< gameGrid.rows; i++)
         {
-            item_randspawn();
+            for(int j=0; j<gameGrid.cols; j++)
+            {
+                if (gameGrid.is_empty(new Coordinate(i, j)))
+                {
+                    available.Add(new Coordinate(i, j));
+                }
+            }
         }
-        else
+        if (available.Count != 0)
         {
-            itemSpawn(randdest);
+            itemSpawn(available[Random.Range(0, available.Count)]);
         }
     }
 
@@ -407,9 +413,9 @@ public class GameManager : MonoBehaviour
         {
             yield return null; // 1frame
         }
-        float timerTime = 30f;
+        float timerTime = 10f;
         float curTime = 0f;
-        while (curTime > timerTime)
+        while (curTime < timerTime)
         {
             if (game_is_end) yield break;
             curTime += Time.deltaTime;

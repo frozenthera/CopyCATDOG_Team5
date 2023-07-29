@@ -151,7 +151,7 @@ public class Character_Controller : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.RightControl))
         {
-            if (FirstCharacter && needlecount > 0)
+            if (FirstCharacter && needlecount > 0 && getHit)
             {
                 getHit = false;
                 dying = false;
@@ -165,7 +165,7 @@ public class Character_Controller : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
-            if (!FirstCharacter && needlecount > 0)
+            if (!FirstCharacter && needlecount > 0 && getHit)
             {
                 getHit = false;
                 dying = false;
@@ -461,6 +461,8 @@ public class Character_Controller : MonoBehaviour
     //캐릭터의 현재 위치에 물풍선 설치
     void create_ballon()
     {
+        if (!GameManager.Instance.gameGrid.is_empty(characterPos)) return;
+
         unity_pos = GameManager.Instance.gameGrid.grid_to_unity(characterPos);
         rx = (int)unity_pos.x;
         ry = (int)unity_pos.y;
