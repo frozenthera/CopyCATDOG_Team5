@@ -40,17 +40,20 @@ public class Character_Controller : MonoBehaviour
 
     public void addrange()
     {
-        range += 1;
+        range_level += 1;
+        range_apply(range_level);
     }
 
     public void addspeed()
     {
         speed += 2;
+        speed_apply(speed_level);
     }
 
     public void addmaxinstall()
     {
         maxInstall += 1;
+        maxInstall = Mathf.Max(maxInstall, 5); 
     }
 
     private void range_apply(int temp)
