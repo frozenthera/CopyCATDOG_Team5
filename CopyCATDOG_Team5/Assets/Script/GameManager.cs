@@ -346,7 +346,7 @@ public class GameManager : MonoBehaviour
     public void move_box(int x_origin, int y_origin, int x_dest, int y_dest)
     {
         Coordinate destCoord = new Coordinate(x_dest, y_dest);
-        if (!gameGrid.is_empty(destCoord) || destCoord == character_1.characterPos || destCoord == character_2.characterPos) return;
+        if (!gameGrid.is_reachable(destCoord) || destCoord == character_1.characterPos || destCoord == character_2.characterPos) return;
         else if (gameGrid.tileset[x_dest, y_dest] == tilestate.item)
         {
             destroy_tile(x_dest, y_dest);

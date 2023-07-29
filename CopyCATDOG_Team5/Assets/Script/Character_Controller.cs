@@ -385,14 +385,13 @@ public class Character_Controller : MonoBehaviour
             }
             int x_dest = (int)target.x + (int)vector.x;
             int y_dest = (int)target.y + (int)vector.y;
-            if (GameManager.Instance.gameGrid.tileset[x_dest, y_dest] == tilestate.empty)
-            {
-                GameManager.Instance.move_box((int)target.x, (int)target.y, x_dest, y_dest);
-                print(target);
-                print(vector);
-                // collision.gameObject.transform.Translate(vector);
-                timer = 0f;
-            }
+
+            GameManager.Instance.move_box((int)target.x, (int)target.y, x_dest, y_dest);
+            print(target);
+            print(vector);
+            // collision.gameObject.transform.Translate(vector);
+            timer = 0f;
+            
         }
     }
 
