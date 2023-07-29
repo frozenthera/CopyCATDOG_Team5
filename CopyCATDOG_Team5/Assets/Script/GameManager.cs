@@ -156,6 +156,9 @@ public class GameManager : MonoBehaviour
         character_1.StartPosition = gameGrid.grid_to_unity(new Coordinate(2, 2));
         character_2.StartPosition = gameGrid.grid_to_unity(new Coordinate(3, 2));
 
+        character_1.needlecount = false;
+        character_2.needlecount = false;
+
         for (int i = 0; i < 2; i++)
         {
             int selectPlayer;
