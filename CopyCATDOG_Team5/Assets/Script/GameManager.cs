@@ -141,7 +141,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        StartCoroutine(itemTimer());
+        InvokeRepeating("item_randspawn", 10f, 10f);
     }
     void SetMINIinScene()
     {
