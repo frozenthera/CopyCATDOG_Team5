@@ -96,7 +96,6 @@ public class Character_Controller : MonoBehaviour
             myKey2 = KeyCode.DownArrow;
             myKey3 = KeyCode.LeftArrow;
             myKey4 = KeyCode.RightArrow;
-            myKey_n = KeyCode.LeftControl;
         }
         else
         {
@@ -104,7 +103,6 @@ public class Character_Controller : MonoBehaviour
             myKey2 = KeyCode.S;
             myKey3 = KeyCode.A;
             myKey4 = KeyCode.D;
-            myKey_n = KeyCode.RightControl;
         }
         speed_apply(speed_level);
         range_apply(range_level);
@@ -113,7 +111,7 @@ public class Character_Controller : MonoBehaviour
     int temp;
     int active;
 
-    private int needlecount = 1;
+    public bool needlecount = true;
 
     Animator Anim;
     void Update()
@@ -151,21 +149,7 @@ public class Character_Controller : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.RightControl))
         {
-            if (FirstCharacter && needlecount > 0 && getHit)
-            {
-                getHit = false;
-                dying = false;
-                gameObject.layer = 8;
-                speed = speed_save;
-                Anim.SetTrigger("live2");
-                Anim.speed = 1f;
-                needlecount -= 1;
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            if (!FirstCharacter && needlecount > 0 && getHit)
+            if (FirstCharacter && needlecount && getHit)
             {
                 getHit = false;
                 dying = false;
@@ -173,7 +157,21 @@ public class Character_Controller : MonoBehaviour
                 speed = speed_save;
                 Anim.SetTrigger("live");
                 Anim.speed = 1f;
-                needlecount -= 1;
+                needlecount = false;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            if (!FirstCharacter && needlecount && getHit)
+            {
+                getHit = false;
+                dying = false;
+                gameObject.layer = 8;
+                speed = speed_save;
+                Anim.SetTrigger("live");
+                Anim.speed = 1f;
+                needlecount = false;
             }
         }
 
