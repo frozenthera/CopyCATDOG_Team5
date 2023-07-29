@@ -6,7 +6,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using System;
-using static UnityEditor.PlayerSettings;
 using UnityEngine.SceneManagement;
 using System.Net;
 
@@ -461,7 +460,10 @@ public class Character_Controller : MonoBehaviour
     //캐릭터의 현재 위치에 물풍선 설치
     void create_ballon()
     {
+        Debug.Log("dfdf");
         if (!GameManager.Instance.gameGrid.is_empty(characterPos)) return;
+        Debug.Log("efef");
+
 
         unity_pos = GameManager.Instance.gameGrid.grid_to_unity(characterPos);
         rx = (int)unity_pos.x;

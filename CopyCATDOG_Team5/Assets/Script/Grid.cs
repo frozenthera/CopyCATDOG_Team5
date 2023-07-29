@@ -41,7 +41,7 @@ public class Grid
 
     public bool is_empty(Coordinate dest)
     {
-        if (dest.X >= 0 && dest.X < rows && dest.Y >= 0 && dest.Y < cols && tileset[dest.X, dest.Y] == tilestate.empty && tileset[dest.X, dest.Y] == tilestate.item)
+        if (dest.X >= 0 && dest.X < rows && dest.Y >= 0 && dest.Y < cols && tileset[dest.X, dest.Y] == tilestate.empty)
         {
             return true;
         }
@@ -50,7 +50,7 @@ public class Grid
 
     public bool is_reachable(Coordinate dest)
     {
-        if (dest.X >= 0 && dest.X < rows && dest.Y >= 0 && dest.Y < cols)
+        if (dest.X >= 0 && dest.X < rows && dest.Y >= 0 && dest.Y < cols && (tileset[dest.X, dest.Y] == tilestate.empty || tileset[dest.X, dest.Y] == tilestate.item))
         {
             return true;
         }

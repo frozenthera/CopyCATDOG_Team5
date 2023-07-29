@@ -347,7 +347,7 @@ public class GameManager : MonoBehaviour
     {
         Coordinate destCoord = new Coordinate(x_dest, y_dest);
         if (!gameGrid.is_reachable(destCoord) || destCoord == character_1.characterPos || destCoord == character_2.characterPos) return;
-        else if (gameGrid.tileset[x_dest, y_dest] == tilestate.item)
+        if (gameGrid.tileset[x_dest, y_dest] == tilestate.item)
         {
             destroy_tile(x_dest, y_dest);
         }

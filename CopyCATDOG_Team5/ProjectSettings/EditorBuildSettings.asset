@@ -6,21 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/BuildScene/Lobby_backup.unity
-    guid: 4c674862c4c80544d954f6b93b0e22a6
+    path: Assets/Scenes/BuildScene/Lobby.unity
+    guid: 4efb6d43fdb77844a9a3eaa89513f440
   - enabled: 1
     path: Assets/Scenes/BuildScene/Main.unity
     guid: a05d1c125a7123145938b7a141245b30
   - enabled: 1
-    path: Assets/Scenes/UI.unity
-    guid: 5acc288ff66bbbe4ab0cba65170176a6
-  - enabled: 1
     path: Assets/Scenes/BuildScene/Main_chaehun.unity
     guid: c6b4b98d832540e4fa1429f1a5036f98
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Sehyeon_Scene.unity
     guid: ba227241473941a45acf3be51fa1ba45
-  - enabled: 1
-    path: Assets/Scenes/BuildScene/Lobby.unity
-    guid: 4efb6d43fdb77844a9a3eaa89513f440
   m_configObjects: {}
